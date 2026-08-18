@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <meta
+    name="description"
+    content="Termos e Condições de utilização da ISANOMAR store."
+  />
+
+  <title>Termos e Condições — ISANOMAR store</title>
+
+  <link rel="icon" href="assets/logo.jpg" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --terms-blue: #0b4aa2;
+      --terms-blue-dark: #073676;
+      --terms-yellow: #ffc233;
+      --terms-text: #172033;
+      --terms-muted: #667085;
+      --terms-light: #f7f9fc;
+      --terms-border: #e5e9f0;
+      --terms-white: #ffffff;
+      --terms-radius: 18px;
+      --terms-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--terms-light);
+      color: var(--terms-text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--terms-blue);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ==============================
+       LAYOUT
+    ============================== */
+
+    .terms-wrapper {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .terms-container {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    /* ==============================
+       HEADER
+    ============================== */
+
+    .terms-header {
+      background: var(--terms-white);
+      border-bottom: 1px solid var(--terms-border);
+    }
+
+    .terms-header-inner {
+      width: min(920px, calc(100% - 32px));
+      min-height: 82px;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--terms-border);
+      background: #fff;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: var(--terms-blue-dark);
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--terms-muted);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      padding: 10px 14px;
+      border: 1px solid var(--terms-border);
+      border-radius: 10px;
+
+      color: var(--terms-blue-dark);
+      background: #fff;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .back-link:hover {
+      text-decoration: none;
+      background: var(--terms-light);
+      border-color: #d5dce7;
+      transform: translateY(-1px);
+    }
+
+    /* ==============================
+       HERO
+    ============================== */
+
+    .terms-hero {
+      padding: 18px 0 28px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 18px;
+
+      color: var(--terms-muted);
+      font-size: 12px;
+    }
+
+    .breadcrumb span:last-child {
+      color: var(--terms-text);
+      font-weight: 600;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+
+      padding: 34px;
+      border-radius: var(--terms-radius);
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #ffffff 65%,
+          #f1f6ff 100%
+        );
+
+      border: 1px solid var(--terms-border);
+      box-shadow: var(--terms-shadow);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      top: -70px;
+
+      border-radius: 50%;
+      background: rgba(255, 194, 51, 0.16);
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 7px 10px;
+      margin-bottom: 14px;
+
+      border-radius: 999px;
+      background: #eef5ff;
+      color: var(--terms-blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 1;
+
+      margin: 0 0 10px;
+
+      color: var(--terms-blue-dark);
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+      font-weight: 850;
+    }
+
+    .hero-description {
+      position: relative;
+      z-index: 1;
+
+      max-width: 680px;
+      margin: 0;
+
+      color: var(--terms-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .last-update {
+      position: relative;
+      z-index: 1;
+
+      display: inline-block;
+      margin-top: 18px;
+
+      color: #7b8494;
+      font-size: 12px;
+    }
+
+    /* ==============================
+       CONTENT
+    ============================== */
+
+    .terms-layout {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .terms-navigation {
+      position: sticky;
+      top: 20px;
+
+      padding: 16px;
+      background: var(--terms-white);
+      border: 1px solid var(--terms-border);
+      border-radius: 14px;
+      box-shadow: var(--terms-shadow);
+    }
+
+    .terms-navigation-title {
+      margin: 0 0 10px;
+
+      color: var(--terms-text);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .terms-navigation a {
+      display: block;
+      padding: 7px 8px;
+
+      border-radius: 7px;
+
+      color: var(--terms-muted);
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .terms-navigation a:hover {
+      color: var(--terms-blue);
+      background: #f3f7fd;
+      text-decoration: none;
+    }
+
+    .terms-document {
+      min-width: 0;
+
+      padding: 34px;
+      background: var(--terms-white);
+      border: 1px solid var(--terms-border);
+      border-radius: var(--terms-radius);
+      box-shadow: var(--terms-shadow);
+    }
+
+    .terms-section {
+      scroll-margin-top: 24px;
+      padding: 0 0 28px;
+      margin: 0 0 28px;
+      border-bottom: 1px solid var(--terms-border);
+    }
+
+    .terms-section:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .section-number {
+      display: block;
+      margin-bottom: 5px;
+
+      color: var(--terms-blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .terms-section h2 {
+      margin: 0 0 12px;
+
+      color: var(--terms-blue-dark);
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+      font-weight: 800;
+    }
+
+    .terms-section p {
+      margin: 0 0 12px;
+
+      color: #4d586b;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .terms-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .terms-section ul {
+      margin: 10px 0 14px;
+      padding-left: 20px;
+
+      color: #4d586b;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .terms-section li {
+      padding-left: 3px;
+      margin-bottom: 5px;
+    }
+
+    .terms-section li::marker {
+      color: var(--terms-blue);
+    }
+
+    /* ==============================
+       HIGHLIGHT BOX
+    ============================== */
+
+    .terms-note {
+      margin: 16px 0;
+      padding: 15px 16px;
+
+      background: #f6f9fd;
+      border: 1px solid #dfe8f5;
+      border-left: 3px solid var(--terms-blue);
+      border-radius: 10px;
+    }
+
+    .terms-note strong {
+      display: block;
+      margin-bottom: 4px;
+
+      color: var(--terms-blue-dark);
+      font-size: 13px;
+    }
+
+    .terms-note p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* ==============================
+       CONTACT
+    ============================== */
+
+    .contact-box {
+      padding: 20px;
+      margin-top: 14px;
+
+      background: #fafbfc;
+      border: 1px solid var(--terms-border);
+      border-radius: 12px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 10px 0;
+    }
+
+    .contact-row + .contact-row {
+      border-top: 1px solid var(--terms-border);
+    }
+
+    .contact-icon {
+      flex: 0 0 34px;
+
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+      background: #edf4ff;
+      color: var(--terms-blue);
+      font-size: 16px;
+    }
+
+    .contact-content {
+      min-width: 0;
+    }
+
+    .contact-label {
+      display: block;
+      margin-bottom: 2px;
+
+      color: #7a8495;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .contact-value {
+      color: var(--terms-text);
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .terms-footer {
+      padding: 28px 0 0;
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 11px;
+      border: 1px solid var(--terms-border);
+      margin-bottom: 10px;
+    }
+
+    .terms-footer p {
+      margin: 0 0 5px;
+
+      color: var(--terms-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .terms-footer small {
+      color: #98a1af;
+      font-size: 11px;
+    }
+
+    /* ==============================
+       MOBILE
+    ============================== */
+
+    @media (max-width: 720px) {
+      .terms-container {
+        width: min(100% - 20px, 920px);
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      .terms-header-inner {
+        width: calc(100% - 20px);
+        min-height: 70px;
+      }
+
+      .brand-subtitle {
+        display: none;
+      }
+
+      .brand-logo {
+        width: 42px;
+        height: 42px;
+      }
+
+      .back-link span {
+        display: none;
+      }
+
+      .back-link {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+      }
+
+      .terms-hero {
+        padding-top: 12px;
+      }
+
+      .hero-card {
+        padding: 25px 20px;
+        border-radius: 15px;
+      }
+
+      .hero-title {
+        font-size: 29px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .terms-layout {
+        display: block;
+      }
+
+      .terms-navigation {
+        position: static;
+        margin-bottom: 14px;
+
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px;
+      }
+
+      .terms-navigation-title {
+        display: none;
+      }
+
+      .terms-navigation a {
+        display: inline-block;
+        margin-right: 3px;
+      }
+
+      .terms-document {
+        padding: 24px 20px;
+        border-radius: 15px;
+      }
+
+      .terms-section {
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+      }
+
+      .terms-section h2 {
+        font-size: 17px;
+      }
+
+      .terms-section p,
+      .terms-section ul {
+        font-size: 13.5px;
+        line-height: 1.75;
+      }
+
+      .contact-box {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-title {
+        font-size: 26px;
+      }
+
+      .terms-document {
+        padding: 20px 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .terms-header {
+        border-bottom: 1px solid #ddd;
+      }
+
+      .back-link,
+      .terms-navigation {
+        display: none;
+      }
+
+      .terms-container {
+        width: 100%;
+        padding: 20px 0;
+      }
+
+      .hero-card,
+      .terms-document {
+        box-shadow: none;
+      }
+
+      .hero-card {
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .terms-document {
+        border: 0;
+        padding: 0;
+      }
+
+      .terms-section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="terms-wrapper">
+
+    <!-- ============================
+         CABEÇALHO
+    ============================= -->
+
+    <header class="terms-header">
+      <div class="terms-header-inner">
+
+        <a href="index.html" class="brand" aria-label="ISANOMAR store">
+          <img
+            src="assets/logo.jpg"
+            alt="Logotipo ISANOMAR store"
+            class="brand-logo"
+          />
+
+          <span class="brand-info">
+            <span class="brand-name">ISANOMAR store</span>
+            <span class="brand-subtitle">Termos e Condições</span>
+          </span>
+        </a>
+
+        <a href="index.html" class="back-link" aria-label="Voltar à loja">
+          <span>Voltar à loja</span>
+          <span aria-hidden="true">←</span>
+        </a>
+
+      </div>
+    </header>
+
+
+    <main class="terms-container">
+
+      <!-- ============================
+           INTRODUÇÃO
+      ============================= -->
+
+      <section class="terms-hero">
+
+        <div class="breadcrumb">
+          <span>ISANOMAR store</span>
+          <span>›</span>
+          <span>Termos e Condições</span>
+        </div>
+
+        <div class="hero-card">
+
+          <span class="hero-label">
+            Documento legal
+          </span>
+
+          <h1 class="hero-title">
+            Termos e Condições
+          </h1>
+
+          <p class="hero-description">
+            Este documento estabelece as regras aplicáveis ao acesso e
+            utilização da plataforma ISANOMAR store, bem como às encomendas,
+            pagamentos, entregas, devoluções e demais serviços disponibilizados
+            aos nossos clientes.
+          </p>
+
+          <span class="last-update">
+            Última atualização: 17 de agosto de 2026
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ============================
+           CONTEÚDO
+      ============================= -->
+
+      <div class="terms-layout">
+
+        <!-- ÍNDICE -->
+
+        <nav class="terms-navigation" aria-label="Índice dos termos">
+
+          <p class="terms-navigation-title">
+            Nesta página
+          </p>
+
+          <a href="#aceitacao">01 · Aceitação</a>
+          <a href="#empresa">02 · Sobre a loja</a>
+          <a href="#produtos">03 · Produtos e preços</a>
+          <a href="#encomendas">04 · Encomendas</a>
+          <a href="#pagamentos">05 · Pagamentos</a>
+          <a href="#entregas">06 · Entregas</a>
+          <a href="#devolucoes">07 · Devoluções</a>
+          <a href="#privacidade">08 · Privacidade</a>
+          <a href="#responsabilidade">09 · Responsabilidade</a>
+          <a href="#propriedade">10 · Propriedade intelectual</a>
+          <a href="#alteracoes">11 · Alterações</a>
+          <a href="#lei">12 · Lei aplicável</a>
+          <a href="#contacto">13 · Contacto</a>
+
+        </nav>
+
+
+        <!-- DOCUMENTO -->
+
+        <article class="terms-document">
+
+
+          <!-- 01 -->
+
+          <section class="terms-section" id="aceitacao">
+
+            <span class="section-number">01</span>
+
+            <h2>Âmbito e aceitação dos termos</h2>
+
+            <p>
+              Ao aceder, navegar ou utilizar o website da ISANOMAR store,
+              o utilizador declara que leu, compreendeu e aceita os presentes
+              Termos e Condições.
+            </p>
+
+            <p>
+              Caso não concorde com alguma das disposições deste documento,
+              deverá deixar de utilizar o website e os respectivos serviços.
+            </p>
+
+            <div class="terms-note">
+              <strong>Importante</strong>
+              <p>
+                A realização de uma encomenda através da plataforma implica
+                também a aceitação das condições aplicáveis à compra.
+              </p>
+            </div>
+
+          </section>
+
+
+          <!-- 02 -->
+
+          <section class="terms-section" id="empresa">
+
+            <span class="section-number">02</span>
+
+            <h2>Sobre a ISANOMAR store</h2>
+
+            <p>
+              A ISANOMAR store é uma loja online dedicada à comercialização
+              de acessórios e outros produtos destinados ao público feminino
+              e masculino, com operações em Angola.
+            </p>
+
+            <p>
+              A disponibilidade dos produtos, áreas de entrega, métodos de
+              pagamento e demais condições comerciais podem variar de acordo
+              com a localização do cliente e com as condições operacionais
+              existentes no momento da encomenda.
+            </p>
+
+          </section>
+
+
+          <!-- 03 -->
+
+          <section class="terms-section" id="produtos">
+
+            <span class="section-number">03</span>
+
+            <h2>Produtos, disponibilidade e preços</h2>
+
+            <p>
+              Procuramos apresentar informações corretas sobre os produtos,
+              incluindo imagens, descrições, características e preços.
+              No entanto, pequenas diferenças de cor ou aparência podem
+              ocorrer dependendo do dispositivo utilizado pelo cliente.
+            </p>
+
+            <p>
+              Os preços são apresentados em Kwanzas (Kz) e podem ser
+              alterados sem aviso prévio. O preço aplicável a uma encomenda
+              será o apresentado no momento da confirmação da mesma.
+            </p>
+
+            <p>
+              A apresentação de um produto no website não garante que o
+              mesmo permaneça disponível. Em caso de ruptura de stock,
+              a ISANOMAR store poderá contactar o cliente para apresentar
+              uma alternativa ou proceder ao cancelamento da encomenda.
+            </p>
+
+          </section>
+
+
+          <!-- 04 -->
+
+          <section class="terms-section" id="encomendas">
+
+            <span class="section-number">04</span>
+
+            <h2>Encomendas</h2>
+
+            <p>
+              O cliente é responsável por fornecer informações corretas e
+              completas no momento da realização da encomenda, especialmente
+              o nome, número de telefone, morada e outros dados necessários
+              para a entrega.
+            </p>
+
+            <p>
+              Uma encomenda será considerada confirmada após validação pela
+              ISANOMAR store, podendo ser realizado contacto telefónico ou
+              através de WhatsApp para confirmação dos dados.
+            </p>
+
+            <p>
+              Reservamo-nos o direito de recusar ou cancelar uma encomenda
+              quando existam motivos operacionais, indisponibilidade do
+              produto, dados incorretos ou impossibilidade de realizar a
+              entrega.
+            </p>
+
+          </section>
+
+
+          <!-- 05 -->
+
+          <section class="terms-section" id="pagamentos">
+
+            <span class="section-number">05</span>
+
+            <h2>Pagamentos</h2>
+
+            <p>
+              Os métodos de pagamento disponíveis podem variar conforme a
+              encomenda e a localização do cliente.
+            </p>
+
+            <p>Entre os métodos disponibilizados poderão estar:</p>
+
+            <ul>
+              <li>Pagamento no momento da entrega;</li>
+              <li>Transferência bancária;</li>
+              <li>Transferências através de soluções Multicaixa;</li>
+              <li>Outros métodos disponibilizados pela loja.</li>
+            </ul>
+
+            <p>
+              Eventuais pagamentos em prestações dependem de confirmação
+              prévia e das condições específicas acordadas entre a loja e
+              o cliente.
+            </p>
+
+          </section>
+
+
+          <!-- 06 -->
+
+          <section class="terms-section" id="entregas">
+
+            <span class="section-number">06</span>
+
+            <h2>Entregas</h2>
+
+            <p>
+              A ISANOMAR store realiza entregas em Luanda e poderá realizar
+              entregas noutras províncias de Angola, de acordo com a
+              disponibilidade do serviço para cada localização.
+            </p>
+
+            <p>
+              Os custos de entrega dependem da localização e das condições
+              aplicáveis à encomenda e serão comunicados ao cliente durante
+              o processo de compra.
+            </p>
+
+            <p>
+              O prazo estimado de entrega poderá variar normalmente entre
+              1 e 5 dias úteis, dependendo da localização, disponibilidade
+              do produto e condições logísticas.
+            </p>
+
+            <div class="terms-note">
+              <strong>Prazo de entrega</strong>
+              <p>
+                Os prazos apresentados são estimativas e podem sofrer
+                alterações devido a factores logísticos ou circunstâncias
+                fora do controlo da loja.
+              </p>
+            </div>
+
+          </section>
+
+
+          <!-- 07 -->
+
+          <section class="terms-section" id="devolucoes">
+
+            <span class="section-number">07</span>
+
+            <h2>Devoluções e trocas</h2>
+
+            <p>
+              O cliente poderá solicitar uma devolução até 7 dias após a
+              recepção do produto, desde que sejam cumpridas as condições
+              aplicáveis.
+            </p>
+
+            <p>Para que uma devolução seja aceite, o produto deverá:</p>
+
+            <ul>
+              <li>
+                Estar sem sinais de utilização que ultrapassem a simples
+                verificação do produto;
+              </li>
+              <li>
+                Manter-se em condições adequadas para revenda;
+              </li>
+              <li>
+                Ser devolvido, sempre que aplicável, com a embalagem e
+                acessórios originais;
+              </li>
+              <li>
+                Não apresentar danos provocados pelo cliente.
+              </li>
+            </ul>
+
+            <p>
+              O pedido de devolução deverá ser realizado através dos canais
+              oficiais de contacto da ISANOMAR store, indicando o número ou
+              referência da encomenda e o motivo do pedido.
+            </p>
+
+            <p>
+              Produtos que apresentem defeitos de fabrico serão analisados
+              individualmente para determinar a solução adequada.
+            </p>
+
+          </section>
+
+
+          <!-- 08 -->
+
+          <section class="terms-section" id="privacidade">
+
+            <span class="section-number">08</span>
+
+            <h2>Privacidade e dados pessoais</h2>
+
+            <p>
+              Para processar encomendas e prestar o serviço, poderemos
+              recolher dados fornecidos voluntariamente pelo cliente,
+              incluindo nome, número de telefone, endereço de entrega e
+              informações necessárias ao pagamento ou atendimento.
+            </p>
+
+            <p>
+              Os dados são utilizados para finalidades relacionadas com o
+              funcionamento da loja, nomeadamente processamento de
+              encomendas, entregas, comunicação com o cliente e atendimento.
+            </p>
+
+            <p>
+              A ISANOMAR store procura adoptar medidas adequadas para
+              proteger as informações dos seus clientes e não comercializa
+              dados pessoais como produto.
+            </p>
+
+            <p>
+              O cliente poderá solicitar informações, correcções ou outras
+              medidas relativas aos seus dados através dos canais oficiais
+              de contacto, sem prejuízo das obrigações legais aplicáveis.
+            </p>
+
+          </section>
+
+
+          <!-- 09 -->
+
+          <section class="terms-section" id="responsabilidade">
+
+            <span class="section-number">09</span>
+
+            <h2>Responsabilidade</h2>
+
+            <p>
+              A ISANOMAR store empenha-se em manter o website disponível e
+              as informações actualizadas, mas não garante que o serviço
+              esteja permanentemente livre de interrupções, erros ou
+              indisponibilidades.
+            </p>
+
+            <p>
+              A loja não poderá ser responsabilizada por atrasos ou
+              impossibilidade de entrega resultantes de acontecimentos
+              fora do seu controlo razoável, incluindo problemas de
+              transporte, condições meteorológicas adversas, greves,
+              interrupções de serviços ou outros eventos de força maior.
+            </p>
+
+            <p>
+              O cliente deverá utilizar o website de forma legal, responsável
+              e compatível com os presentes Termos e Condições.
+            </p>
+
+          </section>
+
+
+          <!-- 10 -->
+
+          <section class="terms-section" id="propriedade">
+
+            <span class="section-number">10</span>
+
+            <h2>Propriedade intelectual</h2>
+
+            <p>
+              Os textos, imagens, fotografias, logotipos, elementos gráficos,
+              identidade visual, layout e demais conteúdos disponibilizados
+              no website pertencem à ISANOMAR store ou são utilizados com
+              autorização dos respectivos titulares.
+            </p>
+
+            <p>
+              É proibida a reprodução, cópia, distribuição, modificação ou
+              utilização comercial desses conteúdos sem autorização prévia,
+              excepto quando permitido pela legislação aplicável.
+            </p>
+
+          </section>
+
+
+          <!-- 11 -->
+
+          <section class="terms-section" id="alteracoes">
+
+            <span class="section-number">11</span>
+
+            <h2>Alterações aos Termos e Condições</h2>
+
+            <p>
+              A ISANOMAR store poderá actualizar ou alterar estes Termos e
+              Condições sempre que necessário para reflectir mudanças nos
+              serviços, procedimentos comerciais ou requisitos legais.
+            </p>
+
+            <p>
+              A versão mais recente estará sempre disponível nesta página.
+              Recomendamos que os utilizadores consultem periodicamente
+              este documento.
+            </p>
+
+          </section>
+
+
+          <!-- 12 -->
+
+          <section class="terms-section" id="lei">
+
+            <span class="section-number">12</span>
+
+            <h2>Lei aplicável e resolução de conflitos</h2>
+
+            <p>
+              Os presentes Termos e Condições são interpretados de acordo
+              com a legislação aplicável na República de Angola.
+            </p>
+
+            <p>
+              Em caso de reclamação ou divergência relacionada com os
+              serviços ou uma encomenda, as partes procurarão, sempre que
+              possível, resolver a questão de forma amigável através dos
+              canais de atendimento da ISANOMAR store.
+            </p>
+
+            <p>
+              Caso não seja possível alcançar uma solução amigável, poderão
+              ser utilizados os meios de resolução de conflitos previstos
+              pela legislação aplicável.
+            </p>
+
+          </section>
+
+
+          <!-- 13 -->
+
+          <section class="terms-section" id="contacto">
+
+            <span class="section-number">13</span>
+
+            <h2>Contacto</h2>
+
+            <p>
+              Para dúvidas, pedidos de informação, reclamações ou assuntos
+              relacionados com estes Termos e Condições, utilize um dos
+              canais oficiais abaixo.
+            </p>
+
+            <div class="contact-box">
+
+              <div class="contact-row">
+
+                <div class="contact-icon" aria-hidden="true">
+                  ☎
+                </div>
+
+                <div class="contact-content">
+                  <span class="contact-label">
+                    WhatsApp
+                  </span>
+
+                  <a
+                    class="contact-value"
+                    href="https://wa.me/244930806413"
+                  >
+                    +244 930 806 413
+                  </a>
+                </div>
+
+              </div>
+
+
+              <div class="contact-row">
+
+                <div class="contact-icon" aria-hidden="true">
+                  @
+                </div>
+
+                <div class="contact-content">
+                  <span class="contact-label">
+                    Email
+                  </span>
+
+                  <a
+                    class="contact-value"
+                    href="mailto:isanomarstore@gmail.com"
+                  >
+                    isanomarstore@gmail.com
+                  </a>
+                </div>
+
+              </div>
+
+
+              <div class="contact-row">
+
+                <div class="contact-icon" aria-hidden="true">
+                  ↗
+                </div>
+
+                <div class="contact-content">
+                  <span class="contact-label">
+                    Website
+                  </span>
+
+                  <a
+                    class="contact-value"
+                    href="https://isanomarstore.com.ao"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ishanomarstore.com.ao
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </article>
+
+      </div>
+
+
+      <!-- ============================
+           RODAPÉ
+      ============================= -->
+
+      <footer class="terms-footer">
+
+        <img
+          src="assets/logo.jpg"
+          alt="ISANOMAR store"
+          class="footer-logo"
+        />
+
+        <p>
+          © 2026 ISANOMAR store. Todos os direitos reservados.
+        </p>
+
+        <small>
+          Termos e Condições de utilização
+        </small>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

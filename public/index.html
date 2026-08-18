@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="ISANOMAR Store" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="ISANOMAR Store — acessórios e produtos femininos e masculinos em Angola. Entrega em Luanda e províncias." />
+  <meta name="author" content="ISANOMAR Store" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ISANOMAR Store — Acessórios e Produtos em Angola" />
+  <meta property="og:description" content="Acessórios e produtos femininos e masculinos em Angola." />
+  <meta property="og:locale" content="pt_AO" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/logo.jpg" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230b4aa2'/%3E%3Ctext x='50' y='65' font-size='43' text-anchor='middle' fill='%23ffc233' font-family='Arial' font-weight='bold'%3EIS%3C/text%3E%3C/svg%3E" />
+  <title>ISANOMAR Store — Acessórios e Produtos em Angola</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem('isanomar_theme')||'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();</script>
+  <link rel="stylesheet" href="style.css" />
+
+
+  <style>
+    .pay-icon { font-size: 22px; color: var(--blue-600); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: #eef4ff; }
+    .pay-opt.selected .pay-icon { background: #fff8e1; color: #c89400; }
+    .tab-badge { margin-left: 6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--danger, #dc2626); color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+    .tab-badge[hidden] { display: none; }
+    .client-card { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+    .client-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .client-avatar { width: 44px; height: 44px; border-radius: 50%; background: #eef4ff; color: var(--blue-600); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .client-name { font-weight: 700; font-size: 15px; color: var(--text); }
+    .client-phone { font-size: 13px; color: var(--text-soft); }
+    .client-meta { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+    .client-meta span { font-size: 13px; color: var(--text-soft); }
+    .client-meta strong { color: var(--text); }
+    .client-orders { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .client-order-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13px; }
+    .client-order-id { color: var(--blue-600); font-weight: 600; }
+    .client-order-status { font-size: 11px; padding: 2px 8px; border-radius: 6px; border: 1px solid; }
+    .client-order-status.pendente { color: #b45309; background: #fff7ed; border-color: #fed7aa; }
+    .client-order-status.confirmado { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
+    .client-order-status.enviado { color: #0877a8; background: #ecfeff; border-color: #a5f3fc; }
+    .client-order-status.entregue { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .client-order-status.cancelado { color: #991b1b; background: #fef2f2; border-color: #fecaca; }
+    .bottom-icon-wrap { position: relative; display: inline-flex; }
+    .bottom-badge { position: absolute; top: -6px; right: -8px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--danger, #dc2626); color: #fff; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+    .bottom-badge[hidden] { display: none; }
+  </style>
+<base target="_blank">
+</head>
+
+<body>
+
+  <div id="app" class="app">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+      <div class="header-inner">
+
+        <button
+          class="icon-btn header-btn"
+          id="menuBtn"
+          aria-label="Abrir menu"
+        >
+          <i class="ph ph-list"></i>
+        </button>
+
+        <button
+          class="brand"
+          data-view="home"
+          aria-label="Página inicial"
+        >
+          <span class="brand-main">ISANOMAR</span>
+          <span class="brand-accent">Store</span>
+        </button>
+
+        <button
+          class="icon-btn header-btn theme-toggle"
+          id="themeToggle"
+          aria-label="Alternar tema"
+          title="Alternar tema"
+        >
+          <i class="ph ph-sun"></i>
+        </button>
+
+        <button
+          class="icon-btn header-btn cart-header-btn"
+          id="cartBtn"
+          aria-label="Carrinho"
+        >
+          <i class="ph ph-shopping-bag"></i>
+          <span class="badge" id="cartCount" hidden>0</span>
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         DRAWER
+    ====================================================== -->
+
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+    ></div>
+
+    <aside
+      class="drawer"
+      id="drawer"
+      aria-label="Menu principal"
+    >
+
+      <div class="drawer-top">
+
+        <div class="drawer-brand">
+          <div class="brand-mark">
+            <img src="assets/logo.jpg" alt="ISANOMAR Store" />
+          </div>
+
+          <div>
+            <strong>ISANOMAR</strong>
+            <span>Store</span>
+          </div>
+        </div>
+
+        <button
+          class="icon-btn soft"
+          id="drawerClose"
+          aria-label="Fechar menu"
+        >
+          <i class="ph ph-x"></i>
+        </button>
+
+      </div>
+
+
+      <div class="drawer-profile">
+        <div class="profile-icon">
+          <i class="ph ph-Storefront"></i>
+        </div>
+
+        <div>
+          <strong>ISANOMAR Store</strong>
+          <span>Loja online · Angola</span>
+        </div>
+      </div>
+
+
+      <nav class="drawer-nav">
+
+        <button
+          class="drawer-link active"
+          data-view="home"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-house"></i>
+          </span>
+
+          <span>Início</span>
+
+          <i class="ph ph-caret-right drawer-arrow"></i>
+        </button>
+
+
+        <button
+          class="drawer-link"
+          data-view="catalog"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-squares-four"></i>
+          </span>
+
+          <span>Catálogo</span>
+
+          <i class="ph ph-caret-right drawer-arrow"></i>
+        </button>
+
+
+        <button
+          class="drawer-link"
+          data-view="orders"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-package"></i>
+          </span>
+
+          <span>As minhas encomendas</span>
+
+          <span class="drawer-count" id="clientOrdersBadge" hidden>0</span>
+        </button>
+
+
+        <button
+          class="drawer-link"
+          data-view="cart"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-shopping-bag"></i>
+          </span>
+
+          <span>O meu carrinho</span>
+
+          <span class="drawer-count" id="drawerCartCount">0</span>
+        </button>
+
+
+        <div class="drawer-separator"></div>
+
+
+        <button
+          class="drawer-link"
+          id="drawerSobreBtn"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-info"></i>
+          </span>
+
+          <span>Sobre Nós</span>
+
+          <i class="ph ph-caret-right drawer-arrow"></i>
+        </button>
+
+
+        <button
+          class="drawer-link"
+          id="drawerContactBtn"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-whatsapp-logo"></i>
+          </span>
+
+          <span>WhatsApp</span>
+
+          <i class="ph ph-caret-right drawer-arrow"></i>
+        </button>
+
+
+
+
+        <button
+          class="drawer-link"
+          id="drawerTermsBtn"
+        >
+          <span class="drawer-icon">
+            <i class="ph ph-file-text"></i>
+          </span>
+
+          <span>Termos e condições</span>
+
+          <i class="ph ph-caret-right drawer-arrow"></i>
+        </button>
+
+      </nav>
+
+
+      <div class="drawer-footer">
+
+        <div class="drawer-footer-card">
+          <i class="ph ph-globe"></i>
+
+          <div>
+            <strong>Compras em Angola</strong>
+            <span>Preços em Kz</span>
+          </div>
+        </div>
+
+        <div class="drawer-contact">
+          <a href="https://wa.me/244930806413" target="_blank" rel="noopener" class="drawer-contact-link">
+            <i class="ph ph-whatsapp-logo"></i>
+            <span>WhatsApp</span>
+          </a>
+          <a href="mailto:isanomarStore@gmail.com" class="drawer-contact-link">
+            <i class="ph ph-envelope-simple"></i>
+            <span>Email</span>
+          </a>
+        </div>
+
+        <a
+          href="https://isanomarStore.com.ao"
+          target="_blank"
+          rel="noopener"
+        >
+          isanomarStore.com.ao
+          <i class="ph ph-arrow-up-right"></i>
+        </a>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+      <!-- ===================================================
+           HOME
+      ==================================================== -->
+
+      <section
+        class="view active"
+        id="view-home"
+      >
+
+        <div class="hero">
+
+          <div class="hero-visual">
+            <i class="ph ph-handbag"></i>
+          </div>
+
+          <div class="hero-content">
+
+            <div class="hero-eyebrow">
+              <i class="ph ph-sparkle"></i>
+              NOVA EXPERIÊNCIA
+            </div>
+
+            <h1>
+              Elegância que inspira,
+              <span>Qualidade que encanta.</span>
+            </h1>
+
+            <p>
+              Acessórios e produtos femininos e masculinos,
+              selecionados para si e entregues onde estiver.
+            </p>
+
+
+            <div class="hero-actions">
+
+              <button
+                class="hero-button"
+                data-view="catalog"
+              >
+                Explorar catálogo
+                <i class="ph ph-arrow-right"></i>
+              </button>
+
+            </div>
+
+
+            <div class="hero-features">
+
+              <div>
+                <i class="ph ph-hand-coins"></i>
+                <span>Pagamento na entrega</span>
+              </div>
+
+              <div>
+                <i class="ph ph-bank"></i>
+                <span>Transferência</span>
+              </div>
+
+              <div>
+                <i class="ph ph-calendar-check"></i>
+                <span>Prestações</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Categorias -->
+
+        <section class="home-section">
+
+          <div class="section-head">
+
+            <div>
+              <span class="section-kicker">EXPLORE</span>
+              <h2>Categorias</h2>
+            </div>
+
+            <button
+              class="section-link"
+              data-view="catalog"
+            >
+              Ver tudo
+              <i class="ph ph-arrow-right"></i>
+            </button>
+
+          </div>
+
+          <div
+            class="cat-grid"
+            id="homeCategories"
+          ></div>
+
+        </section>
+
+
+        <!-- Destaques -->
+
+        <section class="home-section">
+
+          <div class="section-head">
+
+            <div>
+              <span class="section-kicker">PARA SI</span>
+              <h2>Destaques</h2>
+            </div>
+
+            <button
+              class="section-link"
+              data-view="catalog"
+            >
+              Ver catálogo
+              <i class="ph ph-arrow-right"></i>
+            </button>
+
+          </div>
+
+          <div
+            class="grid"
+            id="featuredGrid"
+          ></div>
+
+        </section>
+
+
+        <!-- Benefícios -->
+
+        <section class="benefits">
+
+          <div class="benefit-card">
+
+            <div class="benefit-icon">
+              <i class="ph ph-truck"></i>
+            </div>
+
+            <div>
+              <strong>Entrega rápida</strong>
+              <span>Luanda e arredores</span>
+            </div>
+
+          </div>
+
+
+          <div class="benefit-card">
+
+            <div class="benefit-icon">
+              <i class="ph ph-shield-check"></i>
+            </div>
+
+            <div>
+              <strong>Compra segura</strong>
+              <span>Processo simples e seguro</span>
+            </div>
+
+          </div>
+
+
+          <div class="benefit-card">
+
+            <div class="benefit-icon">
+              <i class="ph ph-credit-card"></i>
+            </div>
+
+            <div>
+              <strong>Pagamento flexível</strong>
+              <span>Até 3 prestações</span>
+            </div>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- ===================================================
+           CATALOG
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-catalog"
+      >
+
+        <div class="page-header">
+
+          <div>
+            <span class="section-kicker">LOJA</span>
+            <h1>Catálogo</h1>
+          </div>
+
+          <button
+            class="icon-btn dark"
+            data-view="cart"
+            aria-label="Carrinho"
+          >
+            <i class="ph ph-shopping-bag"></i>
+            <span
+              class="mini-badge"
+              id="catalogCartCount"
+            >0</span>
+          </button>
+
+        </div>
+
+
+        <div class="search-box">
+
+          <i class="ph ph-magnifying-glass"></i>
+
+          <input
+            id="searchInput"
+            class="search"
+            type="search"
+            placeholder="Pesquisar produtos..."
+            autocomplete="off"
+          />
+
+          <button
+            class="search-clear"
+            id="searchClear"
+            hidden
+            aria-label="Limpar pesquisa"
+          >
+            <i class="ph ph-x-circle"></i>
+          </button>
+
+        </div>
+
+
+        <div class="filter-section">
+
+          <div class="filter-label">
+            Categorias
+          </div>
+
+          <div
+            class="chips scroll-chips"
+            id="catChips"
+          ></div>
+
+        </div>
+
+
+        <div class="filter-section">
+
+          <div class="filter-label">
+            Género
+          </div>
+
+          <div
+            class="chips scroll-chips"
+            id="genChips"
+          ></div>
+
+        </div>
+
+
+        <div class="catalog-result-head">
+
+          <span id="catalogResultCount">
+            Produtos
+          </span>
+
+          <button
+            class="filter-reset"
+            id="filterReset"
+          >
+            <i class="ph ph-funnel-simple"></i>
+            Limpar filtros
+          </button>
+
+        </div>
+
+
+        <div
+          class="grid"
+          id="catalogGrid"
+        ></div>
+
+        <div
+          class="empty-state"
+          id="catalogEmpty"
+          hidden
+        >
+          <div class="empty-icon">
+            <i class="ph ph-magnifying-glass"></i>
+          </div>
+
+          <h3>Nenhum produto encontrado</h3>
+
+          <p>
+            Tente alterar a pesquisa ou remover alguns filtros.
+          </p>
+
+          <button
+            class="btn btn-ghost"
+            id="catalogEmptyReset"
+          >
+            Limpar filtros
+          </button>
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PRODUCT
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-product"
+      ></section>
+
+
+      <!-- ===================================================
+           CART
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-cart"
+      >
+
+        <div class="page-header">
+
+          <div>
+            <span class="section-kicker">COMPRA</span>
+            <h1>O meu carrinho</h1>
+          </div>
+
+          <div class="header-counter">
+            <span id="cartPageCount">0</span>
+            itens
+          </div>
+
+        </div>
+
+
+        <div id="cartItems"></div>
+
+
+        <div
+          class="empty-state"
+          id="cartEmpty"
+          hidden
+        >
+
+          <div class="empty-icon">
+            <i class="ph ph-shopping-bag-open"></i>
+          </div>
+
+          <h3>O seu carrinho está vazio</h3>
+
+          <p>
+            Explore o catálogo e encontre algo que combine consigo.
+          </p>
+
+          <button
+            class="btn btn-primary"
+            data-view="catalog"
+          >
+            Explorar produtos
+          </button>
+
+        </div>
+
+
+        <div
+          class="cart-summary"
+          id="cartSummary"
+        >
+
+          <div class="summary-title">
+            Resumo da compra
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <strong id="cartSubtotal">0 Kz</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Entrega</span>
+            <span class="summary-muted">
+              Calculada no checkout
+            </span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <strong id="cartTotal">0 Kz</strong>
+          </div>
+
+          <button
+            class="btn btn-primary btn-block checkout-button"
+            id="checkoutBtn"
+          >
+            Continuar para checkout
+            <i class="ph ph-arrow-right"></i>
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           CHECKOUT
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-checkout"
+      >
+
+        <div class="page-header">
+
+          <div>
+            <span class="section-kicker">FINALIZAR</span>
+            <h1>Encomenda</h1>
+          </div>
+
+          <button
+            class="icon-btn dark"
+            id="checkoutBack"
+            aria-label="Voltar"
+          >
+            <i class="ph ph-arrow-left"></i>
+          </button>
+
+        </div>
+
+
+        <div class="checkout-progress">
+
+          <div class="progress-step active">
+            <span>1</span>
+            Dados
+          </div>
+
+          <div class="progress-line"></div>
+
+          <div class="progress-step">
+            <span>2</span>
+            Pagamento
+          </div>
+
+          <div class="progress-line"></div>
+
+          <div class="progress-step">
+            <span>3</span>
+            Confirmar
+          </div>
+
+        </div>
+
+
+        <form
+          id="checkoutForm"
+          novalidate
+        >
+
+          <div class="checkout-card">
+
+            <div class="checkout-card-title">
+
+              <div class="checkout-title-icon">
+                <i class="ph ph-user"></i>
+              </div>
+
+              <div>
+                <h3>Dados de entrega</h3>
+                <span>Onde devemos entregar?</span>
+              </div>
+
+            </div>
+
+
+            <label class="field">
+
+              <span>Nome completo</span>
+
+              <div class="input-wrap">
+                <i class="ph ph-user"></i>
+
+                <input
+                  name="name"
+                  required
+                  autocomplete="name"
+                  placeholder="O seu nome"
+                />
+              </div>
+
+            </label>
+
+
+            <label class="field">
+
+              <span>Telemóvel</span>
+
+              <div class="input-wrap">
+                <i class="ph ph-phone"></i>
+
+                <input
+                  name="phone"
+                  required
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  placeholder="9XX XXX XXX"
+                />
+              </div>
+
+            </label>
+
+
+            <label class="field">
+
+              <span>Província</span>
+
+              <div class="input-wrap select-wrap">
+                <i class="ph ph-map-pin"></i>
+
+                <select
+                  name="province"
+                  required
+                  id="provinceSelect"
+                >
+                  <option value="">Selecionar província...</option>
+                  <option>Bengo</option><option>Benguela</option><option>Bié</option><option>Cabinda</option><option>Cuando</option><option>Cubango</option><option>Cuanza Norte</option><option>Cuanza Sul</option>
+                  <option>Cunene</option><option>Huambo</option><option>Huíla</option><option>Ícolo e Bengo</option><option>Luanda</option><option>Lunda Norte</option><option>Lunda Sul</option>
+                  <option>Malanje</option><option>Moxico</option><option>Moxico Leste</option><option>Namibe</option><option>Uíge</option><option>Zaire</option>
+                </select>
+
+                <i class="ph ph-caret-down select-arrow"></i>
+
+              </div>
+
+            </label>
+
+
+            <label class="field" id="munField">
+              <span>Município</span>
+              <div class="input-wrap">
+                <i class="ph ph-buildings"></i>
+                <input name="municipality" id="munSelect" required placeholder="Digite o município" autocomplete="address-level2" />
+              </div>
+              <small class="field-hint">O município é livre para evitar erros causados por alterações administrativas.</small>
+            </label>
+
+
+            <label class="field">
+
+              <span>Endereço de entrega</span>
+
+              <div class="input-wrap textarea-wrap">
+                <i class="ph ph-navigation-arrow"></i>
+
+                <textarea
+                  name="address"
+                  required
+                  placeholder="Bairro, rua e ponto de referência"
+                ></textarea>
+
+              </div>
+
+            </label>
+
+
+            <div
+              class="delivery-note"
+              id="deliveryNote"
+            ></div>
+
+          </div>
+
+
+          <div class="checkout-card">
+
+            <div class="checkout-card-title">
+
+              <div class="checkout-title-icon">
+                <i class="ph ph-wallet"></i>
+              </div>
+
+              <div>
+                <h3>Forma de pagamento</h3>
+                <span>Escolha como pretende pagar</span>
+              </div>
+
+            </div>
+
+
+            <div
+              class="pay-opts"
+              id="payOptions"
+            ></div>
+
+
+            <div
+              class="pay-extras"
+              id="payExtras"
+            ></div>
+
+          </div>
+
+
+          <div class="checkout-total-card">
+
+            <div>
+              <span>Total da encomenda</span>
+              <strong id="checkoutTotal">0 Kz</strong>
+            </div>
+
+            <i class="ph ph-receipt"></i>
+
+          </div>
+
+
+          <button
+            class="btn btn-primary btn-block place-order-button"
+            type="submit"
+            id="placeOrderBtn"
+          >
+            <i class="ph ph-check-circle"></i>
+            Confirmar encomenda
+          </button>
+
+        </form>
+
+      </section>
+
+
+      <!-- ===================================================
+           ORDERS
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-orders"
+      >
+
+        <div class="page-header">
+
+          <div>
+            <span class="section-kicker">HISTÓRICO</span>
+            <h1>Encomendas</h1>
+          </div>
+
+          <div class="header-counter">
+            <i class="ph ph-package"></i>
+          </div>
+
+        </div>
+
+
+        <div id="ordersList"></div>
+
+
+        <div
+          class="empty-state"
+          id="ordersEmpty"
+          hidden
+        >
+
+          <div class="empty-icon">
+            <i class="ph ph-package"></i>
+          </div>
+
+          <h3>Ainda não fez encomendas</h3>
+
+          <p>
+            Quando realizar uma compra, poderá acompanhar
+            o estado da sua encomenda aqui.
+          </p>
+
+          <button
+            class="btn btn-primary"
+            data-view="catalog"
+          >
+            Começar a comprar
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           ADMIN
+      ==================================================== -->
+
+      <section
+        class="view"
+        id="view-admin"
+      >
+
+        <div
+          class="admin-login"
+          id="adminLogin"
+        >
+
+          <div class="admin-lock">
+            <i class="ph ph-lock-key"></i>
+          </div>
+
+          <span class="section-kicker">ÁREA RESTRITA</span>
+
+          <h1>Painel do Operador</h1>
+
+          <p>
+            Área exclusiva para gestão da ISANOMAR Store.
+          </p>
+
+          <label class="field">
+
+            <span>Senha do operador</span>
+
+            <div class="input-wrap">
+
+              <i class="ph ph-lock"></i>
+
+              <input
+                type="password"
+                id="adminPass"
+                autocomplete="current-password"
+              />
+
+              <button
+                type="button"
+                class="input-action"
+                id="toggleAdminPass"
+              >
+                <i class="ph ph-eye"></i>
+              </button>
+
+            </div>
+
+          </label>
+
+          <button
+            class="btn btn-primary btn-block"
+            id="adminLoginBtn"
+          >
+            Entrar no painel
+            <i class="ph ph-arrow-right"></i>
+          </button>
+
+        </div>
+
+
+        <div
+          class="admin-panel"
+          id="adminPanel"
+          hidden
+        >
+
+          <div class="admin-header">
+
+            <div>
+              <span class="section-kicker">ADMINISTRAÇÃO</span>
+              <h1>Painel</h1>
+            </div>
+
+            <button
+              class="icon-btn dark"
+              id="logoutAdminBtnTop"
+            >
+              <i class="ph ph-sign-out"></i>
+            </button>
+
+          </div>
+
+
+          <div
+            class="admin-tabs"
+            id="adminTabs"
+          >
+
+            <button
+              class="tab active"
+              data-tab="dashboard"
+            >
+              <i class="ph ph-chart-pie-slice"></i>
+              <span>Dashboard</span>
+            </button>
+
+            <button
+              class="tab"
+              data-tab="products"
+            >
+              <i class="ph ph-package"></i>
+              <span>Produtos</span>
+            </button>
+
+            <button class="tab" data-tab="stock">
+              <i class="ph ph-warehouse"></i><span>Stock & Lotes</span>
+            </button>
+
+            <button
+              class="tab"
+              data-tab="orders"
+            >
+              <i class="ph ph-receipt"></i>
+              <span>Encomendas</span>
+              <span class="tab-badge" id="ordersBadge" hidden>0</span>
+            </button>
+
+            <button
+              class="tab"
+              data-tab="clients"
+            >
+              <i class="ph ph-users"></i>
+              <span>Clientes</span>
+            </button>
+
+            <button
+              class="tab"
+              data-tab="categories"
+            >
+              <i class="ph ph-squares-four"></i>
+              <span>Categorias</span>
+            </button>
+
+            <button
+              class="tab"
+              data-tab="settings"
+            >
+              <i class="ph ph-gear"></i>
+              <span>Definições</span>
+            </button>
+
+            <button class="tab" data-tab="audit">
+              <i class="ph ph-shield-check"></i>
+              <span>Auditoria</span>
+            </button>
+
+          </div>
+
+
+          <div
+            class="tab-body"
+            data-body="dashboard"
+          >
+            <div id="adminDashboard"></div>
+          </div>
+
+          <div
+            class="tab-body hidden"
+            data-body="products"
+          >
+
+            <button
+              class="btn btn-primary btn-block"
+              id="addProductBtn"
+            >
+              <i class="ph ph-plus"></i>
+              Novo produto
+            </button>
+
+            <div
+              class="admin-products"
+              id="adminProducts"
+            ></div>
+
+          </div>
+
+
+          <div class="tab-body hidden" data-body="stock">
+            <div class="section-head admin-stock-head"><div><span class="section-kicker">INVENTÁRIO REAL</span><h2>Stock & Lotes</h2></div><button class="btn btn-primary" id="addLotBtn"><i class="ph ph-plus"></i>Novo lote</button></div>
+            <div id="adminStock"></div>
+          </div>
+
+          <div
+            class="tab-body hidden"
+            data-body="orders"
+          >
+            <div id="adminOrders"></div>
+          </div>
+
+          <div
+            class="tab-body hidden"
+            data-body="clients"
+          >
+            <div id="adminClients"></div>
+          </div>
+
+
+          <div
+            class="tab-body hidden"
+            data-body="categories"
+          >
+
+            <div class="admin-add-card">
+
+              <input
+                id="newCatInput"
+                placeholder="Nova categoria..."
+              />
+
+              <button
+                class="btn btn-primary"
+                id="addCatBtn"
+              >
+                <i class="ph ph-plus"></i>
+                Adicionar
+              </button>
+
+            </div>
+
+            <div id="adminCats"></div>
+
+          </div>
+
+
+          <div
+            class="tab-body hidden"
+            data-body="settings"
+          >
+
+            <div class="settings-card">
+
+              <label class="field">
+                <span>Nome da loja</span>
+                <input id="setShopName" />
+              </label>
+
+              <label class="field">
+                <span>Telemóvel de contacto</span>
+                <input id="setShopPhone" />
+              </label>
+
+              <label class="field">
+                <span>IBAN / conta para transferência</span>
+                <input id="setShopIban" />
+              </label>
+
+              <label class="field">
+                <span>Máximo de prestações</span>
+                <input
+                  id="setMaxInstall"
+                  type="number"
+                  min="1"
+                  max="12"
+                />
+              </label>
+
+              <div class="settings-section">
+
+                <h3>
+                  <i class="ph ph-truck"></i>
+                  Taxa de entrega
+                </h3>
+
+                <label class="field">
+                  <span>Outras províncias</span>
+                  <input
+                    id="setDelOther"
+                    type="number"
+                    min="0"
+                  />
+                </label>
+
+              </div>
+
+
+              <div class="settings-section">
+
+                <h3>
+                  <i class="ph ph-map-pin"></i>
+                  Municípios de Luanda
+                </h3>
+
+                <div id="delList"></div>
+
+                <div class="admin-add-card">
+
+                  <input
+                    id="newDelInput"
+                    placeholder="Município..."
+                  />
+
+                  <input
+                    id="newDelFee"
+                    type="number"
+                    min="0"
+                    placeholder="Kz"
+                  />
+
+                  <button
+                    class="btn btn-primary"
+                    id="addDelBtn"
+                  >
+                    <i class="ph ph-plus"></i>
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <button
+                class="btn btn-primary btn-block"
+                id="saveSettingsBtn"
+              >
+                <i class="ph ph-floppy-disk"></i>
+                Guardar definições
+              </button>
+
+
+              <button
+                class="btn btn-ghost btn-block"
+                id="logoutAdminBtn"
+              >
+                <i class="ph ph-sign-out"></i>
+                Sair do painel
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="tab-body hidden" data-body="audit">
+            <div class="section-head"><div><span class="section-kicker">CONTROLO INTERNO</span><h2>Registo de actividade</h2></div><button class="btn btn-secondary" id="refreshAuditBtn"><i class="ph ph-arrows-clockwise"></i> Actualizar</button></div>
+            <div id="adminAudit"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <div class="modal-overlay" id="lotModal">
+      <div class="modal">
+        <div class="modal-grabber"></div>
+        <div class="modal-head"><div><span class="section-kicker">INVENTÁRIO</span><h3 id="lotModalTitle">Novo lote</h3></div><button class="icon-btn dark" type="button" id="closeLotModal"><i class="ph ph-x"></i></button></div>
+        <form id="lotForm">
+          <input type="hidden" id="lotId" />
+          <label class="field"><span>Produto</span><select id="lotProduct" required></select></label>
+          <label class="field"><span>Código do lote</span><input id="lotCode" required placeholder="LOT-2026-001" /></label>
+          <div class="two-col"><label class="field"><span>Quantidade recebida</span><input id="lotReceived" type="number" min="0" required /></label><label class="field"><span>Disponível</span><input id="lotAvailable" type="number" min="0" required /></label></div>
+          <label class="field"><span>Validade</span><input id="lotExpires" type="date" /></label>
+          <label class="field"><span>Nota</span><textarea id="lotNote" placeholder="Fornecedor, observação, localização..."></textarea></label>
+          <div class="modal-actions"><button class="btn btn-ghost" type="button" id="cancelLot">Cancelar</button><button class="btn btn-primary" type="submit"><i class="ph ph-floppy-disk"></i> Guardar lote</button></div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+    ====================================================== -->
+
+    <nav class="bottom-nav">
+
+      <button
+        class="bottom-nav-item active"
+        data-view="home"
+      >
+        <i class="ph ph-house"></i>
+        <span>Início</span>
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-view="catalog"
+      >
+        <i class="ph ph-squares-four"></i>
+        <span>Loja</span>
+      </button>
+
+
+      <button
+        class="bottom-nav-item bottom-cart"
+        data-view="cart"
+      >
+
+        <span class="bottom-cart-icon">
+          <i class="ph ph-shopping-bag"></i>
+          <b id="bottomCartCount" hidden>0</b>
+        </span>
+
+        <span>Carrinho</span>
+
+      </button>
+
+
+      <button
+        class="bottom-nav-item"
+        data-view="orders"
+      >
+        <span class="bottom-icon-wrap">
+          <i class="ph ph-package"></i>
+          <b class="bottom-badge" id="bottomOrdersBadge" hidden>0</b>
+        </span>
+        <span>Encomendas</span>
+      </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         PRODUCT MODAL
+    ====================================================== -->
+
+    <div
+      class="modal-overlay"
+      id="productModal"
+    >
+
+      <div class="modal">
+
+        <div class="modal-grabber"></div>
+
+        <div class="modal-head">
+
+          <div>
+            <span class="section-kicker">GESTÃO</span>
+            <h3 id="productModalTitle">
+              Produto
+            </h3>
+          </div>
+
+          <button
+            class="icon-btn dark"
+            id="closeModalBtn"
+          >
+            <i class="ph ph-x"></i>
+          </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+          <input
+            type="hidden"
+            id="pId"
+          />
+
+
+          <label class="field">
+            <span>Nome</span>
+            <input
+              id="pName"
+              required
+            />
+          </label>
+
+
+          <label class="field">
+            <span>Preço (Kz)</span>
+            <input
+              id="pPrice"
+              type="number"
+              min="0"
+              required
+            />
+          </label>
+
+
+          <label class="field">
+            <span>Categoria</span>
+            <select id="pCat"></select>
+          </label>
+
+
+          <label class="field">
+
+            <span>Género</span>
+
+            <select id="pGenre">
+
+              <option value="unisex">
+                Unissexo
+              </option>
+
+              <option value="f">
+                Feminino
+              </option>
+
+              <option value="m">
+                Masculino
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label class="field">
+
+            <span>Descrição</span>
+
+            <textarea id="pDesc"></textarea>
+
+          </label>
+
+
+          <div class="product-stock-create" id="productStockCreate">
+            <div class="form-section-title"><i class="ph ph-package"></i><span>Stock inicial (opcional)</span></div>
+            <div class="two-col">
+              <label class="field"><span>Quantidade</span><input id="pInitialStock" type="number" min="0" step="1" value="0" /></label>
+              <label class="field"><span>Código do lote</span><input id="pInitialLotCode" placeholder="LOT-2026-001" /></label>
+            </div>
+            <small class="field-hint">Sem stock inicial, o produto fica guardado no painel e não aparece na loja pública.</small>
+          </div>
+
+          <label class="field">
+            <span>Alerta de stock baixo</span>
+            <input id="pLowStock" type="number" min="0" step="1" value="3" />
+            <small class="field-hint">O painel alerta quando o stock disponível atingir este limite.</small>
+          </label>
+
+          <label class="field">
+
+            <span>Imagem — URL</span>
+
+            <input
+              id="pImage"
+              placeholder="https://..."
+            />
+
+          </label>
+
+
+          <div class="field">
+
+            <span>Ou carregar imagem</span>
+
+            <input
+              type="file"
+              id="pImageFile"
+              accept="image/*"
+            />
+
+          </div>
+
+
+          <div class="modal-actions">
+
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="pDelete"
+              hidden
+            >
+              <i class="ph ph-trash"></i>
+              Eliminar
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              <i class="ph ph-check"></i>
+              Guardar
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONFIRM MODAL
+    ====================================================== -->
+
+    <div
+      class="modal-overlay"
+      id="confirmModal"
+    >
+
+      <div class="modal confirm-modal">
+
+        <div class="confirm-icon">
+          <i class="ph ph-warning"></i>
+        </div>
+
+        <h3 id="confirmTitle">
+          Confirmar
+        </h3>
+
+        <p id="confirmMsg"></p>
+
+        <div class="modal-actions">
+
+          <button
+            class="btn btn-ghost"
+            id="confirmCancel"
+          >
+            Cancelar
+          </button>
+
+          <button
+            class="btn btn-danger"
+            id="confirmOk"
+          >
+            Sim
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TERMS ACCEPTANCE MODAL
+  ====================================================== -->
+
+  <div class="terms-overlay" id="termsOverlay">
+    <div class="terms-sheet">
+      <h2>Termos e condições</h2>
+      <p class="terms-sub">
+        Para continuar a usar a ISANOMAR Store, precisamos que leia e aceite os nossos termos.
+      </p>
+
+      <div class="terms-content" id="termsContent">
+        <h4>1. Âmbito e aceitação dos termos</h4>
+        <p>Ao aceder, navegar ou utilizar o website da ISANOMAR Store, o utilizador declara que leu, compreendeu e aceita os presentes Termos e Condições. Caso não concorde com alguma das disposições deste documento, deverá deixar de utilizar o website e os respectivos serviços.</p>
+        <p><strong>Importante:</strong> A realização de uma encomenda através da plataforma implica também a aceitação das condições aplicáveis à compra.</p>
+
+        <h4>2. Sobre a ISANOMAR Store</h4>
+        <p>A ISANOMAR Store é uma loja online dedicada à comercialização de acessórios e outros produtos destinados ao público feminino e masculino, com operações em Angola.</p>
+        <p>A disponibilidade dos produtos, áreas de entrega, métodos de pagamento e demais condições comerciais podem variar de acordo com a localização do cliente e com as condições operacionais existentes no momento da encomenda.</p>
+
+        <h4>3. Produtos, disponibilidade e preços</h4>
+        <p>Procuramos apresentar informações corretas sobre os produtos, incluindo imagens, descrições, características e preços. No entanto, pequenas diferenças de cor ou aparência podem ocorrer dependendo do dispositivo utilizado pelo cliente.</p>
+        <p>Os preços são apresentados em Kwanzas (Kz) e podem ser alterados sem aviso prévio. O preço aplicável a uma encomenda será o apresentado no momento da confirmação da mesma.</p>
+        <p>A apresentação de um produto no website não garante que o mesmo permaneça disponível. Em caso de ruptura de stock, a ISANOMAR Store poderá contactar o cliente para apresentar uma alternativa ou proceder ao cancelamento da encomenda.</p>
+
+        <h4>4. Encomendas</h4>
+        <p>O cliente é responsável por fornecer informações corretas e completas no momento da realização da encomenda, especialmente o nome, número de telefone, morada e outros dados necessários para a entrega.</p>
+        <p>Uma encomenda será considerada confirmada após validação pela ISANOMAR Store, podendo ser realizado contacto telefónico ou através de WhatsApp para confirmação dos dados.</p>
+        <p>Reservamo-nos o direito de recusar ou cancelar uma encomenda quando existam motivos operacionais, indisponibilidade do produto, dados incorretos ou impossibilidade de realizar a entrega.</p>
+
+        <h4>5. Pagamentos</h4>
+        <p>Os métodos de pagamento disponíveis podem variar conforme a encomenda e a localização do cliente. Entre os métodos disponibilizados poderão estar:</p>
+        <ul>
+          <li>Pagamento no momento da entrega;</li>
+          <li>Transferência bancária;</li>
+          <li>Transferências através de soluções Multicaixa;</li>
+          <li>Outros métodos disponibilizados pela loja.</li>
+        </ul>
+        <p>Eventuais pagamentos em prestações dependem de confirmação prévia e das condições específicas acordadas entre a loja e o cliente.</p>
+
+        <h4>6. Entregas</h4>
+        <p>A ISANOMAR Store realiza entregas em Luanda e poderá realizar entregas noutras províncias de Angola, de acordo com a disponibilidade do serviço para cada localização.</p>
+        <p>Os custos de entrega dependem da localização e das condições aplicáveis à encomenda e serão comunicados ao cliente durante o processo de compra.</p>
+        <p>O prazo estimado de entrega poderá variar normalmente entre 1 e 5 dias úteis, dependendo da localização, disponibilidade do produto e condições logísticas. Os prazos apresentados são estimativas e podem sofrer alterações devido a factores logísticos ou circunstâncias fora do controlo da loja.</p>
+
+        <h4>7. Devoluções e trocas</h4>
+        <p>O cliente poderá solicitar uma devolução até 7 dias após a recepção do produto, desde que sejam cumpridas as condições aplicáveis.</p>
+        <p>Para que uma devolução seja aceite, o produto deverá:</p>
+        <ul>
+          <li>Estar sem sinais de utilização que ultrapassem a simples verificação do produto;</li>
+          <li>Manter-se em condições adequadas para revenda;</li>
+          <li>Ser devolvido, sempre que aplicável, com a embalagem e acessórios originais;</li>
+          <li>Não apresentar danos provocados pelo cliente.</li>
+        </ul>
+        <p>O pedido de devolução deverá ser realizado através dos canais oficiais de contacto da ISANOMAR Store, indicando o número ou referência da encomenda e o motivo do pedido. Produtos que apresentem defeitos de fabrico serão analisados individualmente para determinar a solução adequada.</p>
+
+        <h4>8. Privacidade e dados pessoais</h4>
+        <p>Para processar encomendas e prestar o serviço, poderemos recolher dados fornecidos voluntariamente pelo cliente, incluindo nome, número de telefone, endereço de entrega e informações necessárias ao pagamento ou atendimento.</p>
+        <p>Os dados são utilizados para finalidades relacionadas com o funcionamento da loja, nomeadamente processamento de encomendas, entregas, comunicação com o cliente e atendimento.</p>
+        <p>A ISANOMAR Store procura adoptar medidas adequadas para proteger as informações dos seus clientes e não comercializa dados pessoais como produto.</p>
+
+        <h4>9. Responsabilidade</h4>
+        <p>A ISANOMAR Store empenha-se em manter o website disponível e as informações actualizadas, mas não garante que o serviço esteja permanentemente livre de interrupções, erros ou indisponibilidades.</p>
+        <p>A loja não poderá ser responsabilizada por atrasos ou impossibilidade de entrega resultantes de acontecimentos fora do seu controlo razoável, incluindo problemas de transporte, condições meteorológicas adversas, greves, interrupções de serviços ou outros eventos de força maior.</p>
+
+        <h4>10. Propriedade intelectual</h4>
+        <p>Os textos, imagens, fotografias, logotipos, elementos gráficos, identidade visual, layout e demais conteúdos disponibilizados no website pertencem à ISANOMAR Store ou são utilizados com autorização dos respectivos titulares.</p>
+        <p>É proibida a reprodução, cópia, distribuição, modificação ou utilização comercial desses conteúdos sem autorização prévia, excepto quando permitido pela legislação aplicável.</p>
+
+        <h4>11. Alterações aos Termos e Condições</h4>
+        <p>A ISANOMAR Store poderá actualizar ou alterar estes Termos e Condições sempre que necessário para reflectir mudanças nos serviços, procedimentos comerciais ou requisitos legais.</p>
+        <p>A versão mais recente estará sempre disponível nesta página. Recomendamos que os utilizadores consultem periodicamente este documento.</p>
+
+        <h4>12. Lei aplicável e resolução de conflitos</h4>
+        <p>Os presentes Termos e Condições são interpretados de acordo com a legislação aplicável na República de Angola.</p>
+        <p>Em caso de reclamação ou divergência relacionada com os serviços ou uma encomenda, as partes procurarão, sempre que possível, resolver a questão de forma amigável através dos canais de atendimento da ISANOMAR Store.</p>
+
+        <h4>13. Contacto</h4>
+        <p>Para dúvidas, pedidos de informação, reclamações ou assuntos relacionados com estes Termos e Condições, utilize um dos canais oficiais abaixo:</p>
+        <ul>
+          <li><strong>WhatsApp:</strong> +244 930 806 413</li>
+          <li><strong>Email:</strong> isanomarStore@gmail.com</li>
+          <li><strong>Website:</strong> isanomarStore.com.ao</li>
+        </ul>
+      </div><div class="terms-actions">
+        <button class="btn btn-ghost" id="termsDecline">
+          Recusar
+        </button>
+        <button class="btn btn-primary" id="termsAccept">
+          <i class="ph ph-check-circle"></i>
+          Aceitar e continuar
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       COOKIE BANNER
+  ====================================================== -->
+
+  <div class="cookie-banner" id="cookieBanner">
+    <i class="ph ph-cookie"></i>
+    <p>
+      Utilizamos cookies para melhorar a sua experiência.
+      <a href="termo.html" target="_blank">Saber mais</a>
+    </p>
+    <button class="btn btn-primary btn-sm" id="cookieAccept">
+      Aceitar
+    </button>
+  </div>
+
+
+  <!-- Toast -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+    <i class="ph ph-check-circle"></i>
+    <span></span>
+  </div>
+
+
+  <!-- Scripts -->
+
+  <script src="api.js?v=5.1.0"></script>
+
+  <script
+    type="module"
+    src="app.js?v=5.1.0"
+  ></script>
+
+  <script src="dashboard.js?v=5.1.0"></script>
+
+  <script
+    type="module"
+    src="admin.js?v=5.1.0"
+  ></script>
+
+</body>
+</html>

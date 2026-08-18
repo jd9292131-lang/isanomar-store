@@ -1,0 +1,1203 @@
+
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <meta
+    name="description"
+    content="Conheça a ISANOMAR store, a nossa história, missão, valores e compromisso com os nossos clientes em Angola."
+  />
+
+  <title>Sobre Nós — ISANOMAR store</title>
+
+  <link rel="icon" href="assets/logo.jpg" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --about-blue: #0b4aa2;
+      --about-blue-dark: #073676;
+      --about-yellow: #ffc233;
+      --about-text: #172033;
+      --about-muted: #667085;
+      --about-light: #f7f9fc;
+      --about-border: #e5e9f0;
+      --about-white: #ffffff;
+      --about-radius: 18px;
+      --about-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--about-light);
+      color: var(--about-text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==============================
+       HEADER
+    ============================== */
+
+    .about-header {
+      background: #fff;
+      border-bottom: 1px solid var(--about-border);
+    }
+
+    .about-header-inner {
+      width: min(1100px, calc(100% - 32px));
+      min-height: 82px;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .about-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .about-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--about-border);
+    }
+
+    .about-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .about-brand-name {
+      color: var(--about-blue-dark);
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: -0.2px;
+    }
+
+    .about-brand-subtitle {
+      color: var(--about-muted);
+      font-size: 12px;
+    }
+
+    .about-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 10px 15px;
+      border: 1px solid var(--about-border);
+      border-radius: 10px;
+
+      color: var(--about-blue-dark);
+      background: #fff;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition: 0.2s ease;
+    }
+
+    .about-back:hover {
+      background: var(--about-light);
+      transform: translateY(-1px);
+    }
+
+    /* ==============================
+       MAIN
+    ============================== */
+
+    .about-container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    /* ==============================
+       HERO
+    ============================== */
+
+    .about-hero {
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 40px;
+
+      min-height: 420px;
+      padding: 48px;
+
+      border: 1px solid var(--about-border);
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #ffffff 55%,
+          #edf4ff 100%
+        );
+
+      box-shadow: var(--about-shadow);
+    }
+
+    .about-hero::before {
+      content: "";
+      position: absolute;
+
+      width: 230px;
+      height: 230px;
+
+      right: -100px;
+      bottom: -110px;
+
+      border-radius: 50%;
+      background: rgba(255, 194, 51, 0.18);
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-label {
+      display: inline-flex;
+      align-items: center;
+
+      padding: 7px 11px;
+      margin-bottom: 17px;
+
+      border-radius: 999px;
+      background: #edf4ff;
+
+      color: var(--about-blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .about-title {
+      margin: 0 0 16px;
+
+      color: var(--about-blue-dark);
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -1.8px;
+      font-weight: 900;
+    }
+
+    .about-title span {
+      color: var(--about-blue);
+    }
+
+    .about-hero-description {
+      max-width: 650px;
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .about-hero-visual {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo-card {
+      width: min(280px, 100%);
+      aspect-ratio: 1 / 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 22px;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: 28px;
+
+      box-shadow:
+        0 20px 50px rgba(11, 74, 162, 0.12);
+    }
+
+    .hero-logo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+    }
+
+    /* ==============================
+       SECTIONS
+    ============================== */
+
+    .about-section {
+      margin-top: 28px;
+    }
+
+    .about-section-header {
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+
+    .about-section-label {
+      display: block;
+      margin-bottom: 6px;
+
+      color: var(--about-blue);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .about-section-title {
+      margin: 0 0 8px;
+
+      color: var(--about-blue-dark);
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.7px;
+      font-weight: 850;
+    }
+
+    .about-section-description {
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ==============================
+       STORY
+    ============================== */
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .story-card {
+      padding: 28px;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: var(--about-radius);
+      box-shadow: var(--about-shadow);
+    }
+
+    .story-card h3 {
+      margin: 0 0 12px;
+
+      color: var(--about-blue-dark);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .story-card p {
+      margin: 0;
+
+      color: #566174;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* ==============================
+       MISSION / VISION
+    ============================== */
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .mission-card {
+      padding: 24px;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: var(--about-radius);
+      box-shadow: var(--about-shadow);
+    }
+
+    .mission-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 17px;
+
+      border-radius: 12px;
+      background: #edf4ff;
+
+      color: var(--about-blue);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .mission-card h3 {
+      margin: 0 0 8px;
+
+      color: var(--about-blue-dark);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .mission-card p {
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* ==============================
+       VALUES
+    ============================== */
+
+    .values-card {
+      padding: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b4aa2 0%,
+          #073676 100%
+        );
+
+      border-radius: var(--about-radius);
+      box-shadow: 0 15px 40px rgba(7, 54, 118, 0.18);
+    }
+
+    .values-card-header {
+      max-width: 600px;
+      margin-bottom: 22px;
+    }
+
+    .values-card .about-section-label {
+      color: var(--about-yellow);
+    }
+
+    .values-card h2 {
+      margin: 0 0 8px;
+
+      color: #fff;
+      font-size: 26px;
+      font-weight: 850;
+    }
+
+    .values-card-header p {
+      margin: 0;
+
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .value-item {
+      padding: 18px;
+
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 13px;
+
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .value-item strong {
+      display: block;
+      margin-bottom: 6px;
+
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .value-item span {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       EXPERIENCE
+    ============================== */
+
+    .experience {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 18px;
+    }
+
+    .experience-highlight {
+      padding: 30px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: var(--about-radius);
+      box-shadow: var(--about-shadow);
+    }
+
+    .experience-highlight strong {
+      display: block;
+      margin-bottom: 10px;
+
+      color: var(--about-blue);
+      font-size: 36px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .experience-highlight h3 {
+      margin: 0 0 8px;
+
+      color: var(--about-blue-dark);
+      font-size: 20px;
+      font-weight: 850;
+    }
+
+    .experience-highlight p {
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .experience-list {
+      padding: 26px;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: var(--about-radius);
+      box-shadow: var(--about-shadow);
+    }
+
+    .experience-item {
+      display: flex;
+      gap: 14px;
+      padding: 13px 0;
+    }
+
+    .experience-item + .experience-item {
+      border-top: 1px solid var(--about-border);
+    }
+
+    .experience-check {
+      flex: 0 0 28px;
+
+      width: 28px;
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+      background: #edf4ff;
+      color: var(--about-blue);
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .experience-item strong {
+      display: block;
+      margin-bottom: 3px;
+
+      color: var(--about-text);
+      font-size: 14px;
+    }
+
+    .experience-item p {
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       CTA
+    ============================== */
+
+    .about-cta {
+      margin-top: 28px;
+      padding: 34px;
+
+      text-align: center;
+
+      background: #fff;
+      border: 1px solid var(--about-border);
+      border-radius: var(--about-radius);
+      box-shadow: var(--about-shadow);
+    }
+
+    .about-cta img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 14px;
+    }
+
+    .about-cta h2 {
+      margin: 0 0 8px;
+
+      color: var(--about-blue-dark);
+      font-size: 24px;
+      font-weight: 850;
+    }
+
+    .about-cta p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+
+      color: var(--about-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .about-cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 44px;
+      padding: 0 20px;
+
+      border-radius: 11px;
+      background: var(--about-blue);
+
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+
+      transition: 0.2s ease;
+    }
+
+    .about-cta-button:hover {
+      background: var(--about-blue-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .about-footer {
+      padding-top: 30px;
+      text-align: center;
+    }
+
+    .about-footer img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 11px;
+      margin-bottom: 9px;
+    }
+
+    .about-footer p {
+      margin: 0 0 4px;
+
+      color: var(--about-muted);
+      font-size: 12px;
+    }
+
+    .about-footer small {
+      color: #98a1af;
+      font-size: 11px;
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 800px) {
+      .about-hero {
+        grid-template-columns: 1fr;
+        padding: 34px 28px;
+      }
+
+      .about-hero-visual {
+        justify-content: flex-start;
+      }
+
+      .hero-logo-card {
+        width: 180px;
+        border-radius: 20px;
+      }
+
+      .mission-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .experience {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .about-container {
+        width: min(100% - 20px, 1100px);
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      .about-header-inner {
+        width: calc(100% - 20px);
+        min-height: 70px;
+      }
+
+      .about-logo {
+        width: 42px;
+        height: 42px;
+      }
+
+      .about-brand-subtitle {
+        display: none;
+      }
+
+      .about-back span {
+        display: none;
+      }
+
+      .about-back {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+      }
+
+      .about-hero {
+        min-height: auto;
+        padding: 27px 20px;
+        border-radius: 17px;
+        gap: 24px;
+      }
+
+      .about-title {
+        font-size: 34px;
+        letter-spacing: -1.2px;
+      }
+
+      .about-hero-description {
+        font-size: 14px;
+      }
+
+      .hero-logo-card {
+        width: 150px;
+      }
+
+      .about-section {
+        margin-top: 20px;
+      }
+
+      .about-section-title {
+        font-size: 23px;
+      }
+
+      .story-grid,
+      .mission-grid,
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card,
+      .mission-card {
+        padding: 22px;
+      }
+
+      .values-card {
+        padding: 23px 18px;
+      }
+
+      .values-card h2 {
+        font-size: 22px;
+      }
+
+      .experience-highlight,
+      .experience-list {
+        padding: 22px;
+      }
+
+      .about-cta {
+        padding: 27px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================
+       HEADER
+  ============================= -->
+
+  <header class="about-header">
+    <div class="about-header-inner">
+
+      <a href="index.html" class="about-brand" aria-label="ISANOMAR store">
+
+        <img
+          src="assets/logo.jpg"
+          alt="Logotipo ISANOMAR store"
+          class="about-logo"
+        />
+
+        <span class="about-brand-text">
+          <span class="about-brand-name">ISANOMAR store</span>
+          <span class="about-brand-subtitle">Sobre Nós</span>
+        </span>
+
+      </a>
+
+      <a href="index.html" class="about-back" aria-label="Voltar à loja">
+        <span>Voltar à loja</span>
+        <span aria-hidden="true">←</span>
+      </a>
+
+    </div>
+  </header>
+
+
+  <main class="about-container">
+
+    <!-- ============================
+         HERO
+    ============================= -->
+
+    <section class="about-hero">
+
+      <div class="about-hero-content">
+
+        <span class="about-label">
+          A nossa história
+        </span>
+
+        <h1 class="about-title">
+          Mais do que uma loja.<br />
+          <span>Uma história para contar.</span>
+        </h1>
+
+        <p class="about-hero-description">
+          A ISANOMAR store nasceu com o propósito de tornar a experiência
+          de comprar acessórios e produtos de qualidade mais simples,
+          próxima e especial para os nossos clientes em Angola.
+        </p>
+
+      </div>
+
+      <div class="about-hero-visual">
+
+        <div class="hero-logo-card">
+
+          <img
+            src="assets/logo.jpg"
+            alt="ISANOMAR store"
+          />
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================
+         HISTÓRIA
+    ============================= -->
+
+    <section class="about-section">
+
+      <div class="about-section-header">
+
+        <span class="about-section-label">
+          Quem somos
+        </span>
+
+        <h2 class="about-section-title">
+          Feita para pessoas que valorizam cada detalhe.
+        </h2>
+
+        <p class="about-section-description">
+          Acreditamos que pequenos detalhes podem fazer uma grande diferença.
+          Por isso, procuramos reunir produtos que combinem estilo,
+          utilidade e personalidade.
+        </p>
+
+      </div>
+
+      <div class="story-grid">
+
+        <article class="story-card">
+
+          <h3>Uma marca angolana</h3>
+
+          <p>
+            A ISANOMAR store é uma marca voltada para o mercado angolano,
+            criada para oferecer uma experiência de compra moderna,
+            acessível e adaptada à realidade dos nossos clientes.
+          </p>
+
+        </article>
+
+        <article class="story-card">
+
+          <h3>Uma experiência simples</h3>
+
+          <p>
+            Desde a escolha do produto até à entrega, procuramos tornar
+            cada etapa clara e conveniente. O nosso objectivo é que o
+            cliente compre com confiança e receba um atendimento próximo.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================
+         MISSÃO / VISÃO / PROPÓSITO
+    ============================= -->
+
+    <section class="about-section">
+
+      <div class="about-section-header">
+
+        <span class="about-section-label">
+          O que nos move
+        </span>
+
+        <h2 class="about-section-title">
+          O nosso propósito
+        </h2>
+
+        <p class="about-section-description">
+          Cada decisão da ISANOMAR store parte de uma ideia simples:
+          criar valor para quem escolhe comprar connosco.
+        </p>
+
+      </div>
+
+      <div class="mission-grid">
+
+        <article class="mission-card">
+
+          <div class="mission-icon">◎</div>
+
+          <h3>Missão</h3>
+
+          <p>
+            Disponibilizar produtos seleccionados e proporcionar uma
+            experiência de compra prática, segura e agradável.
+          </p>
+
+        </article>
+
+
+        <article class="mission-card">
+
+          <div class="mission-icon">↗</div>
+
+          <h3>Visão</h3>
+
+          <p>
+            Tornar a ISANOMAR store uma referência no comércio online
+            de acessórios e produtos em Angola.
+          </p>
+
+        </article>
+
+
+        <article class="mission-card">
+
+          <div class="mission-icon">♡</div>
+
+          <h3>Propósito</h3>
+
+          <p>
+            Criar relações duradouras com os nossos clientes através
+            de confiança, qualidade e atenção aos detalhes.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================
+         VALORES
+    ============================= -->
+
+    <section class="about-section">
+
+      <div class="values-card">
+
+        <div class="values-card-header">
+
+          <span class="about-section-label">
+            Os nossos valores
+          </span>
+
+          <h2>
+            O que queremos que esteja presente em cada compra.
+          </h2>
+
+          <p>
+            Os nossos valores orientam a forma como seleccionamos produtos,
+            comunicamos com os clientes e construímos a nossa marca.
+          </p>
+
+        </div>
+
+
+        <div class="values-grid">
+
+          <div class="value-item">
+            <strong>Confiança</strong>
+            <span>
+              Comunicação transparente e compromisso com o cliente.
+            </span>
+          </div>
+
+          <div class="value-item">
+            <strong>Qualidade</strong>
+            <span>
+              Atenção à selecção e apresentação dos nossos produtos.
+            </span>
+          </div>
+
+          <div class="value-item">
+            <strong>Proximidade</strong>
+            <span>
+              Atendimento humano, simples e acessível.
+            </span>
+          </div>
+
+          <div class="value-item">
+            <strong>Inovação</strong>
+            <span>
+              Procuramos melhorar continuamente a experiência de compra.
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================
+         EXPERIÊNCIA
+    ============================= -->
+
+    <section class="about-section">
+
+      <div class="experience">
+
+        <div class="experience-highlight">
+
+          <strong>01</strong>
+
+          <h3>
+            Uma experiência pensada para si.
+          </h3>
+
+          <p>
+            Não queremos apenas vender um produto. Queremos que cada
+            contacto com a ISANOMAR store seja simples, claro e positivo.
+          </p>
+
+        </div>
+
+
+        <div class="experience-list">
+
+          <div class="experience-item">
+
+            <div class="experience-check">✓</div>
+
+            <div>
+              <strong>Produtos seleccionados</strong>
+
+              <p>
+                Procuramos apresentar opções que correspondam ao estilo,
+                utilidade e necessidades dos nossos clientes.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="experience-item">
+
+            <div class="experience-check">✓</div>
+
+            <div>
+              <strong>Atendimento próximo</strong>
+
+              <p>
+                Estamos disponíveis para esclarecer dúvidas e ajudar
+                durante o processo de compra.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="experience-item">
+
+            <div class="experience-check">✓</div>
+
+            <div>
+              <strong>Entrega conveniente</strong>
+
+              <p>
+                Trabalhamos para tornar o processo de entrega simples
+                e adequado à localização do cliente.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="experience-item">
+
+            <div class="experience-check">✓</div>
+
+            <div>
+              <strong>Relação de longo prazo</strong>
+
+              <p>
+                Valorizamos cada cliente e queremos que a sua experiência
+                seja motivo para voltar.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================
+         CTA
+    ============================= -->
+
+    <section class="about-cta">
+
+      <img
+        src="assets/logo.jpg"
+        alt="ISANOMAR store"
+      />
+
+      <h2>
+        Obrigado por fazer parte da nossa história.
+      </h2>
+
+      <p>
+        A ISANOMAR store continua a crescer com cada cliente,
+        cada encomenda e cada experiência partilhada.
+        Esperamos fazer parte da sua próxima escolha.
+      </p>
+
+      <a href="index.html" class="about-cta-button">
+        Conhecer a nossa loja
+      </a>
+
+    </section>
+
+
+    <!-- ============================
+         FOOTER
+    ============================= -->
+
+    <footer class="about-footer">
+
+      <img
+        src="assets/logo.jpg"
+        alt="ISANOMAR store"
+      />
+
+      <p>
+        © 2026 ISANOMAR store. Todos os direitos reservados.
+      </p>
+
+      <small>
+        Feito com dedicação em Angola.
+      </small>
+
+    </footer>
+
+  </main>
+
+</body>
+</html>

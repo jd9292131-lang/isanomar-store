@@ -1,0 +1,255 @@
+{
+  "settings": [
+    {
+      "id": 1,
+      "shop_name": "ISANOMAR STORE",
+      "phone": "+244 930806413",
+      "iban": "0006 0000 10979158301 70",
+      "max_install": 3,
+      "delivery_other": 5000,
+      "delivery_municipalities": "[]"
+    }
+  ],
+  "categories": [
+    {
+      "id": "f",
+      "name": "Feminino",
+      "emoji": "👗"
+    },
+    {
+      "id": "m",
+      "name": "Masculino",
+      "emoji": "👔"
+    },
+    {
+      "id": "rel",
+      "name": "Relógios",
+      "emoji": "⌚"
+    },
+    {
+      "id": "bolsas",
+      "name": "Bolsas",
+      "emoji": "👜"
+    },
+    {
+      "id": "neria",
+      "name": "Neria/Panos",
+      "emoji": "🧣"
+    },
+    {
+      "id": "perucas",
+      "name": "Perucas",
+      "emoji": "💇‍♀️"
+    },
+    {
+      "id": "moveis",
+      "name": "Móbeis",
+      "emoji": "📱"
+    },
+    {
+      "id": "sapatos",
+      "name": "Sapatos",
+      "emoji": "👟"
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "Brincos Dourados Clássicos",
+      "price": 6500,
+      "cat_id": "f",
+      "genre": "f",
+      "description": "Brincos dourados elegantes para o dia a dia.",
+      "image_url": "",
+      "emoji": "💍",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.930Z"
+    },
+    {
+      "id": "p2",
+      "name": "Relógio Masculino Aço",
+      "price": 18500,
+      "cat_id": "rel",
+      "genre": "m",
+      "description": "Relógio em aço inoxidável com pulseira resistente.",
+      "image_url": "",
+      "emoji": "⌚",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p3",
+      "name": "Bolsas de Pano Africano",
+      "price": 12000,
+      "cat_id": "bolsas",
+      "genre": "f",
+      "description": "Bolsa em tecido tradicional angolano, várias cores.",
+      "image_url": "",
+      "emoji": "",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p4",
+      "name": "Móbel Xiaomi (Telemóvel)",
+      "price": 240000,
+      "cat_id": "moveis",
+      "genre": "unisex",
+      "description": "Telemóvel Xiaomi novo, selado, com garantia.",
+      "image_url": "",
+      "emoji": "📱",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p5",
+      "name": "Neria Luxo Casamento",
+      "price": 35000,
+      "cat_id": "neria",
+      "genre": "f",
+      "description": "Neria para casamento e ocasiões especiais.",
+      "image_url": "",
+      "emoji": "🧣",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p6",
+      "name": "Peruca Cacheadas Natural",
+      "price": 28000,
+      "cat_id": "perucas",
+      "genre": "f",
+      "description": "Peruca de qualidade, cabelo ondulado.",
+      "image_url": "",
+      "emoji": "💇‍♀️",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p7",
+      "name": "Sapatos Masculinos Couro",
+      "price": 22000,
+      "cat_id": "sapatos",
+      "genre": "m",
+      "description": "Sapatos de couro, conforto para o dia a dia.",
+      "image_url": "",
+      "emoji": "👞",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.935Z"
+    },
+    {
+      "id": "p8",
+      "name": "Colar de Prata Feminino",
+      "price": 9800,
+      "cat_id": "f",
+      "genre": "f",
+      "description": "Colar delicado de prata com pingente.",
+      "image_url": "",
+      "emoji": "📿",
+      "active": 0,
+      "created_at": "2026-08-15T17:14:36.936Z"
+    },
+    {
+      "id": "p-msuqsyoh-9869",
+      "name": "Relógio GMT",
+      "price": 17500,
+      "cat_id": "rel",
+      "genre": "m",
+      "description": "",
+      "image_url": "/uploads/1786820521406-i8syzx.jpg",
+      "emoji": "",
+      "active": 1,
+      "created_at": "2026-08-15T19:02:02.156Z"
+    },
+    {
+      "id": "p-msx86vgr-9xi8",
+      "name": "Peruca Lace wig AfroCacheada curta",
+      "price": 64995,
+      "cat_id": "f",
+      "genre": "f",
+      "description": "Peruca cacheada cor preta.",
+      "image_url": "https://down-br.img.susercontent.com/file/sg-11134201-7rbl0-lmes6x2wgwr4a5",
+      "emoji": "",
+      "active": 1,
+      "created_at": "2026-08-17T12:44:16.972Z"
+    },
+    {
+      "id": "p-msx8chb9-g1v8",
+      "name": "Sapato ZARA",
+      "price": 25000,
+      "cat_id": "sapatos",
+      "genre": "m",
+      "description": "Sapatos com volume com Orla",
+      "image_url": "https://i.pinimg.com/originals/41/9c/51/419c51eb8a099b7e6d926f1f66cb945c.jpg",
+      "emoji": "",
+      "active": 1,
+      "created_at": "2026-08-17T12:48:38.565Z"
+    },
+    {
+      "id": "p-msx8h5wg-200u",
+      "name": "Bolsa NEWFASHION",
+      "price": 10000,
+      "cat_id": "bolsas",
+      "genre": "f",
+      "description": "Bolsa quadrada Mini Acolchoado Detalhe de Metal",
+      "image_url": "https://i.pinimg.com/originals/ec/b0/eb/ecb0eb3e5e849b529aaf70b3749438f2.jpg",
+      "emoji": "",
+      "active": 1,
+      "created_at": "2026-08-17T12:52:17.056Z"
+    }
+  ],
+  "lots": [],
+  "orders": [
+    {
+      "id": "ISN-MSWKGPH7-OE5H",
+      "name": "Mingo",
+      "phone": "98765554",
+      "province": "Luanda",
+      "municipality": "Viana",
+      "address": "rua 1",
+      "method": "cod",
+      "install": null,
+      "subtotal": 12000,
+      "delivery": 2500,
+      "total": 14500,
+      "status": "cancelado",
+      "created_at": "2026-08-17T01:40:05.008Z"
+    },
+    {
+      "id": "ISN-MSXBSIA4-RBVP",
+      "name": "Rtyuuu",
+      "phone": "2588888",
+      "province": "Huíla",
+      "municipality": "",
+      "address": "Rrrcg",
+      "method": "cod",
+      "install": null,
+      "subtotal": 25000,
+      "delivery": 5000,
+      "total": 30000,
+      "status": "cancelado",
+      "created_at": "2026-08-17T14:25:05.164Z"
+    }
+  ],
+  "order_items": [
+    {
+      "id": 1,
+      "order_id": "ISN-MSWKGPH7-OE5H",
+      "product_id": "p-msuqsyoh-9869",
+      "name": "Relógio GMT",
+      "price": 12000,
+      "qty": 1
+    },
+    {
+      "id": 2,
+      "order_id": "ISN-MSXBSIA4-RBVP",
+      "product_id": "p-msx8chb9-g1v8",
+      "name": "Sapato ZARA",
+      "price": 25000,
+      "qty": 1
+    }
+  ],
+  "order_item_lots": [],
+  "order_installments": [],
+  "audit_logs": []
+}
