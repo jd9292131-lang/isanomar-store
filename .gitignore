@@ -9,3 +9,5 @@ public/uploads/*
 !public/uploads/.gitkeep
 
 backups/
+.vercel
+.env*
