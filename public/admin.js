@@ -28,6 +28,7 @@ const STATUS_LABEL = {
 const PAY_LABEL = {
   cod: 'Entrega',
   transfer: 'Transferência',
+  express: 'MULTICAIXA Express',
   install: 'Prestações'
 };
 
@@ -190,7 +191,8 @@ async function renderTab() {
 // LOGIN
 // ============================================================
 
-$('#adminLoginBtn').onclick = async () => {
+const adminLoginBtn = $('#adminLoginBtn');
+if (adminLoginBtn) adminLoginBtn.onclick = async () => {
   const password = $('#adminPass').value.trim();
 
   if (!password) {
@@ -238,7 +240,7 @@ $('#adminLoginBtn').onclick = async () => {
 };
 
 
-$('#adminPass').addEventListener(
+$('#adminPass')?.addEventListener(
   'keydown',
   (e) => {
     if (e.key === 'Enter') {
