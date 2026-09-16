@@ -3813,3 +3813,1092 @@ html[data-theme="light"] .admin-tabs .tab.active { background: #ffffff !importan
 html[data-theme="light"] .admin-row,
 html[data-theme="light"] .admin-add-card,
 html[data-theme="light"] .admin-login { background: #ffffff !important; color: #101828 !important; }
+/* ==========================================================
+   ISANOMAR
+   PREMIUM MOBILE REDESIGN — V1
+   Identidade baseada no logotipo oficial
+========================================================== */
+
+:root {
+  /* ========================================================
+     BRAND
+  ======================================================== */
+
+  --isanomar-navy: #101d35;
+  --isanomar-navy-dark: #091326;
+  --isanomar-navy-soft: #182641;
+
+  --isanomar-gold: #c5a15a;
+  --isanomar-gold-light: #dcc58e;
+  --isanomar-gold-soft: #f7f1e4;
+
+  --isanomar-cream: #f8f5ef;
+  --isanomar-cream-dark: #f1ece2;
+
+  --isanomar-white: #ffffff;
+
+  --isanomar-text: #172237;
+  --isanomar-text-soft: #667085;
+  --isanomar-muted: #8a8f98;
+
+  --isanomar-line: #e9e3d8;
+  --isanomar-line-light: #f1ede6;
+
+  /* ========================================================
+     OVERRIDE CORE COLORS
+  ======================================================== */
+
+  --blue-950: #101d35;
+  --ink: #101d35;
+  --ink-soft: #28344a;
+
+  --blue-900: #101d35;
+  --blue-800: #182641;
+  --blue-700: #263957;
+  --blue-600: #92733c;
+  --blue-500: #b28f4f;
+
+  --blue-soft: #f7f3ea;
+  --blue-softer: #fbfaf7;
+
+  --gold: #c5a15a;
+  --gold-soft: #f7f1e4;
+
+  --muted: #667085;
+  --muted-2: #9398a1;
+
+  --line: #e9e3d8;
+  --line-dark: #d8d0c3;
+
+  --background: #f8f5ef;
+
+  --glass: #ffffff;
+  --glass-border: #e9e3d8;
+
+  /* ========================================================
+     PREMIUM SHADOWS
+  ======================================================== */
+
+  --shadow-xs:
+    0 1px 2px rgba(16, 29, 53, .035);
+
+  --shadow-sm:
+    0 3px 12px rgba(16, 29, 53, .055);
+
+  --shadow-md:
+    0 7px 22px rgba(16, 29, 53, .075);
+
+  --shadow-lg:
+    0 14px 40px rgba(16, 29, 53, .11);
+
+  /* ========================================================
+     RADII
+  ======================================================== */
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+
+/* ==========================================================
+   GLOBAL
+========================================================== */
+
+html {
+  background: var(--isanomar-cream);
+}
+
+body {
+  background: var(--isanomar-cream);
+  color: var(--isanomar-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.header {
+  background: rgba(255, 255, 255, .96);
+  border-bottom: 1px solid var(--isanomar-line-light);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.header-inner {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+
+/* ==========================================================
+   HEADER BUTTONS
+========================================================== */
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 13px;
+
+  background: transparent;
+  color: var(--isanomar-navy);
+
+  box-shadow: none;
+
+  transition:
+    background .18s ease,
+    transform .18s ease;
+}
+
+.icon-btn:active {
+  background: var(--isanomar-gold-soft);
+  transform: scale(.93);
+}
+
+.icon-btn i {
+  font-size: 21px;
+}
+
+
+/* ==========================================================
+   BRAND
+========================================================== */
+
+.brand {
+  padding: 4px 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0;
+
+  line-height: 1;
+}
+
+.brand-main {
+  color: var(--isanomar-navy);
+
+  font-size: 17px;
+  font-weight: 800;
+
+  letter-spacing: 2.2px;
+}
+
+.brand-accent {
+  margin-top: 3px;
+
+  color: var(--isanomar-gold);
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   CART BADGE
+========================================================== */
+
+.badge {
+  top: 0;
+  right: 0;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 4px;
+
+  border: 2px solid #fff;
+
+  background: var(--isanomar-gold);
+
+  color: var(--isanomar-navy);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   MAIN
+========================================================== */
+
+.main {
+  padding:
+    14px
+    14px
+    calc(
+      var(--bottom-height) +
+      env(safe-area-inset-bottom) +
+      30px
+    );
+}
+
+
+/* ==========================================================
+   HOME SECTIONS
+========================================================== */
+
+.home-section {
+  margin-bottom: 34px;
+}
+
+.section-head {
+  margin-bottom: 15px;
+}
+
+.section-kicker {
+  color: var(--isanomar-gold);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.8px;
+}
+
+.section-head h2 {
+  color: var(--isanomar-navy);
+
+  font-size: 23px;
+  font-weight: 750;
+
+  letter-spacing: -.6px;
+}
+
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+.hero {
+  margin-bottom: 34px;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--isanomar-navy-dark),
+      var(--isanomar-navy)
+    );
+
+  box-shadow:
+    0 16px 42px rgba(9, 19, 38, .18);
+}
+
+
+/*
+   O elemento visual passa a funcionar como uma área
+   editorial premium.
+*/
+
+.hero-visual {
+  min-height: 245px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(197, 161, 90, .20),
+      transparent 48%
+    );
+
+  border-bottom:
+    1px solid rgba(220, 197, 142, .15);
+}
+
+.hero-visual::before {
+  content: "";
+
+  position: absolute;
+
+  width: 190px;
+  height: 190px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(220, 197, 142, .30);
+
+  box-shadow:
+    0 0 0 10px rgba(220, 197, 142, .035),
+    0 0 0 20px rgba(220, 197, 142, .025);
+}
+
+.hero-visual i {
+  position: relative;
+  z-index: 2;
+
+  color: var(--isanomar-gold-light);
+
+  font-size: 72px;
+
+  filter:
+    drop-shadow(
+      0 10px 20px rgba(0, 0, 0, .20)
+    );
+}
+
+
+/* ==========================================================
+   HERO CONTENT
+========================================================== */
+
+.hero-content {
+  padding:
+    25px
+    21px
+    21px;
+}
+
+.hero-eyebrow {
+  margin-bottom: 15px;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: var(--isanomar-gold-light);
+
+  font-size: 9px;
+  font-weight: 750;
+
+  letter-spacing: 2px;
+}
+
+.hero-eyebrow i {
+  color: var(--isanomar-gold);
+}
+
+
+/* ==========================================================
+   HERO TITLE
+========================================================== */
+
+.hero h1 {
+  max-width: 340px;
+
+  color: #fff;
+
+  font-size: clamp(
+    31px,
+    8vw,
+    40px
+  );
+
+  line-height: 1.02;
+
+  letter-spacing: -1.4px;
+}
+
+.hero h1 span {
+  color: var(--isanomar-gold-light);
+}
+
+
+/* ==========================================================
+   HERO TEXT
+========================================================== */
+
+.hero p {
+  max-width: 330px;
+
+  margin:
+    15px
+    0
+    22px;
+
+  color: rgba(255,255,255,.68);
+
+  font-size: 13px;
+
+  line-height: 1.65;
+}
+
+
+/* ==========================================================
+   HERO BUTTON
+========================================================== */
+
+.hero-actions {
+  margin-bottom: 23px;
+}
+
+.hero-button {
+  min-height: 47px;
+
+  padding:
+    0
+    18px;
+
+  border-radius: 13px;
+
+  background: var(--isanomar-gold);
+
+  color: var(--isanomar-navy);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: .15px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.16);
+
+  transition:
+    transform .18s ease,
+    background .18s ease;
+}
+
+.hero-button:active {
+  transform: scale(.97);
+
+  background: var(--isanomar-gold-light);
+}
+
+.hero-button i {
+  font-size: 16px;
+}
+
+
+/* ==========================================================
+   HERO FEATURES
+========================================================== */
+
+.hero-features {
+  gap: 6px;
+}
+
+.hero-features div {
+  padding:
+    11px
+    5px;
+
+  border:
+    1px solid rgba(220,197,142,.15);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255,255,255,.045);
+}
+
+.hero-features i {
+  margin-bottom: 6px;
+
+  color: var(--isanomar-gold-light);
+
+  font-size: 17px;
+}
+
+.hero-features span {
+  color: rgba(255,255,255,.72);
+
+  font-size: 8.5px;
+  font-weight: 600;
+}
+
+
+/* ==========================================================
+   CATEGORIES
+========================================================== */
+
+.cat-grid {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.cat-tile {
+  min-height: 108px;
+
+  padding: 0;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  border: 0;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--isanomar-navy),
+      var(--isanomar-navy-dark)
+    );
+
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-tile:active {
+  transform: scale(.975);
+}
+
+.cat-tile .cat-icon {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(197,161,90,.17),
+      transparent 55%
+    );
+
+  color: var(--isanomar-gold-light);
+}
+
+.cat-tile .cat-icon i {
+  font-size: 42px;
+
+  opacity: .78;
+}
+
+.cat-tile .name {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+
+  padding:
+    38px
+    13px
+    12px;
+
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 750;
+
+  letter-spacing: .7px;
+  text-align: left;
+  text-transform: uppercase;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(9,19,38,.92),
+      rgba(9,19,38,.05)
+    );
+}
+
+
+/* ==========================================================
+   PRODUCT GRID
+========================================================== */
+
+.grid {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 11px;
+}
+
+.card {
+  overflow: hidden;
+
+  border:
+    1px solid var(--isanomar-line);
+
+  border-radius: 17px;
+
+  background: #fff;
+
+  box-shadow:
+    0 3px 12px rgba(16,29,53,.045);
+}
+
+.card .img,
+.card .imgph {
+  aspect-ratio: 1 / 1.08;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f7f4ed,
+      #eee9df
+    );
+}
+
+.card .img {
+  object-fit: cover;
+}
+
+.card .imgph {
+  color: var(--isanomar-gold);
+
+  font-size: 38px;
+}
+
+.card .body {
+  padding:
+    11px
+    11px
+    13px;
+}
+
+.card .gender {
+  margin-bottom: 5px;
+
+  color: var(--isanomar-gold);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.card .name {
+  min-height: 34px;
+
+  color: var(--isanomar-text);
+
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.card .price {
+  color: var(--isanomar-navy);
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.card .cat-lab {
+  color: var(--isanomar-muted);
+
+  font-size: 9px;
+}
+
+
+/* ==========================================================
+   BENEFITS
+========================================================== */
+
+.benefits {
+  gap: 8px;
+
+  margin-top: 8px;
+  margin-bottom: 30px;
+}
+
+.benefit-card {
+  min-height: 67px;
+
+  padding:
+    10px
+    12px;
+
+  border:
+    1px solid var(--isanomar-line);
+
+  border-radius: 16px;
+
+  background: #fff;
+
+  box-shadow: var(--shadow-xs);
+}
+
+.benefit-icon {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 13px;
+
+  background: var(--isanomar-gold-soft);
+
+  color: var(--isanomar-gold);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon i {
+  font-size: 20px;
+}
+
+.benefit-card strong {
+  color: var(--isanomar-navy);
+
+  font-size: 12px;
+}
+
+.benefit-card span {
+  margin-top: 2px;
+
+  color: var(--isanomar-muted);
+
+  font-size: 10px;
+}
+
+
+/* ==========================================================
+   PAGE HEADERS
+========================================================== */
+
+.page-header h1 {
+  color: var(--isanomar-navy);
+
+  font-size: 29px;
+
+  letter-spacing: -1px;
+}
+
+.header-counter {
+  background: #fff;
+
+  border:
+    1px solid var(--isanomar-line);
+
+  color: var(--isanomar-muted);
+}
+
+
+/* ==========================================================
+   DRAWER
+========================================================== */
+
+.drawer {
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fbfaf7 100%
+    );
+
+  border-right:
+    1px solid var(--isanomar-line);
+
+  box-shadow:
+    12px 0 40px rgba(16,29,53,.10);
+}
+
+.drawer-top {
+  border-bottom:
+    1px solid var(--isanomar-line-light);
+}
+
+.drawer-brand strong {
+  color: var(--isanomar-navy);
+}
+
+.drawer-brand span {
+  color: var(--isanomar-gold);
+}
+
+.brand-mark {
+  border-radius: 14px;
+
+  background: var(--isanomar-gold-soft);
+
+  border:
+    1px solid var(--isanomar-line);
+}
+
+.brand-mark img {
+  border-radius: 10px;
+}
+
+
+/* ==========================================================
+   DRAWER PROFILE
+========================================================== */
+
+.drawer-profile {
+  background:
+    linear-gradient(
+      135deg,
+      var(--isanomar-navy),
+      var(--isanomar-navy-soft)
+    );
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 8px 20px rgba(16,29,53,.10);
+}
+
+.drawer-profile strong {
+  color: #fff;
+}
+
+.drawer-profile span {
+  color: rgba(255,255,255,.62);
+}
+
+.profile-icon {
+  background:
+    rgba(197,161,90,.16);
+
+  color:
+    var(--isanomar-gold-light);
+}
+
+
+/* ==========================================================
+   DRAWER LINKS
+========================================================== */
+
+.drawer-link {
+  border-radius: 13px;
+
+  color: var(--isanomar-text);
+
+  transition:
+    background .18s ease,
+    color .18s ease;
+}
+
+.drawer-link.active {
+  background: var(--isanomar-gold-soft);
+
+  color: var(--isanomar-navy);
+
+  font-weight: 750;
+}
+
+.drawer-icon {
+  color: var(--isanomar-gold);
+}
+
+.drawer-link.active .drawer-icon {
+  color: var(--isanomar-gold);
+}
+
+.drawer-arrow {
+  color: var(--isanomar-muted);
+}
+
+
+/* ==========================================================
+   DRAWER FOOTER
+========================================================== */
+
+.drawer-footer-card {
+  background: var(--isanomar-gold-soft);
+
+  border:
+    1px solid var(--isanomar-line);
+
+  border-radius: 14px;
+}
+
+.drawer-footer-card i {
+  color: var(--isanomar-gold);
+}
+
+.drawer-footer-card strong {
+  color: var(--isanomar-navy);
+}
+
+.drawer-footer-card span {
+  color: var(--isanomar-muted);
+}
+
+.drawer-contact-link {
+  color: var(--isanomar-text-soft);
+}
+
+
+/* ==========================================================
+   BOTTOM NAVIGATION
+========================================================== */
+
+.bottom-nav {
+  background:
+    rgba(255,255,255,.97);
+
+  border-top:
+    1px solid var(--isanomar-line);
+
+  box-shadow:
+    0 -8px 25px rgba(16,29,53,.055);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.bottom-nav-item {
+  color: #8a8f98;
+}
+
+.bottom-nav-item.active {
+  color: var(--isanomar-navy);
+}
+
+.bottom-nav-item.active i {
+  color: var(--isanomar-gold);
+}
+
+.bottom-nav-item i {
+  font-size: 21px;
+}
+
+.bottom-nav-item span {
+  font-size: 9px;
+  font-weight: 650;
+
+  letter-spacing: .15px;
+}
+
+
+/* ==========================================================
+   FORMULÁRIOS
+========================================================== */
+
+input,
+select,
+textarea {
+  border-color: var(--isanomar-line) !important;
+
+  background: #fff !important;
+
+  color: var(--isanomar-text) !important;
+
+  border-radius: 13px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--isanomar-gold) !important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(197,161,90,.12) !important;
+}
+
+
+/* ==========================================================
+   SCROLLBARS — MOBILE
+========================================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(197,161,90,.45)
+    transparent;
+}
+
+
+/* ==========================================================
+   ACCESSIBILITY / TOUCH
+========================================================== */
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+
+/* ==========================================================
+   SMALL PHONES
+========================================================== */
+
+@media (max-width: 360px) {
+
+  .main {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .hero-content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  .cat-grid {
+    gap: 8px;
+  }
+
+  .cat-tile {
+    min-height: 100px;
+  }
+
+}
+
+
+/* ==========================================================
+   LARGE PHONES
+========================================================== */
+
+@media (min-width: 390px) {
+
+  .main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-visual {
+    min-height: 265px;
+  }
+
+  .hero-content {
+    padding:
+      27px
+      23px
+      22px;
+  }
+
+}
+
+
+/* ==========================================================
+   TABLETS / DESKTOP
+   Mantemos a linguagem mobile sem transformar a loja
+   numa aplicação empresarial.
+========================================================== */
+
+@media (min-width: 768px) {
+
+  .main {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+}
