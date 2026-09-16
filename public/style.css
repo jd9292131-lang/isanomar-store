@@ -5361,3 +5361,129 @@ button {
   }
 
 }
+/* ==========================================================
+   ISANOMAR — DESKTOP FOUNDATION V2
+   Remove mobile-width constraints on large screens
+========================================================== */
+
+@media (min-width: 1024px) {
+
+  html,
+  body {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  main > section,
+  main > .section,
+  main > .page-header,
+  main > .hero,
+  main > .isanomar-hero {
+    width: min(1400px, calc(100% - 64px));
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Hero ocupa a largura de desktop */
+  main > .isanomar-hero {
+    width: min(1400px, calc(100% - 64px));
+  }
+
+  /* Categorias */
+  .cat-grid {
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* Produtos */
+  .grid {
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  /* Benefícios */
+  .benefits {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* Bottom navigation é mobile */
+  .bottom-nav {
+    display: none;
+  }
+
+}
+
+
+/* ==========================================================
+   LARGE DESKTOP
+========================================================== */
+
+@media (min-width: 1440px) {
+
+  main > section,
+  main > .section,
+  main > .page-header,
+  main > .hero,
+  main > .isanomar-hero {
+    width: min(1400px, calc(100% - 96px));
+  }
+
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width: 601px) and (max-width: 1023px) {
+
+  main {
+    width: 100%;
+    max-width: none;
+  }
+
+  main > section,
+  main > .section,
+  main > .page-header,
+  main > .hero,
+  main > .isanomar-hero {
+    width: min(100% - 32px, 900px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .benefits {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+}
