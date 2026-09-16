@@ -4894,14 +4894,6 @@ button {
    numa aplicação empresarial.
 ========================================================== */
 
-@media (min-width: 768px) {
-
-  .main {
-    max-width: 620px;
-    margin: 0 auto;
-  }
-
-}
 /* ==========================================================
    ISANOMAR PREMIUM V2
    EDITORIAL HERO — RESPONSIVE
@@ -5486,4 +5478,1023 @@ button {
     display: none;
   }
 
+}
+/* =========================================================
+   ISANOMAR — HEADER DESKTOP REAL
+   ========================================================= */
+
+.desktop-nav,
+.desktop-header-actions {
+  display: none;
+}
+
+
+@media (min-width: 1024px) {
+
+  .header {
+    width: 100%;
+    height: 82px;
+    padding: 0 40px;
+    background: var(--isanomar-white);
+    border-bottom: 1px solid var(--isanomar-line);
+    position: relative;
+    z-index: 100;
+  }
+
+  .header-inner {
+    width: min(1400px, 100%);
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+
+  /* Logo */
+
+  .brand {
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .brand-main {
+    color: var(--isanomar-navy);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: .08em;
+  }
+
+  .brand-accent {
+    color: var(--isanomar-gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+
+  /* Menu hamburger desaparece no desktop */
+
+  #menuBtn {
+    display: none;
+  }
+
+
+  /* Navegação */
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+
+    flex: 1;
+  }
+
+  .desktop-nav-link {
+    position: relative;
+
+    padding: 8px 2px;
+
+    border: 0;
+    background: transparent;
+
+    color: var(--isanomar-text);
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      color .2s ease;
+  }
+
+  .desktop-nav-link:hover,
+  .desktop-nav-link.active {
+    color: var(--isanomar-gold);
+  }
+
+  .desktop-nav-link.active::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 1px;
+
+    background: var(--isanomar-gold);
+  }
+
+
+  /* Ações */
+
+  .desktop-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    flex-shrink: 0;
+  }
+
+  .desktop-header-actions .header-btn {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+  }
+
+  .desktop-header-actions .header-btn:hover {
+    background: var(--isanomar-gold-soft);
+    color: var(--isanomar-gold);
+  }
+
+
+  /* Carrinho */
+
+  .cart-header-btn {
+    position: relative;
+  }
+
+
+  /* Drawer/menu mobile não aparece como navegação desktop */
+
+  .bottom-nav {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .desktop-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+}
+/* =========================================================
+   ISANOMAR — HERO DESKTOP
+   ========================================================= */
+
+@media (min-width: 1024px) {
+
+  .isanomar-hero {
+    width: min(1400px, calc(100% - 64px));
+    max-width: 1400px;
+    min-height: 620px;
+
+    margin: 32px auto 0;
+
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background: var(--isanomar-cream);
+
+    box-shadow:
+      0 18px 50px rgba(16, 29, 53, .08);
+  }
+
+
+  /* =====================================================
+     ÁREA DA IMAGEM
+     ===================================================== */
+
+  .isanomar-hero-media {
+    position: relative;
+
+    min-height: 620px;
+
+    order: 2;
+
+    overflow: hidden;
+
+    background: var(--isanomar-cream-dark);
+  }
+
+  .isanomar-hero-media img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform .6s ease;
+  }
+
+  .isanomar-hero:hover .isanomar-hero-media img {
+    transform: scale(1.02);
+  }
+
+
+  /* Overlay muito subtil */
+
+  .isanomar-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(9, 19, 38, 0) 55%,
+        rgba(9, 19, 38, .20) 100%
+      );
+
+    pointer-events: none;
+  }
+
+
+  /* Badge sobre a imagem */
+
+  .isanomar-hero-badge {
+    position: absolute;
+
+    left: 28px;
+    bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 999px;
+
+    background: rgba(9, 19, 38, .52);
+
+    backdrop-filter: blur(10px);
+
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
+  }
+
+  .isanomar-hero-badge span {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--isanomar-gold-light);
+  }
+
+
+  /* =====================================================
+     ÁREA DO TEXTO
+     ===================================================== */
+
+  .isanomar-hero-content {
+    order: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 72px 64px;
+  }
+
+
+  .isanomar-hero-kicker {
+    margin: 0 0 18px;
+
+    color: var(--isanomar-gold);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+  }
+
+
+  .isanomar-hero-content h1 {
+    max-width: 560px;
+
+    margin: 0;
+
+    color: var(--isanomar-navy);
+
+    font-size: clamp(48px, 4.2vw, 72px);
+    line-height: .98;
+
+    font-weight: 700;
+
+    letter-spacing: -.045em;
+  }
+
+
+  .isanomar-hero-content h1 em {
+    display: block;
+
+    margin-top: 8px;
+
+    color: var(--isanomar-gold);
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+
+    letter-spacing: -.035em;
+  }
+
+
+  .isanomar-hero-description {
+    max-width: 440px;
+
+    margin: 28px 0 0;
+
+    color: var(--isanomar-text-soft);
+
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+
+  /* =====================================================
+     BOTÕES
+     ===================================================== */
+
+  .isanomar-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 34px;
+  }
+
+
+  .isanomar-hero-primary,
+  .isanomar-hero-secondary {
+    min-height: 48px;
+
+    padding: 0 20px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+      transform .2s ease,
+      background .2s ease,
+      border-color .2s ease;
+  }
+
+
+  .isanomar-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 1px solid var(--isanomar-navy);
+
+    background: var(--isanomar-navy);
+
+    color: #fff;
+  }
+
+  .isanomar-hero-primary:hover {
+    transform: translateY(-2px);
+
+    background: var(--isanomar-navy-dark);
+  }
+
+
+  .isanomar-hero-secondary {
+    border: 1px solid var(--isanomar-line);
+
+    background: transparent;
+
+    color: var(--isanomar-navy);
+  }
+
+  .isanomar-hero-secondary:hover {
+    background: var(--isanomar-gold-soft);
+    border-color: var(--isanomar-gold-light);
+  }
+
+
+  /* =====================================================
+     META
+     ===================================================== */
+
+  .isanomar-hero-meta {
+    display: flex;
+    align-items: center;
+
+    gap: 32px;
+
+    margin-top: 54px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid var(--isanomar-line);
+  }
+
+  .isanomar-hero-meta > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .isanomar-hero-meta strong {
+    color: var(--isanomar-navy);
+
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .isanomar-hero-meta span {
+    color: var(--isanomar-muted);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+}
+/* =========================================================
+   ISANOMAR — CATEGORIAS PREMIUM
+   ========================================================= */
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cat-grid > * {
+  min-width: 0;
+}
+
+/* Cartão de categoria */
+.cat-grid .category-card,
+.cat-grid .cat-card {
+  position: relative;
+  min-height: 130px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--isanomar-line);
+  border-radius: 16px;
+  background: var(--isanomar-white);
+  color: var(--isanomar-navy);
+  cursor: pointer;
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.cat-grid .category-card:hover,
+.cat-grid .cat-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--isanomar-gold-light);
+  background: var(--isanomar-gold-soft);
+  box-shadow: 0 12px 28px rgba(16, 29, 53, .08);
+}
+
+/* Ícone */
+.cat-grid .category-card i,
+.cat-grid .cat-card i {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--isanomar-gold-soft);
+  color: var(--isanomar-gold);
+  font-size: 21px;
+  transition: transform .25s ease, background .25s ease;
+}
+
+.cat-grid .category-card:hover i,
+.cat-grid .cat-card:hover i {
+  transform: scale(1.06);
+  background: var(--isanomar-white);
+}
+
+/* Nome */
+.cat-grid .category-card strong,
+.cat-grid .cat-card strong {
+  display: block;
+  margin-top: 18px;
+  color: var(--isanomar-navy);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* Quantidade / texto secundário */
+.cat-grid .category-card span,
+.cat-grid .cat-card span {
+  display: block;
+  margin-top: 4px;
+  color: var(--isanomar-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .05em;
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .home-section {
+    width: min(1400px, calc(100% - 64px));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .cat-grid .category-card,
+  .cat-grid .cat-card {
+    min-height: 170px;
+    padding: 24px;
+    border-radius: 18px;
+  }
+
+  .cat-grid .category-card i,
+  .cat-grid .cat-card i {
+    width: 48px;
+    height: 48px;
+    font-size: 23px;
+  }
+
+  .cat-grid .category-card strong,
+  .cat-grid .cat-card strong {
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   DESKTOP LARGO
+   ========================================================= */
+
+@media (min-width: 1200px) {
+  .cat-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}/* =========================================================
+   ISANOMAR — PRODUTOS / DESTAQUES PREMIUM
+   ========================================================= */
+
+#featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* Cartão do produto */
+#featuredGrid > * {
+  min-width: 0;
+}
+
+/* Imagem */
+#featuredGrid img {
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  display: block;
+  object-fit: cover;
+  background: var(--isanomar-cream);
+  transition: transform .45s ease;
+}
+
+/* Cartão */
+#featuredGrid .product-card {
+  overflow: hidden;
+  border: 1px solid var(--isanomar-line);
+  border-radius: 16px;
+  background: var(--isanomar-white);
+  box-shadow: 0 5px 18px rgba(16, 29, 53, .04);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+#featuredGrid .product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--isanomar-gold-light);
+  box-shadow: 0 16px 34px rgba(16, 29, 53, .09);
+}
+
+#featuredGrid .product-card:hover img {
+  transform: scale(1.025);
+}
+
+/* Área de informação */
+#featuredGrid .product-card-body,
+#featuredGrid .product-info {
+  padding: 15px;
+}
+
+/* Nome */
+#featuredGrid .product-card h3,
+#featuredGrid .product-card .product-name {
+  margin: 0;
+  color: var(--isanomar-navy);
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+/* Categoria */
+#featuredGrid .product-card .product-category,
+#featuredGrid .product-card small {
+  display: block;
+  margin-top: 5px;
+  color: var(--isanomar-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+/* Preço */
+#featuredGrid .product-card .price,
+#featuredGrid .product-card .product-price {
+  margin-top: 10px;
+  color: var(--isanomar-navy);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* Botões dentro dos produtos */
+#featuredGrid .product-card button {
+  min-height: 42px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 768px) {
+  #featuredGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #featuredGrid .product-card {
+    border-radius: 18px;
+  }
+
+  #featuredGrid .product-card-body,
+  #featuredGrid .product-info {
+    padding: 18px;
+  }
+
+  #featuredGrid .product-card h3,
+  #featuredGrid .product-card .product-name {
+    font-size: 15px;
+  }
+
+  #featuredGrid .product-card .price,
+  #featuredGrid .product-card .product-price {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #featuredGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+ /* =========================================================
+    ISANOMAR — BENEFÍCIOS PREMIUM
+    ========================================================= */
+
+.benefits-section {
+  width: min(1400px, calc(100% - 64px));
+  margin: 72px auto 0;
+  padding: 34px;
+  border: 1px solid var(--isanomar-line);
+  border-radius: 22px;
+  background: var(--isanomar-cream);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.benefit-item {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid var(--isanomar-line-light);
+  border-radius: 16px;
+  background: var(--isanomar-white);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.benefit-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--isanomar-gold-light);
+  box-shadow: 0 12px 28px rgba(16, 29, 53, .07);
+}
+
+.benefit-item i {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: var(--isanomar-gold-soft);
+  color: var(--isanomar-gold);
+  font-size: 20px;
+}
+
+.benefit-item h3 {
+  margin: 0;
+  color: var(--isanomar-navy);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.benefit-item p {
+  margin: 7px 0 0;
+  color: var(--isanomar-text-soft);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .benefits-section {
+    margin-top: 88px;
+    padding: 42px;
+    border-radius: 24px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .benefit-item {
+    min-height: 175px;
+    padding: 24px;
+    border-radius: 18px;
+  }
+
+  .benefit-item i {
+    width: 46px;
+    height: 46px;
+    font-size: 21px;
+  }
+
+  .benefit-item h3 {
+    font-size: 15px;
+  }
+
+  .benefit-item p {
+    font-size: 12px;
+  }
+}
+/* =========================================================
+   ISANOMAR — FOOTER PREMIUM
+   ========================================================= */
+
+.footer {
+  width: 100%;
+  margin-top: 96px;
+  padding: 56px 32px 28px;
+  background: var(--isanomar-navy-dark);
+  color: #fff;
+  border-top: 1px solid rgba(197, 161, 90, .18);
+}
+
+.footer-inner {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+}
+
+/* Área principal */
+.footer-main {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 42px;
+}
+
+/* Marca */
+.footer-brand {
+  max-width: 360px;
+}
+
+.footer-brand .brand-main {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.footer-brand .brand-accent {
+  color: var(--isanomar-gold-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.footer-brand p {
+  margin: 18px 0 0;
+  color: rgba(255,255,255,.62);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Títulos */
+.footer-column h3 {
+  margin: 0 0 18px;
+  color: var(--isanomar-gold-light);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* Links */
+.footer-column a,
+.footer-column button {
+  display: block;
+  width: fit-content;
+  margin: 0 0 11px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.68);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+
+.footer-column a:hover,
+.footer-column button:hover {
+  color: var(--isanomar-gold-light);
+}
+
+/* Contactos */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255,255,255,.68);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.footer-contact-item i {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--isanomar-gold-light);
+  font-size: 16px;
+}
+
+/* Linha inferior */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: rgba(255,255,255,.42);
+  font-size: 11px;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.footer-bottom-links a {
+  color: rgba(255,255,255,.48);
+  font-size: 11px;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--isanomar-gold-light);
+}
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .footer {
+    margin-top: 64px;
+    padding: 42px 20px 90px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding-bottom: 32px;
+  }
+
+  .footer-brand {
+    max-width: none;
+  }
+
+  .footer-brand p {
+    max-width: 330px;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
 }
