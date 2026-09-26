@@ -3943,44 +3943,51 @@ white-space: nowrap;
 ------------------------------------------------------- */
 
 /* =========================================================
-ISANOMAR STORE — CATEGORIAS COMPACTAS
-Navegação comercial / mobile
+ISANOMAR STORE — CATEGORIAS
+VERSÃO COMPACTA / FORTE / COMERCIAL
 ========================================================= */
 
 @media (max-width: 899px) {
 
-/* Área das categorias */
+/* Container */
 .cat-grid {
 display: grid;
 grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 8px;
+gap: 6px;
 }
 
-/* Cada categoria */
+/* Categoria — deixa de parecer um cartão */
 .cat-tile,
 .category-card,
 .cat-card {
-min-height: 76px;
-height: 76px;
-padding: 11px 12px;
+height: 52px;
+min-height: 52px;
+padding: 0 11px;
+
 
 display: flex;
 align-items: center;
-gap: 11px;
+gap: 9px;
 
-border-radius: 7px;
 border: 1px solid var(--line);
-background: var(--surface);
+border-radius: 5px;
+background: transparent;
 
 box-shadow: none;
+overflow: hidden;
+
+transition:
+  background .18s ease,
+  border-color .18s ease,
+  transform .12s ease;
 
 }
 
-/* Ícone */
+/* Ícone pequeno e discreto */
 .cat-icon {
-width: 30px;
-height: 30px;
-min-width: 30px;
+width: 25px;
+height: 25px;
+min-width: 25px;
 margin: 0;
 
 display: flex;
@@ -3989,34 +3996,79 @@ justify-content: center;
 
 border-radius: 50%;
 
+
 }
 
 .cat-icon i {
-font-size: 15px;
+font-size: 13px;
 }
 
-/* Nome */
+/* Texto */
 .cat-tile .name,
 .category-card .name,
 .cat-card .name {
+min-width: 0;
 margin: 0;
 
-font-size: 11px;
-line-height: 1.25;
-font-weight: 600;
-letter-spacing: -.005em;
+font-size: 10px;
+line-height: 1;
+font-weight: 700;
+letter-spacing: .02em;
+text-transform: uppercase;
 
+white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
-white-space: nowrap;
-
 }
 
-/* Estado de interação */
+/* Hover / toque */
+.cat-tile:hover,
+.category-card:hover,
+.cat-card:hover {
+background: var(--surface);
+border-color: var(--text-soft);
+}
+
 .cat-tile:active,
 .category-card:active,
 .cat-card:active {
-transform: scale(.985);
+transform: scale(.975);
+}
+}
+
+/* =========================================================
+ECRÃS MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 380px) {
+
+.cat-grid {
+gap: 5px;
+}
+
+.cat-tile,
+.category-card,
+.cat-card {
+height: 48px;
+min-height: 48px;
+padding: 0 9px;
+gap: 7px;
+}
+
+.cat-icon {
+width: 22px;
+height: 22px;
+min-width: 22px;
+}
+
+.cat-icon i {
+font-size: 12px;
+}
+
+.cat-tile .name,
+.category-card .name,
+.cat-card .name {
+font-size: 9px;
 }
 }
 
