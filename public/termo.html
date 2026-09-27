@@ -12,24 +12,36 @@
 
   <title>Termos e Condições — ISANOMAR store</title>
 
-  <link rel="icon" href="assets/logo.jpg" />
+<link rel="icon" href="assets/Isanoma01r.jpg" />
 
-  <link rel="stylesheet" href="style.css" />
-
-  <style>
-    :root {
-      --terms-blue: #0b4aa2;
-      --terms-blue-dark: #073676;
-      --terms-yellow: #ffc233;
-      --terms-text: #172033;
-      --terms-muted: #667085;
-      --terms-light: #f7f9fc;
-      --terms-border: #e5e9f0;
-      --terms-white: #ffffff;
-      --terms-radius: 18px;
-      --terms-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+<script>
+  (function () {
+    try {
+      document.documentElement.dataset.theme =
+        localStorage.getItem("isanomar_theme") || "dark";
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
     }
+  })();
+</script>
 
+<link rel="stylesheet" href="style.css" />
+
+<style>
+:root {
+  --terms-blue: var(--blue-600);
+  --terms-blue-dark: var(--text);
+  --terms-yellow: var(--gold);
+
+  --terms-text: var(--text);
+  --terms-muted: var(--text-soft);
+  --terms-light: var(--background);
+  --terms-border: var(--line);
+  --terms-white: var(--surface);
+
+  --terms-radius: 18px;
+  --terms-shadow: var(--shadow-sm);
+}
     * {
       box-sizing: border-box;
     }
@@ -667,6 +679,343 @@
         break-inside: avoid;
       }
     }
+    /* =========================================================
+   ISANOMAR STORE — TERMOS E CONDIÇÕES
+   DESIGN PREMIUM / MOBILE FIRST
+   ========================================================= */
+
+:root {
+  --terms-bg: #05070b;
+  --terms-surface: #0b111a;
+  --terms-surface-2: #101823;
+  --terms-text: #f5f7fa;
+  --terms-muted: #9aa5b4;
+  --terms-line: rgba(255,255,255,.09);
+  --terms-gold: #c9a45c;
+  --terms-gold-soft: rgba(201,164,92,.11);
+}
+
+/* BASE */
+
+body {
+  background: var(--terms-bg) !important;
+  color: var(--terms-text) !important;
+}
+
+/* HEADER */
+
+.terms-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background: rgba(5,7,11,.88) !important;
+  border-bottom: 1px solid var(--terms-line) !important;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.terms-header-inner {
+  width: min(1180px, calc(100% - 28px));
+  min-height: 68px;
+}
+
+.brand-logo {
+  width: 38px !important;
+  height: 38px !important;
+
+  border-radius: 9px !important;
+  border-color: var(--terms-line) !important;
+  background: #080c12 !important;
+}
+
+.brand-name {
+  color: #fff !important;
+  font-size: 14px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase;
+}
+
+.brand-subtitle {
+  color: var(--terms-muted) !important;
+  font-size: 10px !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.back-link {
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+
+  border-radius: 50% !important;
+  border-color: var(--terms-line) !important;
+
+  background: transparent !important;
+  color: #fff !important;
+}
+
+.back-link span:first-child {
+  display: none;
+}
+
+/* CONTAINER */
+
+.terms-container {
+  width: min(1000px, calc(100% - 24px)) !important;
+  padding-top: 18px !important;
+}
+
+/* BREADCRUMB */
+
+.breadcrumb {
+  color: #687384 !important;
+  font-size: 10px !important;
+  letter-spacing: .05em;
+}
+
+/* HERO */
+
+.hero-card {
+  padding: 30px !important;
+
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(201,164,92,.10),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #0b111a,
+      #05070b
+    ) !important;
+
+  border: 1px solid var(--terms-line) !important;
+  border-radius: 18px !important;
+
+  box-shadow: none !important;
+}
+
+.hero-card::after {
+  background: rgba(201,164,92,.05) !important;
+}
+
+.hero-label {
+  background: var(--terms-gold-soft) !important;
+  color: var(--terms-gold) !important;
+
+  font-size: 9px !important;
+  letter-spacing: .16em !important;
+}
+
+.hero-title {
+  color: #fff !important;
+  font-size: clamp(32px, 7vw, 52px) !important;
+  letter-spacing: -.045em !important;
+}
+
+.hero-description {
+  color: var(--terms-muted) !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+
+.last-update {
+  color: #687384 !important;
+}
+
+/* LAYOUT */
+
+.terms-layout {
+  gap: 20px !important;
+}
+
+/* ÍNDICE */
+
+.terms-navigation {
+  background: var(--terms-surface) !important;
+  border: 1px solid var(--terms-line) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+
+.terms-navigation-title {
+  color: var(--terms-gold) !important;
+  letter-spacing: .14em;
+  font-size: 9px !important;
+}
+
+.terms-navigation a {
+  color: var(--terms-muted) !important;
+}
+
+.terms-navigation a:hover,
+.terms-navigation a.active {
+  color: #fff !important;
+}
+
+/* DOCUMENTO */
+
+.terms-document {
+  background: var(--terms-surface) !important;
+  border: 1px solid var(--terms-line) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+}
+
+.terms-section {
+  border-bottom-color: var(--terms-line) !important;
+}
+
+.section-number {
+  color: var(--terms-gold) !important;
+  background: var(--terms-gold-soft) !important;
+}
+
+.terms-section h2 {
+  color: #fff !important;
+}
+
+.terms-section p,
+.terms-section ul {
+  color: var(--terms-muted) !important;
+}
+
+.terms-section li::marker {
+  color: var(--terms-gold);
+}
+
+/* NOTAS */
+
+.terms-note {
+  background: var(--terms-gold-soft) !important;
+  border-left-color: var(--terms-gold) !important;
+}
+
+.terms-note strong {
+  color: var(--terms-gold) !important;
+}
+
+.terms-note p {
+  color: var(--terms-muted) !important;
+}
+
+/* CONTACTO */
+
+.contact-box {
+  background: var(--terms-surface-2) !important;
+  border: 1px solid var(--terms-line) !important;
+  border-radius: 12px !important;
+}
+
+.contact-row + .contact-row {
+  border-top-color: var(--terms-line) !important;
+}
+
+.contact-icon {
+  background: var(--terms-gold-soft) !important;
+  color: var(--terms-gold) !important;
+}
+
+.contact-label {
+  color: #687384 !important;
+}
+
+.contact-value {
+  color: #fff !important;
+}
+
+/* FOOTER */
+
+.terms-footer {
+  color: #687384 !important;
+}
+
+.terms-footer p {
+  color: var(--terms-muted) !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .terms-container {
+    width: calc(100% - 20px) !important;
+    padding-top: 12px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .hero-card {
+    padding: 24px 19px !important;
+    border-radius: 15px !important;
+  }
+
+  .hero-title {
+    font-size: 32px !important;
+  }
+
+  .hero-description {
+    font-size: 13px !important;
+  }
+
+  .terms-layout {
+    display: block !important;
+  }
+
+  .terms-navigation {
+    position: static !important;
+    margin-bottom: 12px;
+    padding: 14px !important;
+
+    display: flex;
+    gap: 7px;
+
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .terms-navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .terms-navigation-title {
+    display: none;
+  }
+
+  .terms-navigation a {
+    flex: 0 0 auto;
+
+    padding: 8px 10px;
+
+    border: 1px solid var(--terms-line);
+    border-radius: 20px;
+
+    font-size: 10px !important;
+    white-space: nowrap;
+  }
+
+  .terms-document {
+    padding: 22px 18px !important;
+    border-radius: 15px !important;
+  }
+
+  .terms-section h2 {
+    font-size: 18px !important;
+    line-height: 1.25;
+  }
+
+  .terms-section p,
+  .terms-section ul {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+  }
+
+  .contact-box {
+    padding: 4px !important;
+  }
+}
   </style>
 </head>
 
@@ -683,7 +1032,7 @@
 
         <a href="index.html" class="brand" aria-label="ISANOMAR store">
           <img
-            src="assets/logo.jpg"
+            src="assets/Isanoma01r.jpg"
             alt="Logotipo ISANOMAR store"
             class="brand-logo"
           />
@@ -1253,7 +1602,7 @@
       <footer class="terms-footer">
 
         <img
-          src="assets/logo.jpg"
+          src="assets/Isanoma01r.jpg"
           alt="ISANOMAR store"
           class="footer-logo"
         />

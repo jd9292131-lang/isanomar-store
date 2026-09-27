@@ -4522,3 +4522,143 @@ font-size: 13px;
 font-size: 11px;
 }
 }
+/* ============================================================
+   42. STORE FOOTER
+   ============================================================ */
+
+.store-footer {
+  margin-top: 55px;
+  padding: 42px 0 22px;
+  border-top: 1px solid var(--line);
+  background: var(--background);
+}
+
+.store-footer-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 42px;
+  padding: 0 30px;
+}
+
+.store-footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.store-footer-brand img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.store-footer-brand strong {
+  display: block;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: -.02em;
+}
+
+.store-footer-brand strong span {
+  color: var(--gold);
+}
+
+.store-footer-brand p {
+  margin: 6px 0 0;
+  max-width: 260px;
+  color: var(--text-soft);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.store-footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.store-footer-column h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.store-footer-column a,
+.store-footer-column button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color .2s ease,
+    transform .2s ease;
+}
+
+.store-footer-column a:hover,
+.store-footer-column button:hover {
+  color: var(--gold);
+  transform: translateX(2px);
+}
+
+.store-footer-contact a i {
+  width: 18px;
+  color: var(--gold);
+  font-size: 16px;
+}
+
+.store-footer-bottom {
+  max-width: var(--content-max);
+  margin: 32px auto 0;
+  padding: 15px 30px 0;
+  border-top: 1px solid var(--line);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  color: var(--muted);
+  font-size: 10px;
+}
+
+
+/* ============================================================
+   STORE FOOTER — MOBILE
+   ============================================================ */
+
+@media (max-width: 899px) {
+
+  .store-footer {
+    display: none;
+  }
+
+}
+
+
+/* ============================================================
+   STORE FOOTER — DESKTOP
+   ============================================================ */
+
+@media (min-width: 900px) {
+
+  .store-footer {
+    display: block;
+  }
+
+}

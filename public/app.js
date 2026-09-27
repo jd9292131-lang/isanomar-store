@@ -2594,6 +2594,14 @@ function setupDrawer() {
       }
     );
 
+    // Sobre Nós — navegação desktop
+$("#desktopSobreBtn")
+  ?.addEventListener(
+    "click",
+    () => {
+      window.location.href = "sobre.html";
+    }
+  );
 
   // WhatsApp
   $("#drawerContactBtn")
