@@ -13,23 +13,36 @@
 
   <title>Sobre Nós — ISANOMAR store</title>
 
-  <link rel="icon" href="assets/logo.jpg" />
-  <link rel="stylesheet" href="style.css" />
+<link rel="icon" href="assets/Isanoma01r.jpg" />
 
-  <style>
-    :root {
-      --about-blue: #0b4aa2;
-      --about-blue-dark: #073676;
-      --about-yellow: #ffc233;
-      --about-text: #172033;
-      --about-muted: #667085;
-      --about-light: #f7f9fc;
-      --about-border: #e5e9f0;
-      --about-white: #ffffff;
-      --about-radius: 18px;
-      --about-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+<script>
+  (function () {
+    try {
+      document.documentElement.dataset.theme =
+        localStorage.getItem("isanomar_theme") || "dark";
+    } catch (e) {
+      document.documentElement.dataset.theme = "dark";
     }
+  })();
+</script>
 
+<link rel="stylesheet" href="style.css" />
+
+<style>
+:root {
+  --about-blue: var(--blue-600);
+  --about-blue-dark: var(--text);
+  --about-yellow: var(--gold);
+
+  --about-text: var(--text);
+  --about-muted: var(--text-soft);
+  --about-light: var(--background);
+  --about-border: var(--line);
+  --about-white: var(--surface);
+
+  --about-radius: 18px;
+  --about-shadow: var(--shadow-sm);
+}
     * {
       box-sizing: border-box;
     }
@@ -784,6 +797,374 @@
         padding: 27px 18px;
       }
     }
+    /* =========================================================
+   ISANOMAR STORE — SOBRE NÓS
+   NOVO DESIGN PREMIUM / MOBILE FIRST
+   ========================================================= */
+
+:root {
+  --about-bg: #05070b;
+  --about-surface: #0b111a;
+  --about-surface-2: #101823;
+  --about-text: #f5f7fa;
+  --about-muted: #9aa5b4;
+  --about-line: rgba(255,255,255,.09);
+  --about-gold: #c9a45c;
+  --about-gold-soft: rgba(201,164,92,.12);
+  --about-white: #ffffff;
+}
+
+/* BASE */
+
+body {
+  background: var(--about-bg) !important;
+  color: var(--about-text) !important;
+}
+
+/* HEADER */
+
+.about-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background: rgba(5,7,11,.88) !important;
+  border-bottom: 1px solid var(--about-line) !important;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.about-header-inner {
+  width: min(1180px, calc(100% - 28px));
+  min-height: 68px;
+}
+
+.about-logo {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 9px !important;
+  border: 1px solid var(--about-line) !important;
+}
+
+.about-brand-name {
+  color: #fff !important;
+  font-size: 14px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase;
+}
+
+.about-brand-subtitle {
+  color: var(--about-muted) !important;
+  font-size: 10px !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.about-back {
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+
+  justify-content: center;
+
+  background: transparent !important;
+  border: 1px solid var(--about-line) !important;
+  color: #fff !important;
+
+  border-radius: 50% !important;
+}
+
+.about-back span:first-child {
+  display: none;
+}
+
+.about-back span:last-child {
+  font-size: 17px;
+}
+
+/* CONTAINER */
+
+.about-container {
+  width: min(1120px, calc(100% - 24px)) !important;
+  padding: 18px 0 55px !important;
+}
+
+/* HERO */
+
+.about-hero {
+  min-height: 470px !important;
+
+  grid-template-columns: 1.15fr .85fr !important;
+  gap: 30px !important;
+
+  padding: 30px !important;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(201,164,92,.10),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #0b111a,
+      #05070b
+    ) !important;
+
+  border: 1px solid var(--about-line) !important;
+  border-radius: 20px !important;
+
+  box-shadow: none !important;
+}
+
+.about-hero::before {
+  width: 300px !important;
+  height: 300px !important;
+  background: rgba(201,164,92,.05) !important;
+}
+
+.about-label {
+  background: var(--about-gold-soft) !important;
+  color: var(--about-gold) !important;
+
+  font-size: 9px !important;
+  letter-spacing: .16em !important;
+}
+
+.about-title {
+  color: #fff !important;
+  font-size: clamp(38px, 7vw, 70px) !important;
+  letter-spacing: -.045em !important;
+}
+
+.about-title span {
+  color: var(--about-gold) !important;
+}
+
+.about-hero-description {
+  color: var(--about-muted) !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+
+/* LOGO DO HERO */
+
+.hero-logo-card {
+  width: min(260px,100%) !important;
+  padding: 18px !important;
+
+  background: #080c12 !important;
+  border: 1px solid var(--about-line) !important;
+  border-radius: 18px !important;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.35) !important;
+}
+
+.hero-logo-card img {
+  border-radius: 12px !important;
+}
+
+/* SECÇÕES */
+
+.about-section {
+  margin-top: 46px !important;
+}
+
+.about-section-label {
+  color: var(--about-gold) !important;
+  font-size: 9px !important;
+  letter-spacing: .18em !important;
+}
+
+.about-section-title {
+  color: #fff !important;
+  font-size: 28px !important;
+  letter-spacing: -.035em !important;
+}
+
+.about-section-description {
+  color: var(--about-muted) !important;
+}
+
+/* CARTÕES */
+
+.story-card,
+.mission-card,
+.experience-highlight,
+.experience-list,
+.about-cta {
+  background: var(--about-surface) !important;
+  border: 1px solid var(--about-line) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+
+.story-card h3,
+.mission-card h3,
+.experience-highlight h3,
+.about-cta h2 {
+  color: #fff !important;
+}
+
+.story-card p,
+.mission-card p,
+.experience-highlight p,
+.experience-item p,
+.about-cta p {
+  color: var(--about-muted) !important;
+}
+
+.mission-icon,
+.experience-check {
+  background: var(--about-gold-soft) !important;
+  color: var(--about-gold) !important;
+}
+
+/* VALORES */
+
+.values-card {
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(201,164,92,.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #0e1621,
+      #080c12
+    ) !important;
+
+  border: 1px solid var(--about-line) !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+}
+
+.values-card h2 {
+  color: #fff !important;
+}
+
+.values-card-header p {
+  color: var(--about-muted) !important;
+}
+
+.value-item {
+  background: rgba(255,255,255,.025) !important;
+  border: 1px solid var(--about-line) !important;
+}
+
+.value-item strong {
+  color: #fff !important;
+}
+
+.value-item span {
+  color: var(--about-muted) !important;
+}
+
+/* EXPERIÊNCIA */
+
+.experience-highlight strong {
+  color: var(--about-gold) !important;
+}
+
+.experience-item + .experience-item {
+  border-color: var(--about-line) !important;
+}
+
+.experience-item strong {
+  color: #fff !important;
+}
+
+/* CTA */
+
+.about-cta-button {
+  background: var(--about-gold) !important;
+  color: #080b10 !important;
+  border-radius: 7px !important;
+}
+
+.about-cta-button:hover {
+  background: #dfbd7b !important;
+}
+
+/* FOOTER */
+
+.about-footer p {
+  color: var(--about-muted) !important;
+}
+
+.about-footer small {
+  color: #687384 !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .about-container {
+    width: calc(100% - 20px) !important;
+    padding-top: 12px !important;
+  }
+
+  .about-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+
+    padding: 25px 20px !important;
+    gap: 28px !important;
+
+    border-radius: 16px !important;
+  }
+
+  .about-title {
+    font-size: 38px !important;
+    line-height: .98 !important;
+  }
+
+  .about-hero-description {
+    font-size: 13px !important;
+  }
+
+  .about-hero-visual {
+    justify-content: flex-start !important;
+  }
+
+  .hero-logo-card {
+    width: 135px !important;
+  }
+
+  .about-section {
+    margin-top: 36px !important;
+  }
+
+  .about-section-title {
+    font-size: 24px !important;
+  }
+
+  .story-grid,
+  .mission-grid,
+  .values-grid,
+  .experience {
+    grid-template-columns: 1fr !important;
+  }
+
+  .story-card,
+  .mission-card,
+  .experience-highlight,
+  .experience-list {
+    padding: 20px !important;
+  }
+
+  .values-card {
+    padding: 21px 17px !important;
+  }
+
+  .about-cta {
+    padding: 25px 18px !important;
+  }
+}
   </style>
 </head>
 
@@ -799,7 +1180,7 @@
       <a href="index.html" class="about-brand" aria-label="ISANOMAR store">
 
         <img
-          src="assets/logo.jpg"
+          src="assets/Isanoma01r.jpg"
           alt="Logotipo ISANOMAR store"
           class="about-logo"
         />
@@ -852,7 +1233,7 @@
         <div class="hero-logo-card">
 
           <img
-            src="assets/logo.jpg"
+            src="assets/Isanoma01r.jpg"
             alt="ISANOMAR store"
           />
 
@@ -1155,7 +1536,7 @@
     <section class="about-cta">
 
       <img
-        src="assets/logo.jpg"
+        src="assets/Isanoma01r.jpg"
         alt="ISANOMAR store"
       />
 
@@ -1183,7 +1564,7 @@
     <footer class="about-footer">
 
       <img
-        src="assets/logo.jpg"
+        src="assets/Isanoma01r.jpg"
         alt="ISANOMAR store"
       />
 
