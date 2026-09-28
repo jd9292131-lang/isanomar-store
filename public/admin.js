@@ -127,15 +127,21 @@ async function render() {
     return;
   }
 
-  if (!window.__isanomar.isAdmin()) {
-    $('#adminLogin').hidden = false;
-    $('#adminPanel').hidden = true;
-    return;
-  }
+const shell = document.querySelector('.operator-shell');
 
-  $('#adminLogin').hidden = true;
-  $('#adminPanel').hidden = false;
+if (!window.__isanomar.isAdmin()) {
+  $('#adminLogin').hidden = false;
+  $('#adminPanel').hidden = true;
 
+  shell?.classList.remove('operator-authenticated');
+
+  return;
+}
+
+$('#adminLogin').hidden = true;
+$('#adminPanel').hidden = false;
+
+shell?.classList.add('operator-authenticated');
   await renderTab();
   await updateOrderBadge();
 }
@@ -146,19 +152,21 @@ async function render() {
 
 async function updateOrderBadge() {
   try {
-    const result = await api('/admin/orders');
-    const orders = result.orders || [];
-    const pending = orders.filter(o => o.status === 'pendente').length;
+    const result = await api('/admin/dashboard');
+
+    const pending = Number(result?.summary?.pending || 0);
+
     const badge = $('#ordersBadge');
+
     if (badge) {
       badge.textContent = pending;
       badge.hidden = pending === 0;
     }
+
   } catch (e) {
     // silencioso — não bloquear interface
   }
 }
-
 async function renderTab() {
   const tabs = $('#adminTabs');
   const bodies = $('#adminPanel');
@@ -1332,8 +1340,6 @@ async function renderOrders() {
       'Erro ao carregar encomendas.'
     );
   }
-
-  await updateOrderBadge();
 }
 
 
