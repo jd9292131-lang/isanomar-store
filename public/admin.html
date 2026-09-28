@@ -1,0 +1,1416 @@
+```html
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>ISANOMAR Operations</title>
+
+  <meta
+    name="description"
+    content="Painel interno de operações da ISANOMAR Store."
+  />
+
+  <!-- Tema -->
+  <script>
+    (function () {
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("isanomar_theme") || "dark";
+      } catch (e) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
+
+  <!-- Ícones -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"
+  />
+
+  <!-- Sistema público/base necessário ao JavaScript existente -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- NOVO DESIGN EXCLUSIVO DO OPERADOR -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body class="operator-page-body">
+
+  <div class="operator-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+    <aside class="operator-sidebar" id="operatorSidebar">
+
+      <div class="operator-brand">
+
+        <div class="operator-brand-mark">
+          <span>ISA</span>
+        </div>
+
+        <div class="operator-brand-text">
+          <strong>ISANOMAR</strong>
+          <span>OPERATIONS</span>
+        </div>
+
+      </div>
+
+
+      <div class="operator-sidebar-divider"></div>
+
+
+      <nav class="operator-nav" id="adminTabs">
+
+        <div class="operator-nav-group">
+
+          <span class="operator-nav-label">
+            OPERAÇÃO
+          </span>
+
+          <button
+            type="button"
+            class="tab operator-nav-item active"
+            data-tab="dashboard"
+          >
+            <i class="ph ph-chart-pie-slice"></i>
+            <span>Dashboard</span>
+          </button>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="orders"
+          >
+            <i class="ph ph-receipt"></i>
+            <span>Encomendas</span>
+            <span
+              class="tab-badge operator-nav-badge"
+              id="ordersBadge"
+              hidden
+            >0</span>
+          </button>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="clients"
+          >
+            <i class="ph ph-users"></i>
+            <span>Clientes</span>
+          </button>
+
+        </div>
+
+
+        <div class="operator-nav-group">
+
+          <span class="operator-nav-label">
+            INVENTÁRIO
+          </span>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="products"
+          >
+            <i class="ph ph-package"></i>
+            <span>Produtos</span>
+          </button>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="stock"
+          >
+            <i class="ph ph-warehouse"></i>
+            <span>Stock &amp; Lotes</span>
+          </button>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="categories"
+          >
+            <i class="ph ph-squares-four"></i>
+            <span>Categorias</span>
+          </button>
+
+        </div>
+
+
+        <div class="operator-nav-group">
+
+          <span class="operator-nav-label">
+            SISTEMA
+          </span>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="settings"
+          >
+            <i class="ph ph-gear"></i>
+            <span>Definições</span>
+          </button>
+
+          <button
+            type="button"
+            class="tab operator-nav-item"
+            data-tab="audit"
+          >
+            <i class="ph ph-shield-check"></i>
+            <span>Auditoria</span>
+          </button>
+
+        </div>
+
+      </nav>
+
+
+      <!-- Sessão do operador -->
+      <div class="operator-sidebar-footer">
+
+        <div class="operator-session">
+
+          <div class="operator-avatar">
+            <i class="ph ph-user"></i>
+          </div>
+
+          <div class="operator-session-info">
+            <strong>Operador</strong>
+            <span>
+              <i class="operator-status-dot"></i>
+              Sessão activa
+            </span>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="operator-logout"
+          id="logoutAdminBtn"
+        >
+          <i class="ph ph-sign-out"></i>
+          <span>Terminar sessão</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         ÁREA PRINCIPAL
+    ====================================================== -->
+    <main class="operator-main">
+
+      <!-- TOPBAR -->
+      <header class="operator-topbar">
+
+        <div class="operator-topbar-left">
+
+          <button
+            type="button"
+            class="operator-menu-toggle"
+            id="operatorMenuToggle"
+            aria-label="Abrir menu"
+          >
+            <i class="ph ph-list"></i>
+          </button>
+
+          <div class="operator-mobile-brand">
+            <strong>ISANOMAR</strong>
+            <span>OPERATIONS</span>
+          </div>
+
+        </div>
+
+
+        <div class="operator-topbar-right">
+
+          <div class="operator-date" id="operatorDate"></div>
+
+          <div class="operator-topbar-divider"></div>
+
+          <div class="operator-live">
+
+            <span class="operator-status-dot"></span>
+
+            <span>Operador activo</span>
+
+          </div>
+
+          <button
+            type="button"
+            class="operator-icon-button"
+            id="operatorThemeToggle"
+            aria-label="Alterar tema"
+          >
+            <i class="ph ph-sun"></i>
+          </button>
+
+          <button
+            type="button"
+            class="operator-icon-button operator-desktop-logout"
+            id="logoutAdminBtnTop"
+            aria-label="Terminar sessão"
+          >
+            <i class="ph ph-sign-out"></i>
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- =====================================================
+           CONTEÚDO
+      ====================================================== -->
+      <div class="operator-content">
+
+
+        <!-- ===================================================
+             LOGIN
+        ==================================================== -->
+        <section
+          class="operator-login"
+          id="adminLogin"
+          hidden
+        >
+
+          <div class="operator-login-panel">
+
+            <div class="operator-login-symbol">
+              <i class="ph ph-shield-check"></i>
+            </div>
+
+            <span class="operator-login-kicker">
+              ACESSO RESTRITO
+            </span>
+
+            <h1>
+              ISANOMAR
+              <span>OPERATIONS</span>
+            </h1>
+
+            <p>
+              Área reservada para gestão e controlo
+              da operação da ISANOMAR Store.
+            </p>
+
+
+            <label class="operator-field">
+
+              <span>Senha do operador</span>
+
+              <div class="operator-input-wrap">
+
+                <i class="ph ph-lock-key"></i>
+
+                <input
+                  type="password"
+                  id="adminPass"
+                  autocomplete="current-password"
+                  placeholder="Introduza a sua senha"
+                />
+
+                <button
+                  type="button"
+                  class="operator-input-action"
+                  id="toggleAdminPass"
+                  aria-label="Mostrar senha"
+                >
+                  <i class="ph ph-eye"></i>
+                </button>
+
+              </div>
+
+            </label>
+
+
+            <button
+              type="button"
+              class="operator-login-button"
+              id="adminLoginBtn"
+            >
+              <span>Entrar no painel</span>
+              <i class="ph ph-arrow-right"></i>
+            </button>
+
+
+            <div class="operator-login-footer">
+              <i class="ph ph-lock-simple"></i>
+              Ligação protegida
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- ===================================================
+             PAINEL
+        ==================================================== -->
+        <section
+          class="operator-panel"
+          id="adminPanel"
+          hidden
+        >
+
+          <!-- Cabeçalho da página -->
+          <div class="operator-page-header">
+
+            <div>
+
+              <span
+                class="operator-page-kicker"
+                id="operatorPageKicker"
+              >
+                OPERAÇÃO
+              </span>
+
+              <h1 id="operatorPageTitle">
+                Dashboard
+              </h1>
+
+              <p id="operatorPageDescription">
+                Visão geral da operação da ISANOMAR Store.
+              </p>
+
+            </div>
+
+            <div class="operator-page-header-meta">
+
+              <div class="operator-current-time">
+                <i class="ph ph-calendar-blank"></i>
+                <span id="operatorPageDate"></span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               DASHBOARD
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body"
+            data-body="dashboard"
+          >
+
+            <div id="adminDashboard"></div>
+
+          </div>
+
+
+          <!-- =================================================
+               PRODUTOS
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="products"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  INVENTÁRIO
+                </span>
+
+                <h2>Produtos</h2>
+
+                <p>
+                  Gestão do catálogo e disponibilidade dos produtos.
+                </p>
+
+              </div>
+
+              <button
+                type="button"
+                class="operator-primary-button"
+                id="addProductBtn"
+              >
+                <i class="ph ph-plus"></i>
+                <span>Novo produto</span>
+              </button>
+
+            </div>
+
+
+            <div
+              class="admin-products operator-products"
+              id="adminProducts"
+            ></div>
+
+          </div>
+
+
+          <!-- =================================================
+               STOCK
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="stock"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  INVENTÁRIO REAL
+                </span>
+
+                <h2>Stock &amp; Lotes</h2>
+
+                <p>
+                  Controlo de quantidades, lotes e validade.
+                </p>
+
+              </div>
+
+              <button
+                type="button"
+                class="operator-primary-button"
+                id="addLotBtn"
+              >
+                <i class="ph ph-plus"></i>
+                <span>Novo lote</span>
+              </button>
+
+            </div>
+
+
+            <div
+              class="operator-stock-summary"
+              id="operatorStockSummary"
+            ></div>
+
+
+            <div id="adminStock"></div>
+
+          </div>
+
+
+          <!-- =================================================
+               ENCOMENDAS
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="orders"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  OPERAÇÃO
+                </span>
+
+                <h2>Encomendas</h2>
+
+                <p>
+                  Acompanhamento e processamento dos pedidos.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div id="adminOrders"></div>
+
+          </div>
+
+
+          <!-- =================================================
+               CLIENTES
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="clients"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  RELAÇÃO COM CLIENTES
+                </span>
+
+                <h2>Clientes</h2>
+
+                <p>
+                  Histórico e actividade dos clientes.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div id="adminClients"></div>
+
+          </div>
+
+
+          <!-- =================================================
+               CATEGORIAS
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="categories"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  CATÁLOGO
+                </span>
+
+                <h2>Categorias</h2>
+
+                <p>
+                  Organização estrutural do catálogo.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="operator-inline-form">
+
+              <input
+                type="text"
+                id="newCatInput"
+                placeholder="Nome da nova categoria"
+                autocomplete="off"
+              />
+
+              <button
+                type="button"
+                class="operator-primary-button"
+                id="addCatBtn"
+              >
+                <i class="ph ph-plus"></i>
+                <span>Adicionar categoria</span>
+              </button>
+
+            </div>
+
+
+            <div
+              class="operator-list"
+              id="adminCats"
+            ></div>
+
+          </div>
+
+
+          <!-- =================================================
+               DEFINIÇÕES
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="settings"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  CONFIGURAÇÃO
+                </span>
+
+                <h2>Definições</h2>
+
+                <p>
+                  Parâmetros operacionais da ISANOMAR Store.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="operator-settings-grid">
+
+              <section class="operator-settings-card">
+
+                <div class="operator-settings-card-head">
+
+                  <div class="operator-settings-icon">
+                    <i class="ph ph-storefront"></i>
+                  </div>
+
+                  <div>
+                    <h3>Dados da loja</h3>
+                    <p>Informação principal da operação.</p>
+                  </div>
+
+                </div>
+
+
+                <div class="operator-form-grid">
+
+                  <label class="operator-field">
+                    <span>Nome da loja</span>
+                    <input id="setShopName" />
+                  </label>
+
+                  <label class="operator-field">
+                    <span>Telemóvel de contacto</span>
+                    <input id="setShopPhone" />
+                  </label>
+
+                  <label class="operator-field operator-field-full">
+                    <span>IBAN / conta para transferência</span>
+                    <input id="setShopIban" />
+                  </label>
+
+                  <label class="operator-field">
+                    <span>Máximo de prestações</span>
+                    <input
+                      id="setMaxInstall"
+                      type="number"
+                      min="1"
+                      max="12"
+                    />
+                  </label>
+
+                </div>
+
+              </section>
+
+
+              <section class="operator-settings-card">
+
+                <div class="operator-settings-card-head">
+
+                  <div class="operator-settings-icon">
+                    <i class="ph ph-truck"></i>
+                  </div>
+
+                  <div>
+                    <h3>Entregas</h3>
+                    <p>Taxas e zonas de entrega.</p>
+                  </div>
+
+                </div>
+
+
+                <label class="operator-field">
+
+                  <span>
+                    Taxa para outras províncias
+                  </span>
+
+                  <input
+                    id="setDelOther"
+                    type="number"
+                    min="0"
+                  />
+
+                </label>
+
+
+                <div class="operator-subsection">
+
+                  <div class="operator-subsection-head">
+
+                    <div>
+                      <strong>Municípios de Luanda</strong>
+                      <span>
+                        Configure as taxas de entrega locais.
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  <div id="delList"></div>
+
+
+                  <div class="operator-inline-form operator-delivery-form">
+
+                    <input
+                      id="newDelInput"
+                      placeholder="Município"
+                    />
+
+                    <input
+                      id="newDelFee"
+                      type="number"
+                      min="0"
+                      placeholder="Taxa em Kz"
+                    />
+
+                    <button
+                      type="button"
+                      class="operator-primary-button"
+                      id="addDelBtn"
+                      aria-label="Adicionar município"
+                    >
+                      <i class="ph ph-plus"></i>
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  class="operator-primary-button operator-save-button"
+                  id="saveSettingsBtn"
+                >
+                  <i class="ph ph-floppy-disk"></i>
+                  <span>Guardar definições</span>
+                </button>
+
+              </section>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               AUDITORIA
+          ================================================== -->
+          <div
+            class="tab-body operator-tab-body hidden"
+            data-body="audit"
+          >
+
+            <div class="operator-section-toolbar">
+
+              <div>
+
+                <span class="operator-section-kicker">
+                  CONTROLO INTERNO
+                </span>
+
+                <h2>Auditoria</h2>
+
+                <p>
+                  Registo das actividades realizadas no sistema.
+                </p>
+
+              </div>
+
+              <button
+                type="button"
+                class="operator-secondary-button"
+                id="refreshAuditBtn"
+              >
+                <i class="ph ph-arrows-clockwise"></i>
+                <span>Actualizar</span>
+              </button>
+
+            </div>
+
+
+            <div id="adminAudit"></div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       OVERLAY DO MENU MOBILE
+  ====================================================== -->
+  <div
+    class="operator-sidebar-overlay"
+    id="operatorSidebarOverlay"
+  ></div>
+
+
+  <!-- =====================================================
+       MODAL — LOTE
+  ====================================================== -->
+  <div
+    class="modal-overlay operator-modal-overlay"
+    id="lotModal"
+  >
+
+    <div class="modal operator-modal">
+
+      <div class="modal-grabber"></div>
+
+      <div class="operator-modal-head">
+
+        <div>
+
+          <span class="operator-section-kicker">
+            INVENTÁRIO
+          </span>
+
+          <h3 id="lotModalTitle">
+            Novo lote
+          </h3>
+
+        </div>
+
+        <button
+          type="button"
+          class="operator-icon-button"
+          id="closeLotModal"
+          aria-label="Fechar"
+        >
+          <i class="ph ph-x"></i>
+        </button>
+
+      </div>
+
+
+      <form id="lotForm">
+
+        <input
+          type="hidden"
+          id="lotId"
+        />
+
+
+        <label class="operator-field">
+          <span>Produto</span>
+          <select id="lotProduct" required></select>
+        </label>
+
+
+        <label class="operator-field">
+          <span>Código do lote</span>
+          <input
+            id="lotCode"
+            required
+            placeholder="LOT-2026-001"
+          />
+        </label>
+
+
+        <div class="operator-form-grid operator-form-grid-2">
+
+          <label class="operator-field">
+            <span>Quantidade recebida</span>
+            <input
+              id="lotReceived"
+              type="number"
+              min="0"
+              required
+            />
+          </label>
+
+          <label class="operator-field">
+            <span>Disponível</span>
+            <input
+              id="lotAvailable"
+              type="number"
+              min="0"
+              required
+            />
+          </label>
+
+        </div>
+
+
+        <label class="operator-field">
+          <span>Validade</span>
+          <input
+            id="lotExpires"
+            type="date"
+          />
+        </label>
+
+
+        <label class="operator-field">
+          <span>Nota</span>
+          <textarea
+            id="lotNote"
+            placeholder="Fornecedor, observação, localização..."
+          ></textarea>
+        </label>
+
+
+        <div class="operator-modal-actions">
+
+          <button
+            type="button"
+            class="operator-secondary-button"
+            id="cancelLot"
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="operator-primary-button"
+          >
+            <i class="ph ph-floppy-disk"></i>
+            <span>Guardar lote</span>
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MODAL — PRODUTO
+  ====================================================== -->
+  <div
+    class="modal-overlay operator-modal-overlay"
+    id="productModal"
+  >
+
+    <div class="modal operator-modal operator-product-modal">
+
+      <div class="modal-grabber"></div>
+
+      <div class="operator-modal-head">
+
+        <div>
+
+          <span class="operator-section-kicker">
+            GESTÃO DE CATÁLOGO
+          </span>
+
+          <h3 id="productModalTitle">
+            Produto
+          </h3>
+
+        </div>
+
+        <button
+          type="button"
+          class="operator-icon-button"
+          id="closeModalBtn"
+          aria-label="Fechar"
+        >
+          <i class="ph ph-x"></i>
+        </button>
+
+      </div>
+
+
+      <form id="productForm">
+
+        <input
+          type="hidden"
+          id="pId"
+        />
+
+
+        <div class="operator-form-grid">
+
+          <label class="operator-field operator-field-full">
+            <span>Nome</span>
+            <input
+              id="pName"
+              required
+            />
+          </label>
+
+
+          <label class="operator-field">
+            <span>Preço (Kz)</span>
+            <input
+              id="pPrice"
+              type="number"
+              min="0"
+              required
+            />
+          </label>
+
+
+          <label class="operator-field">
+            <span>Categoria</span>
+            <select id="pCat"></select>
+          </label>
+
+
+          <label class="operator-field">
+            <span>Género</span>
+
+            <select id="pGenre">
+
+              <option value="unisex">
+                Unissexo
+              </option>
+
+              <option value="f">
+                Feminino
+              </option>
+
+              <option value="m">
+                Masculino
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label class="operator-field">
+            <span>Alerta de stock baixo</span>
+
+            <input
+              id="pLowStock"
+              type="number"
+              min="0"
+              step="1"
+              value="3"
+            />
+
+            <small class="operator-field-hint">
+              O painel alerta quando o stock atingir este limite.
+            </small>
+
+          </label>
+
+
+          <label class="operator-field operator-field-full">
+            <span>Descrição</span>
+            <textarea id="pDesc"></textarea>
+          </label>
+
+        </div>
+
+
+        <div
+          class="operator-product-stock"
+          id="productStockCreate"
+        >
+
+          <div class="operator-form-section-title">
+
+            <i class="ph ph-package"></i>
+
+            <div>
+              <strong>Stock inicial</strong>
+              <span>Opcional</span>
+            </div>
+
+          </div>
+
+
+          <div class="operator-form-grid operator-form-grid-2">
+
+            <label class="operator-field">
+
+              <span>Quantidade</span>
+
+              <input
+                id="pInitialStock"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+              />
+
+            </label>
+
+
+            <label class="operator-field">
+
+              <span>Código do lote</span>
+
+              <input
+                id="pInitialLotCode"
+                placeholder="LOT-2026-001"
+              />
+
+            </label>
+
+          </div>
+
+
+          <small class="operator-field-hint">
+            Sem stock inicial, o produto fica guardado no painel
+            e não aparece na loja pública.
+          </small>
+
+        </div>
+
+
+        <div class="operator-form-grid">
+
+          <label class="operator-field operator-field-full">
+
+            <span>Imagem — URL</span>
+
+            <input
+              id="pImage"
+              placeholder="https://..."
+            />
+
+          </label>
+
+
+          <div class="operator-field operator-field-full">
+
+            <span>Ou carregar imagem</span>
+
+            <input
+              type="file"
+              id="pImageFile"
+              accept="image/*"
+            />
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="operator-product-image-preview"
+          id="productImagePreview"
+        ></div>
+
+
+        <div class="operator-modal-actions">
+
+          <button
+            type="button"
+            class="operator-danger-button"
+            id="pDelete"
+            hidden
+          >
+            <i class="ph ph-trash"></i>
+            <span>Eliminar</span>
+          </button>
+
+
+          <button
+            type="submit"
+            class="operator-primary-button"
+          >
+            <i class="ph ph-check"></i>
+            <span>Guardar produto</span>
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MODAL — CONFIRMAÇÃO
+  ====================================================== -->
+  <div
+    class="modal-overlay operator-modal-overlay"
+    id="confirmModal"
+  >
+
+    <div class="modal confirm-modal operator-confirm-modal">
+
+      <div class="operator-confirm-icon">
+        <i class="ph ph-warning"></i>
+      </div>
+
+      <span class="operator-section-kicker">
+        CONFIRMAÇÃO
+      </span>
+
+      <h3 id="confirmTitle">
+        Confirmar
+      </h3>
+
+      <p id="confirmMsg"></p>
+
+
+      <div class="operator-modal-actions">
+
+        <button
+          type="button"
+          class="operator-secondary-button"
+          id="confirmCancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="button"
+          class="operator-danger-button"
+          id="confirmOk"
+        >
+          Sim, confirmar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+  <div
+    class="toast"
+    id="toast"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="admin.js"></script>
+
+
+  <!-- =====================================================
+       CONTROLOS VISUAIS DO PAINEL
+       Não altera a lógica administrativa.
+  ====================================================== -->
+  <script>
+    (function () {
+
+      const sidebar = document.getElementById("operatorSidebar");
+      const overlay = document.getElementById("operatorSidebarOverlay");
+      const menuToggle = document.getElementById("operatorMenuToggle");
+      const themeToggle = document.getElementById("operatorThemeToggle");
+
+      function closeSidebar() {
+        sidebar?.classList.remove("open");
+        overlay?.classList.remove("open");
+      }
+
+      function openSidebar() {
+        sidebar?.classList.add("open");
+        overlay?.classList.add("open");
+      }
+
+      menuToggle?.addEventListener("click", function () {
+        if (sidebar?.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      overlay?.addEventListener("click", closeSidebar);
+
+
+      /* Fecha o menu depois de seleccionar uma área */
+      document
+        .querySelectorAll("#adminTabs .tab")
+        .forEach(function (button) {
+
+          button.addEventListener("click", function () {
+            closeSidebar();
+          });
+
+        });
+
+
+      /* Data */
+      function updateOperatorDate() {
+
+        const now = new Date();
+
+        const text = now.toLocaleDateString("pt-PT", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
+
+        const date1 = document.getElementById("operatorDate");
+        const date2 = document.getElementById("operatorPageDate");
+
+        if (date1) {
+          date1.textContent = text;
+        }
+
+        if (date2) {
+          date2.textContent = text;
+        }
+
+      }
+
+      updateOperatorDate();
+
+
+      /* Tema */
+      function paintThemeIcon() {
+
+        const theme =
+          document.documentElement.dataset.theme || "dark";
+
+        if (!themeToggle) return;
+
+        themeToggle.innerHTML =
+          theme === "dark"
+            ? '<i class="ph ph-sun"></i>'
+            : '<i class="ph ph-moon"></i>';
+
+      }
+
+      paintThemeIcon();
+
+
+      themeToggle?.addEventListener("click", function () {
+
+        const current =
+          document.documentElement.dataset.theme || "dark";
+
+        const next =
+          current === "dark"
+            ? "light"
+            : "dark";
+
+        document.documentElement.dataset.theme = next;
+
+        try {
+          localStorage.setItem(
+            "isanomar_theme",
+            next
+          );
+        } catch (e) {}
+
+        paintThemeIcon();
+
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
+```
