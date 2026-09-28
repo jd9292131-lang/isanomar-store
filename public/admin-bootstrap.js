@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const { api } = window.isaApi;
+  const adminApi = window.isaApi.api;
 
   let products = [];
   let categories = [];
@@ -21,7 +21,7 @@
     storeSyncInFlight = true;
 
     try {
-      const data = await api('/store');
+      const data = await adminApi('/store');
 
       products = data.products || [];
       categories = data.categories || [];
@@ -185,7 +185,7 @@
     }
 
     try {
-      await api('/admin/me');
+      await adminApi('/admin/me');
       adminSession = true;
 
     } catch (error) {
@@ -200,22 +200,19 @@
   /*
    * Inicialização do painel independente da loja pública.
    */
-  async function initAdminBootstrap() {
-    setupTheme();
+async function initAdminBootstrap() {
+  setupTheme();
 
+  await restoreAdminSession();
+
+  if (adminSession) {
     await loadStore();
-
-    await restoreAdminSession();
-
-    /*
-     * admin.js precisa primeiro de tempo para
-     * registar o listener "admin:render".
-     */
-    window.dispatchEvent(
-      new CustomEvent('admin:render')
-    );
   }
 
+  window.dispatchEvent(
+    new CustomEvent('admin:render')
+  );
+}
   /*
    * O setTimeout garante que admin.js já foi carregado
    * e registou o evento antes da primeira renderização.

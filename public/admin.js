@@ -1,11 +1,30 @@
 // ============================================================
 // ISANOMAR store — Painel do Operador
 // ============================================================
-
+(() => {
+  'use strict';
 const { api } = window.isaApi;
 
 const $ = (s) => document.querySelector(s);
+const toggleAdminPass = $('#toggleAdminPass');
+const adminPass = $('#adminPass');
 
+toggleAdminPass?.addEventListener('click', () => {
+  if (!adminPass) return;
+
+  const isPassword = adminPass.type === 'password';
+
+  adminPass.type = isPassword ? 'text' : 'password';
+
+  toggleAdminPass.innerHTML = `
+    <i class="ph ${isPassword ? 'ph-eye-slash' : 'ph-eye'}"></i>
+  `;
+
+  toggleAdminPass.setAttribute(
+    'aria-label',
+    isPassword ? 'Ocultar senha' : 'Mostrar senha'
+  );
+});
 const S = () => window.__isanomar.store;
 
 const fmt = (v) => window.__isanomar.store.fmt(v);
@@ -117,10 +136,9 @@ async function render() {
   $('#adminLogin').hidden = true;
   $('#adminPanel').hidden = false;
 
-  await updateOrderBadge();
   await renderTab();
+  await updateOrderBadge();
 }
-
 
 // ============================================================
 // TABS
@@ -1883,3 +1901,4 @@ setInterval(async () => {
     console.warn('Sincronização administrativa:', e);
   }
 }, 20000);
+})();

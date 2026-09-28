@@ -32,7 +32,111 @@ function auth(q,s,n){try{let p=jwt.verify((q.headers.authorization||'').replace(
 app.post('/api/admin/login',limit({max:8,key:'login'}),async(q,s,n)=>{try{if(!await verify(q.body?.password))return s.status(401).json({error:'Senha incorreta'});s.json({token:jwt.sign({role:'admin'},JWT_SECRET||'local-development-secret-change-me',{expiresIn:'8h'}),expiresIn:28800})}catch(e){n(e)}});app.use('/api/admin',auth,(q,s,n)=>{s.setHeader('Cache-Control','no-store');n()});app.get('/api/admin/me',(q,s)=>s.json({authenticated:true,role:q.admin.role}));
 app.post('/api/orders',limit({ms:6e5,max:30,key:'orders'}),async(q,s,n)=>{let{ name,phone,province,municipality='',address,method='cod',install,items=[]}=q.body||{};name=String(name||'').trim();phone=String(phone||'').trim();province=String(province||'').trim();municipality=String(municipality||'').trim();address=String(address||'').trim();if(!name||!phone||!province||!municipality||!address||!Array.isArray(items)||!items.length)return s.status(400).json({error:'Preencha os dados obrigatórios.'});if(!['cod','express','transfer','install'].includes(method))return s.status(400).json({error:'Forma de pagamento inválida'});await init();let c=await pool.connect();try{await c.query('begin');let ids=[...new Set(items.map(x=>String(x.id)))];let ps=(await c.query(`select p.id,p.name,p.price,coalesce((select sum(available_qty) from lots l where l.product_id=p.id),0)::int stock from products p where p.id=any($1::text[]) and p.active=1`,[ids])).rows;if(ps.length!==ids.length)throw Error('Produto sem stock ou indisponível.');let m=new Map(ps.map(x=>[x.id,x]));let clean=items.map(x=>({id:String(x.id),qty:Math.max(1,Math.min(99,Number(x.qty)||1))}));let sub=0;for(let x of clean){if((m.get(x.id)?.stock||0)<x.qty)throw Error(`Stock insuficiente para ${m.get(x.id)?.name||x.id}.`);sub+=m.get(x.id).price*x.qty}let cfg=(await c.query('select max_install,delivery_other,delivery_municipalities from settings where id=1')).rows[0]||{max_install:3,delivery_other:0,delivery_municipalities:[]};let municipalities=cfg.delivery_municipalities||[];if(typeof municipalities==='string'){try{municipalities=JSON.parse(municipalities)}catch{municipalities=[]}};let match=Array.isArray(municipalities)&&municipalities.find(a=>String(a.name||'').trim().toLowerCase()===municipality.toLowerCase());let del=province==='Luanda'&&match?Math.max(0,Math.round(+match.fee||0)):Math.max(0,Math.round(+cfg.delivery_other||0));let installments=method==='install'?Math.max(1,Math.min(+cfg.max_install||3,Math.trunc(+install)||(+cfg.max_install||3))):null,total=sub+del,id='ISN-'+Date.now().toString(36).toUpperCase(),accessToken=crypto.randomBytes(24).toString('base64url'),now=new Date();await c.query('insert into orders(id,name,phone,province,municipality,address,method,install,subtotal,delivery,total,status,delivery_hours,payment_status,payment_reference,confirmed_at,created_at,access_token) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)',[id,name,phone,province,municipality,address,method,installments,sub,del,total,'pendente',72,method==='cod'?'nao_aplicavel':'pendente',id,'',now,accessToken]);for(let x of clean){let p=m.get(x.id),oi=(await c.query('insert into order_items(order_id,product_id,name,price,qty) values($1,$2,$3,$4,$5) returning id',[id,p.id,p.name,p.price,x.qty])).rows[0].id,rem=x.qty,ls=(await c.query('select id,available_qty from lots where product_id=$1 and available_qty>0 order by created_at,id for update',[x.id])).rows;for(let l of ls){if(rem<=0)break;let take=Math.min(rem,+l.available_qty);await c.query('update lots set available_qty=available_qty-$1,updated_at=$2 where id=$3',[take,now,l.id]);await c.query('insert into order_item_lots(order_item_id,lot_id,qty) values($1,$2,$3)',[oi,l.id,take]);rem-=take}if(rem>0)throw Error('Stock insuficiente.')}if(method==='install'){let base=Math.floor(total/installments),v=Array.from({length:installments},(_,i)=>i===installments-1?total-base*(installments-1):base);for(let i=1;i<=installments;i++)await c.query('insert into order_installments(order_id,number,amount,due_at,status) values($1,$2,$3,$4,$5)',[id,i,v[i-1],new Date(Date.now()+(i-1)*30*864e5),i===1?'pendente_pagamento':'pendente'])}await c.query('commit');await audit('criado','encomenda',id,`Total ${total}`);let o=await order(id);s.status(201).json({order:o,accessToken,payment:{reference:id,amount:total,firstInstallment:method==='install'?o.installments[0].amount:null}})}catch(e){await c.query('rollback').catch(()=>{});s.status(409).json({error:e.message})}finally{c.release()}});
 app.get('/api/orders',async(q,s,n)=>{try{await init();let ids=String(q.query.ids||'').split(',').filter(Boolean).slice(0,50),tokens=String(q.query.tokens||'').split(',').filter(Boolean).slice(0,50);if(!ids.length||ids.length!==tokens.length)return s.status(400).json({error:'Credenciais de consulta inválidas.'});let rows=(await pool.query('select id from orders where (id,access_token) in (select * from unnest($1::text[],$2::text[]))',[ids,tokens])).rows;s.json({orders:(await Promise.all(rows.map(x=>order(x.id)))).filter(Boolean)})}catch(e){n(e)}});
-app.get('/api/admin/orders',async(q,s,n)=>{try{await init();let ids=(await pool.query('select id from orders order by created_at desc')).rows;s.json({orders:(await Promise.all(ids.map(x=>order(x.id)))).filter(Boolean)})}catch(e){n(e)}});
+app.get('/api/admin/orders',async(q,s,n)=>{
+  try{
+    await init();
+
+    const ordersResult = await pool.query(`
+      select
+        id,
+        name,
+        phone,
+        province,
+        municipality,
+        address,
+        method,
+        install,
+        subtotal,
+        delivery,
+        total,
+        status,
+        delivery_hours "deliveryHours",
+        payment_status "paymentStatus",
+        payment_reference "paymentReference",
+        confirmed_at "confirmedAt",
+        created_at "createdAt"
+      from orders
+      order by created_at desc
+    `);
+
+    const orders = ordersResult.rows;
+
+    if(!orders.length){
+      return s.json({orders:[]});
+    }
+
+    const orderIds = orders.map(o => o.id);
+
+    const [itemsResult, installmentsResult] = await Promise.all([
+      pool.query(`
+        select
+          id,
+          order_id,
+          product_id "productId",
+          name,
+          price,
+          qty
+        from order_items
+        where order_id = any($1::text[])
+        order by order_id, id
+      `,[orderIds]),
+
+      pool.query(`
+        select
+          order_id,
+          number,
+          amount,
+          due_at "dueAt",
+          status,
+          paid_at "paidAt"
+        from order_installments
+        where order_id = any($1::text[])
+        order by order_id, number
+      `,[orderIds])
+    ]);
+
+    const itemsByOrder = new Map();
+    const installmentsByOrder = new Map();
+
+    for(const item of itemsResult.rows){
+      if(!itemsByOrder.has(item.order_id)){
+        itemsByOrder.set(item.order_id,[]);
+      }
+
+      itemsByOrder.get(item.order_id).push({
+        id:item.id,
+        productId:item.productId,
+        name:item.name,
+        price:item.price,
+        qty:item.qty
+      });
+    }
+
+    for(const installment of installmentsResult.rows){
+      if(!installmentsByOrder.has(installment.order_id)){
+        installmentsByOrder.set(installment.order_id,[]);
+      }
+
+      installmentsByOrder.get(installment.order_id).push({
+        number:installment.number,
+        amount:installment.amount,
+        dueAt:installment.dueAt,
+        status:installment.status,
+        paidAt:installment.paidAt
+      });
+    }
+
+    for(const order of orders){
+      order.items = itemsByOrder.get(order.id) || [];
+      order.installments = installmentsByOrder.get(order.id) || [];
+    }
+
+    s.json({orders});
+
+  }catch(e){
+    n(e);
+  }
+});
 app.patch('/api/admin/orders/:id',async(q,s,n)=>{let c=await pool.connect();try{await c.query('begin');let o=(await c.query('select * from orders where id=$1 for update',[q.params.id])).rows[0];if(!o)throw Error('Encomenda não encontrada');let st=String(q.body?.status??o.status),dh=Number(q.body?.deliveryHours??o.delivery_hours);if(!['pendente','confirmado','enviado','entregue','cancelado'].includes(st))throw Error('Estado inválido');if(![48,72].includes(dh))throw Error('Prazo de entrega inválido. Use 48h ou 72h.');if(st==='confirmado'&&o.method!=='cod'&&!(o.method==='install'?['parcial_1','parcial_2','pago'].includes(o.payment_status):o.payment_status==='pago'))throw Error('Confirme o pagamento antes de avançar.');if(st==='enviado'&&o.status!=='confirmado')throw Error('A encomenda deve estar confirmada antes de ser enviada.');if(st==='entregue'&&!['confirmado','enviado','entregue'].includes(o.status))throw Error('A encomenda deve ser confirmada/enviada antes de ser entregue.');if(st==='cancelado'&&o.status!=='cancelado'){let a=(await c.query('select oil.lot_id,oil.qty from order_item_lots oil join order_items oi on oi.id=oil.order_item_id where oi.order_id=$1',[q.params.id])).rows;for(let x of a)await c.query('update lots set available_qty=available_qty+$1,updated_at=$2 where id=$3',[x.qty,new Date(),x.lot_id])}await c.query('update orders set status=$1,delivery_hours=$2,confirmed_at=$3 where id=$4',[st,dh,st==='confirmado'?(o.confirmed_at||new Date()):o.confirmed_at,q.params.id]);await c.query('commit');await audit('alterado','encomenda',q.params.id,`${o.status} -> ${st}; ${dh}h`);s.json({order:await order(q.params.id)})}catch(e){await c.query('rollback').catch(()=>{});s.status(409).json({error:e.message})}finally{c.release()}});
 app.post('/api/admin/orders/:id/payment',async(q,s,n)=>{try{let o=(await pool.query('select * from orders where id=$1',[q.params.id])).rows[0];if(!o)return s.status(404).json({error:'Encomenda não encontrada'});if(o.method==='cod'||o.method==='install')return s.status(400).json({error:'Use o fluxo de pagamento correspondente.'});await pool.query("update orders set payment_status='pago',confirmed_at=coalesce(nullif(confirmed_at,''),$1) where id=$2",[new Date(),q.params.id]);await audit('pagamento_confirmado','pagamento',q.params.id,`Valor ${o.total}`);s.json({order:await order(q.params.id)})}catch(e){n(e)}});
 app.post('/api/admin/installments/:id/pay',async(q,s,n)=>{let c=await pool.connect();try{await c.query('begin');let id=q.params.id,num=Number(q.body?.number),r=(await c.query('select * from order_installments where order_id=$1 and number=$2 for update',[id,num])).rows[0];if(!r)throw Error('Prestação não encontrada');if(num>1){let p=(await c.query('select status from order_installments where order_id=$1 and number=$2',[id,num-1])).rows[0];if(!p||p.status!=='paga')throw Error(`Pague primeiro a ${num-1}ª prestação.`)}await c.query('update order_installments set status=$1,paid_at=$2 where id=$3',['paga',new Date(),r.id]);let paid=+(await c.query("select count(*)::int n from order_installments where order_id=$1 and status='paga'",[id])).rows[0].n;await c.query('update orders set payment_status=$1 where id=$2',[paid===3?'pago':`parcial_${paid}`,id]);await c.query('commit');await audit('prestacao_paga','prestacao',id,`${num}ª prestação`);s.json({order:await order(id)})}catch(e){await c.query('rollback').catch(()=>{});s.status(409).json({error:e.message})}finally{c.release()}});
