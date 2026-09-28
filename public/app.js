@@ -2811,7 +2811,7 @@ function setupAdminSecret() {
           tapCount = 0;
           clearTimeout(tapTimer);
 
-          go("admin");
+          window.location.href = "admin.html";
 
         }
 
