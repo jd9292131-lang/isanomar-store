@@ -666,70 +666,115 @@ ol {
 
 
 /* ============================================================
-   10. CATEGORIES
+   10. CATEGORIAS
    ============================================================ */
 
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 24px 18px;
 }
 
 .cat-tile,
 .category-card,
 .cat-card {
-  min-height: 115px;
-  padding: 17px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface);
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--text);
-  text-align: left;
+
+  text-align: center;
+
+  box-shadow: none;
+
   transition:
-    transform .2s ease,
-    border-color .2s ease,
-    box-shadow .2s ease;
+    transform .18s ease;
+}
+
+.cat-icon {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--gold);
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--gold) 18%,
+    var(--line)
+  );
+
+  transition:
+    transform .18s ease,
+    background .18s ease,
+    border-color .18s ease;
+}
+
+.cat-icon i {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.cat-tile .name,
+.category-card .name,
+.cat-card .name,
+.cat-tile strong,
+.category-card strong,
+.cat-card strong {
+  width: 100%;
+  min-width: 0;
+
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cat-tile:hover,
 .category-card:hover,
 .cat-card:hover {
-  border-color: var(--gold);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
   transform: translateY(-2px);
 }
 
-.cat-icon {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 11px;
-  background: var(--gold-soft);
-  color: var(--gold);
+.cat-tile:hover .cat-icon,
+.category-card:hover .cat-icon,
+.cat-card:hover .cat-icon {
+  background: var(--surface);
+  border-color: var(--gold);
 }
 
-.cat-icon i {
-  font-size: 19px;
-}
-
-.cat-tile .name,
-.category-card strong,
-.cat-card strong {
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 750;
-}
-
-.category-card span,
-.cat-card span {
-  color: var(--text-soft);
-  font-size: 11px;
+.cat-tile:active,
+.category-card:active,
+.cat-card:active {
+  transform: scale(.97);
 }
 
 
@@ -3789,9 +3834,24 @@ width: 42px;
 height: 42px;
 }
 
-.desktop-nav,
+.desktop-nav {
+  display: none;
+}
+
 .desktop-header-actions {
-display: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* No mobile, mostramos apenas o botão de tema.
+   O carrinho continua disponível no menu/navegação mobile. */
+.desktop-header-actions .cart-header-btn {
+  display: none;
+}
+
+.theme-toggle {
+  display: inline-flex;
 }
 
 /* -------------------------------------------------------
@@ -3949,93 +4009,113 @@ VERSÃO COMPACTA / FORTE / COMERCIAL
 
 @media (max-width: 899px) {
 
-/* Container */
-.cat-grid {
-display: grid;
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 6px;
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px 8px;
+  }
+
+  .cat-tile,
+  .category-card,
+  .cat-card {
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+
+    box-shadow: none;
+    overflow: visible;
+
+    text-align: center;
+
+    transition:
+      transform .15s ease;
+  }
+
+  .cat-icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    border-radius: 50%;
+    background: var(--gold-soft);
+    color: var(--gold);
+
+    border: 1px solid color-mix(
+      in srgb,
+      var(--gold) 18%,
+      var(--line)
+    );
+
+    transition:
+      transform .18s ease,
+      background .18s ease;
+  }
+
+  .cat-icon i {
+    font-size: 19px;
+    line-height: 1;
+  }
+
+  .cat-tile .name,
+  .category-card .name,
+  .cat-card .name {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 9px;
+    line-height: 1.2;
+    font-weight: 750;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cat-tile:hover,
+  .category-card:hover,
+  .cat-card:hover {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    transform: translateY(-1px);
+  }
+
+  .cat-tile:hover .cat-icon,
+  .category-card:hover .cat-icon,
+  .cat-card:hover .cat-icon {
+    background: var(--surface);
+    border-color: var(--gold);
+  }
+
+  .cat-tile:active,
+  .category-card:active,
+  .cat-card:active {
+    transform: scale(.95);
+  }
+
 }
-
-/* Categoria — deixa de parecer um cartão */
-.cat-tile,
-.category-card,
-.cat-card {
-height: 52px;
-min-height: 52px;
-padding: 0 11px;
-
-
-display: flex;
-align-items: center;
-gap: 9px;
-
-border: 1px solid var(--line);
-border-radius: 5px;
-background: transparent;
-
-box-shadow: none;
-overflow: hidden;
-
-transition:
-  background .18s ease,
-  border-color .18s ease,
-  transform .12s ease;
-
-}
-
-/* Ícone pequeno e discreto */
-.cat-icon {
-width: 25px;
-height: 25px;
-min-width: 25px;
-margin: 0;
-
-display: flex;
-align-items: center;
-justify-content: center;
-
-border-radius: 50%;
-
-
-}
-
-.cat-icon i {
-font-size: 13px;
-}
-
-/* Texto */
-.cat-tile .name,
-.category-card .name,
-.cat-card .name {
-min-width: 0;
-margin: 0;
-
-font-size: 10px;
-line-height: 1;
-font-weight: 700;
-letter-spacing: .02em;
-text-transform: uppercase;
-
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-
-/* Hover / toque */
-.cat-tile:hover,
-.category-card:hover,
-.cat-card:hover {
-background: var(--surface);
-border-color: var(--text-soft);
-}
-
-.cat-tile:active,
-.category-card:active,
-.cat-card:active {
-transform: scale(.975);
-}
-}
-
 /* =========================================================
 ECRÃS MUITO PEQUENOS
 ========================================================= */
@@ -4661,4 +4741,461 @@ font-size: 11px;
     display: block;
   }
 
+}
+/* ============================================================
+   ISANOMAR — HOME SLIDER
+   ============================================================ */
+
+.isanomar-home-slider {
+  position: relative;
+  width: min(100% - 24px, 1180px);
+  height: clamp(330px, 48vw, 520px);
+  margin: 16px auto 28px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #111;
+  isolation: isolate;
+}
+
+.isanomar-home-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.isanomar-home-slide {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: scale(1.025);
+
+  transition:
+    opacity .65s ease,
+    transform 1s ease,
+    visibility .65s ease;
+}
+
+.isanomar-home-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.isanomar-home-slide img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.isanomar-home-slide-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, .45) 0%,
+      rgba(0, 0, 0, .18) 42%,
+      rgba(0, 0, 0, .02) 75%,
+      rgba(0, 0, 0, .08) 100%
+    );
+
+  z-index: 1;
+}
+.isanomar-home-slide-content {
+  position: absolute;
+  z-index: 3;
+
+  left: clamp(24px, 5vw, 64px);
+  bottom: clamp(48px, 7vw, 72px);
+
+  width: min(520px, calc(100% - 48px));
+
+  color: #fff;
+}
+
+.isanomar-home-slide-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 12px;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,.78);
+}
+
+.isanomar-home-slide-label::before {
+  content: "";
+
+  width: 24px;
+  height: 1px;
+
+  background: rgba(255,255,255,.72);
+}
+
+.isanomar-home-slide-content h2 {
+  margin: 0;
+
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.045em;
+  font-weight: 800;
+
+  color: #fff;
+}
+
+.isanomar-home-slide-content p {
+  margin: 14px 0 22px;
+
+  max-width: 430px;
+
+  font-size: clamp(14px, 1.5vw, 17px);
+  line-height: 1.5;
+
+  color: rgba(255,255,255,.86);
+}
+
+.isanomar-home-slide-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 44px;
+  padding: 0 18px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #fff;
+  color: #111;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .01em;
+
+  cursor: pointer;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.isanomar-home-slide-button i {
+  font-size: 16px;
+}
+
+.isanomar-home-slide-button:hover {
+  transform: translateY(-2px);
+}
+
+.isanomar-home-slide-button:active {
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   SETAS
+   ============================================================ */
+
+.isanomar-home-slider-arrow {
+  position: absolute;
+  z-index: 5;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 50%;
+
+  background: rgba(0,0,0,.25);
+  color: #fff;
+
+  backdrop-filter: blur(10px);
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.isanomar-home-slider-arrow:hover {
+  background: rgba(0,0,0,.48);
+}
+
+.isanomar-home-slider-arrow:active {
+  transform: translateY(-50%) scale(.94);
+}
+
+.isanomar-home-slider-arrow i {
+  font-size: 17px;
+}
+
+.isanomar-home-slider-arrow.is-prev {
+  left: 18px;
+}
+
+.isanomar-home-slider-arrow.is-next {
+  right: 18px;
+}
+
+
+/* ============================================================
+   INDICADORES
+   ============================================================ */
+
+.isanomar-home-slider-dots {
+  position: absolute;
+  z-index: 6;
+
+  left: clamp(24px, 5vw, 64px);
+  bottom: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.isanomar-home-slider-dots button {
+  width: 22px;
+  height: 3px;
+
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+
+  background: rgba(255,255,255,.38);
+
+  cursor: pointer;
+
+  transition:
+    width .25s ease,
+    background .25s ease;
+}
+
+.isanomar-home-slider-dots button.is-active {
+  width: 38px;
+  background: #fff;
+}
+
+
+/* ============================================================
+   TABLET / MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .isanomar-home-slider {
+    width: calc(100% - 20px);
+    height: 390px;
+
+    margin-top: 10px;
+
+    border-radius: 20px;
+  }
+
+.isanomar-home-slide img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+}
+.isanomar-home-slide-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.02) 15%,
+      rgba(0,0,0,.08) 45%,
+      rgba(0,0,0,.48) 100%
+    );
+}
+  .isanomar-home-slide-content {
+    left: 22px;
+    right: 22px;
+    bottom: 54px;
+
+    width: auto;
+  }
+
+  .isanomar-home-slide-label {
+    margin-bottom: 9px;
+    font-size: 9px;
+  }
+
+  .isanomar-home-slide-content h2 {
+    font-size: 42px;
+  }
+
+  .isanomar-home-slide-content p {
+    margin: 10px 0 16px;
+
+    max-width: 300px;
+
+    font-size: 13px;
+  }
+
+  .isanomar-home-slide-button {
+    min-height: 42px;
+    padding: 0 16px;
+
+    font-size: 11px;
+  }
+
+  .isanomar-home-slider-arrow {
+    width: 34px;
+    height: 34px;
+
+    top: 20px;
+    transform: none;
+  }
+
+  .isanomar-home-slider-arrow:active {
+    transform: scale(.94);
+  }
+
+  .isanomar-home-slider-arrow.is-prev {
+    left: auto;
+    right: 60px;
+  }
+
+  .isanomar-home-slider-arrow.is-next {
+    right: 18px;
+  }
+
+  .isanomar-home-slider-dots {
+    left: 22px;
+    bottom: 20px;
+  }
+}
+
+
+/* ============================================================
+   ECRÃS MUITO PEQUENOS
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+  .isanomar-home-slider {
+    height: 360px;
+  }
+
+  .isanomar-home-slide-content h2 {
+    font-size: 36px;
+  }
+
+  .isanomar-home-slide-content p {
+    font-size: 12px;
+  }
+}
+
+
+/* ============================================================
+   ACESSIBILIDADE
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .isanomar-home-slide {
+    transition: none;
+  }
+
+  .isanomar-home-slide-button,
+  .isanomar-home-slider-arrow,
+  .isanomar-home-slider-dots button {
+    transition: none;
+  }
+}
+/* TESTE — remover completamente o overlay do slider */
+
+.isanomar-home-slide-overlay {
+  display: none !important;
+}
+/* ============================================================
+   ISANOMAR — CORREÇÃO DE VISIBILIDADE DO SLIDER
+   ============================================================ */
+
+.isanomar-home-slider {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  background: #ddd !important;
+}
+
+.isanomar-home-slide {
+  position: absolute !important;
+  inset: 0 !important;
+
+  display: block !important;
+
+  opacity: 0 !important;
+  visibility: hidden !important;
+
+  z-index: 1 !important;
+}
+
+.isanomar-home-slide.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2 !important;
+}
+
+.isanomar-home-slide img {
+  position: absolute !important;
+  inset: 0 !important;
+
+  display: block !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+
+  object-fit: cover !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  z-index: 0 !important;
+
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+.isanomar-home-slide-overlay {
+  display: none !important;
+}
+
+.isanomar-home-slide-content {
+  z-index: 5 !important;
 }

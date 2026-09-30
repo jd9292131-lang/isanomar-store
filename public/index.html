@@ -21,7 +21,16 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230b4aa2'/%3E%3Ctext x='50' y='65' font-size='43' text-anchor='middle' fill='%23ffc233' font-family='Arial' font-weight='bold'%3EIS%3C/text%3E%3C/svg%3E" />
   <title>ISANOMAR Store — Acessórios e Produtos em Angola</title>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem('isanomar_theme')||'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();</script>
+  <script>
+(function () {
+  try {
+    document.documentElement.dataset.theme =
+      localStorage.getItem('isanomar_theme') || 'light';
+  } catch (e) {
+    document.documentElement.dataset.theme = 'light';
+  }
+})();
+</script>
   <link rel="stylesheet" href="style.css" />
 
 
@@ -173,16 +182,6 @@
       </div>
 
 
-      <div class="drawer-profile">
-        <div class="profile-icon">
-          <i class="ph ph-Storefront"></i>
-        </div>
-
-        <div>
-          <strong>ISANOMAR Store</strong>
-          <span>Loja online · Angola</span>
-        </div>
-      </div>
 
 
       <nav class="drawer-nav">
@@ -315,11 +314,8 @@
         </div>
 
         <a
-          href="https://isanomarStore.com.ao"
-          target="_blank"
-          rel="noopener"
         >
-          isanomarStore.com.ao
+      
           <i class="ph ph-arrow-up-right"></i>
         </a>
 
@@ -343,82 +339,271 @@
         class="view active"
         id="view-home"
       >
-<section class="isanomar-hero">
+<section
+  class="isanomar-home-slider"
+  id="homeSlider"
+  aria-label="Destaques ISANOMAR"
+>
 
-  <div class="isanomar-hero-media">
-    <img
-      src="assets/Isanomar.jpg"
-      alt="Coleção ISANOMAR Store"
-      loading="eager"
-    />
+  <div class="isanomar-home-slides">
 
-    <div class="isanomar-hero-overlay"></div>
+    <!-- TÉNIS -->
+    <article class="isanomar-home-slide is-active">
 
-    <div class="isanomar-hero-badge">
-      <span></span>
-      CURADORIA ISANOMAR
-    </div>
+      <img
+        src="assets/R.jpg"
+        alt="Ténis"
+        loading="eager"
+      >
+
+      <div class="isanomar-home-slide-overlay"></div>
+
+      <div class="isanomar-home-slide-content">
+
+        <span class="isanomar-home-slide-label">
+         Ténis/Sapatos
+        </span>
+
+        <h3>
+           Ténis/Sapatos/Chinelos
+        </h3>
+
+        <p>
+          Estilo para cada passo.
+        </p>
+
+        <button
+          type="button"
+          class="isanomar-home-slide-button"
+          data-view="catalog"
+        >
+          Explorar coleção
+          <i class="ph ph-arrow-up-right"></i>
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- PERUCAS -->
+    <article class="isanomar-home-slide">
+
+<img
+  src="https://images.pexels.com/photos/13221797/pexels-photo-13221797.jpeg?cs=srgb&dl=pexels-brianasarejr-13221797.jpg&fm=jpg"
+  alt="Perucas"
+  loading="lazy"
+>
+      <div class="isanomar-home-slide-overlay"></div>
+
+      <div class="isanomar-home-slide-content">
+
+        <span class="isanomar-home-slide-label">
+          BELEZA
+        </span>
+
+        <h2>
+          Perucas
+        </h2>
+
+        <p>
+          Beleza que acompanha o seu estilo.
+        </p>
+
+        <button
+          type="button"
+          class="isanomar-home-slide-button"
+          data-view="catalog"
+        >
+          Explorar coleção
+          <i class="ph ph-arrow-up-right"></i>
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- PERFUMES -->
+    <article class="isanomar-home-slide">
+
+      <img
+        src="assets/perfumes.jpg"
+        alt="Perfume"
+        loading="lazy"
+      >
+
+      <div class="isanomar-home-slide-overlay"></div>
+
+      <div class="isanomar-home-slide-content">
+
+        <span class="isanomar-home-slide-label">
+          PERFUMARIA
+        </span>
+
+        <h2>
+          Perfumes
+        </h2>
+
+        <p>
+          Fragrâncias que deixam marca.
+        </p>
+
+        <button
+          type="button"
+          class="isanomar-home-slide-button"
+          data-view="catalog"
+        >
+          Explorar coleção
+          <i class="ph ph-arrow-up-right"></i>
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- BOLSAS -->
+    <article class="isanomar-home-slide">
+
+      <img
+        src="https://images.pexels.com/photos/5658856/pexels-photo-5658856.jpeg?auto=compress&cs=tinysrgb&w=1600"
+        alt="Bolsa"
+        loading="lazy"
+      >
+
+      <div class="isanomar-home-slide-overlay"></div>
+
+      <div class="isanomar-home-slide-content">
+
+        <span class="isanomar-home-slide-label">
+          MODA
+        </span>
+
+        <h2>
+          Bolsas
+        </h2>
+
+        <p>
+          Detalhes que completam o visual.
+        </p>
+
+        <button
+          type="button"
+          class="isanomar-home-slide-button"
+          data-view="catalog"
+        >
+          Explorar coleção
+          <i class="ph ph-arrow-up-right"></i>
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- ACESSÓRIOS -->
+    <article class="isanomar-home-slide">
+
+      <img
+        src="assets/acessories.jpg"
+        alt="Acessórios"
+        loading="lazy"
+      >
+
+      <div class="isanomar-home-slide-overlay"></div>
+
+      <div class="isanomar-home-slide-content">
+
+        <span class="isanomar-home-slide-label">
+          ACESSÓRIOS
+        </span>
+
+        <h2>
+          Acessórios
+        </h2>
+
+        <p>
+          Pequenos detalhes. Grande presença.
+        </p>
+
+        <button
+          type="button"
+          class="isanomar-home-slide-button"
+          data-view="catalog"
+        >
+          Explorar coleção
+          <i class="ph ph-arrow-up-right"></i>
+        </button>
+
+      </div>
+
+    </article>
+
   </div>
 
 
-  <div class="isanomar-hero-content">
+  <!-- SETAS -->
+  <button
+    type="button"
+    class="isanomar-home-slider-arrow is-prev"
+    id="homeSliderPrev"
+    aria-label="Slide anterior"
+  >
+    <i class="ph ph-arrow-left"></i>
+  </button>
 
-    <p class="isanomar-hero-kicker">
-      ISANOMAR STORE
-    </p>
+  <button
+    type="button"
+    class="isanomar-home-slider-arrow is-next"
+    id="homeSliderNext"
+    aria-label="Próximo slide"
+  >
+    <i class="ph ph-arrow-right"></i>
+  </button>
 
-    <h1>
-      Elegância para
-      <em>todos os dias.</em>
-    </h1>
 
-    <p class="isanomar-hero-description">
-      Descubra acessórios e produtos selecionados
-      para transformar cada detalhe.
-    </p>
+  <!-- INDICADORES -->
+  <div
+    class="isanomar-home-slider-dots"
+    id="homeSliderDots"
+    aria-label="Selecionar destaque"
+  >
 
-    <div class="isanomar-hero-actions">
+    <button
+      type="button"
+      class="is-active"
+      data-slide="0"
+      aria-label="Ir para Ténis"
+    ></button>
 
-      <button
-        class="isanomar-hero-primary"
-        data-view="catalog"
-      >
-        Explorar coleção
-        <i class="ph ph-arrow-up-right"></i>
-      </button>
+    <button
+      type="button"
+      data-slide="1"
+      aria-label="Ir para Perucas"
+    ></button>
 
-      <button
-        class="isanomar-hero-secondary"
-        data-view="catalog"
-      >
-        Ver novidades
-      </button>
+    <button
+      type="button"
+      data-slide="2"
+      aria-label="Ir para Perfumes"
+    ></button>
 
-    </div>
+    <button
+      type="button"
+      data-slide="3"
+      aria-label="Ir para Bolsas"
+    ></button>
 
-    <div class="isanomar-hero-meta">
-
-      <div>
-        <strong>01</strong>
-        <span>Curadoria</span>
-      </div>
-
-      <div>
-        <strong>02</strong>
-        <span>Qualidade</span>
-      </div>
-
-      <div>
-        <strong>03</strong>
-        <span>Angola</span>
-      </div>
-
-    </div>
+    <button
+      type="button"
+      data-slide="4"
+      aria-label="Ir para Acessórios"
+    ></button>
 
   </div>
 
 </section>
-
         <!-- Categorias -->
 
         <section class="home-section">
@@ -1150,368 +1335,6 @@
 
       </section>
 
-
-      <!-- ===================================================
-           ADMIN
-      ==================================================== -->
-
-      <section
-        class="view"
-        id="view-admin"
-      >
-
-        <div
-          class="admin-login"
-          id="adminLogin"
-        >
-
-          <div class="admin-lock">
-            <i class="ph ph-lock-key"></i>
-          </div>
-
-          <span class="section-kicker">ÁREA RESTRITA</span>
-
-          <h1>Painel do Operador</h1>
-
-          <p>
-            Área exclusiva para gestão da ISANOMAR Store.
-          </p>
-
-          <label class="field">
-
-            <span>Senha do operador</span>
-
-            <div class="input-wrap">
-
-              <i class="ph ph-lock"></i>
-
-              <input
-                type="password"
-                id="adminPass"
-                autocomplete="current-password"
-              />
-
-              <button
-                type="button"
-                class="input-action"
-                id="toggleAdminPass"
-              >
-                <i class="ph ph-eye"></i>
-              </button>
-
-            </div>
-
-          </label>
-
-          <button
-            class="btn btn-primary btn-block"
-            id="adminLoginBtn"
-          >
-            Entrar no painel
-            <i class="ph ph-arrow-right"></i>
-          </button>
-
-        </div>
-
-
-        <div
-          class="admin-panel"
-          id="adminPanel"
-          hidden
-        >
-
-          <div class="admin-header">
-
-            <div>
-              <span class="section-kicker">ADMINISTRAÇÃO</span>
-              <h1>Painel</h1>
-            </div>
-
-            <button
-              class="icon-btn dark"
-              id="logoutAdminBtnTop"
-            >
-              <i class="ph ph-sign-out"></i>
-            </button>
-
-          </div>
-
-
-          <div
-            class="admin-tabs"
-            id="adminTabs"
-          >
-
-            <button
-              class="tab active"
-              data-tab="dashboard"
-            >
-              <i class="ph ph-chart-pie-slice"></i>
-              <span>Dashboard</span>
-            </button>
-
-            <button
-              class="tab"
-              data-tab="products"
-            >
-              <i class="ph ph-package"></i>
-              <span>Produtos</span>
-            </button>
-
-            <button class="tab" data-tab="stock">
-              <i class="ph ph-warehouse"></i><span>Stock & Lotes</span>
-            </button>
-
-            <button
-              class="tab"
-              data-tab="orders"
-            >
-              <i class="ph ph-receipt"></i>
-              <span>Encomendas</span>
-              <span class="tab-badge" id="ordersBadge" hidden>0</span>
-            </button>
-
-            <button
-              class="tab"
-              data-tab="clients"
-            >
-              <i class="ph ph-users"></i>
-              <span>Clientes</span>
-            </button>
-
-            <button
-              class="tab"
-              data-tab="categories"
-            >
-              <i class="ph ph-squares-four"></i>
-              <span>Categorias</span>
-            </button>
-
-            <button
-              class="tab"
-              data-tab="settings"
-            >
-              <i class="ph ph-gear"></i>
-              <span>Definições</span>
-            </button>
-
-            <button class="tab" data-tab="audit">
-              <i class="ph ph-shield-check"></i>
-              <span>Auditoria</span>
-            </button>
-
-          </div>
-
-
-          <div
-            class="tab-body"
-            data-body="dashboard"
-          >
-            <div id="adminDashboard"></div>
-          </div>
-
-          <div
-            class="tab-body hidden"
-            data-body="products"
-          >
-
-            <button
-              class="btn btn-primary btn-block"
-              id="addProductBtn"
-            >
-              <i class="ph ph-plus"></i>
-              Novo produto
-            </button>
-
-            <div
-              class="admin-products"
-              id="adminProducts"
-            ></div>
-
-          </div>
-
-
-          <div class="tab-body hidden" data-body="stock">
-            <div class="section-head admin-stock-head"><div><span class="section-kicker">INVENTÁRIO REAL</span><h2>Stock & Lotes</h2></div><button class="btn btn-primary" id="addLotBtn"><i class="ph ph-plus"></i>Novo lote</button></div>
-            <div id="adminStock"></div>
-          </div>
-
-          <div
-            class="tab-body hidden"
-            data-body="orders"
-          >
-            <div id="adminOrders"></div>
-          </div>
-
-          <div
-            class="tab-body hidden"
-            data-body="clients"
-          >
-            <div id="adminClients"></div>
-          </div>
-
-
-          <div
-            class="tab-body hidden"
-            data-body="categories"
-          >
-
-            <div class="admin-add-card">
-
-              <input
-                id="newCatInput"
-                placeholder="Nova categoria..."
-              />
-
-              <button
-                class="btn btn-primary"
-                id="addCatBtn"
-              >
-                <i class="ph ph-plus"></i>
-                Adicionar
-              </button>
-
-            </div>
-
-            <div id="adminCats"></div>
-
-          </div>
-
-
-          <div
-            class="tab-body hidden"
-            data-body="settings"
-          >
-
-            <div class="settings-card">
-
-              <label class="field">
-                <span>Nome da loja</span>
-                <input id="setShopName" />
-              </label>
-
-              <label class="field">
-                <span>Telemóvel de contacto</span>
-                <input id="setShopPhone" />
-              </label>
-
-              <label class="field">
-                <span>IBAN / conta para transferência</span>
-                <input id="setShopIban" />
-              </label>
-
-              <label class="field">
-                <span>Máximo de prestações</span>
-                <input
-                  id="setMaxInstall"
-                  type="number"
-                  min="1"
-                  max="12"
-                />
-              </label>
-
-              <div class="settings-section">
-
-                <h3>
-                  <i class="ph ph-truck"></i>
-                  Taxa de entrega
-                </h3>
-
-                <label class="field">
-                  <span>Outras províncias</span>
-                  <input
-                    id="setDelOther"
-                    type="number"
-                    min="0"
-                  />
-                </label>
-
-              </div>
-
-
-              <div class="settings-section">
-
-                <h3>
-                  <i class="ph ph-map-pin"></i>
-                  Municípios de Luanda
-                </h3>
-
-                <div id="delList"></div>
-
-                <div class="admin-add-card">
-
-                  <input
-                    id="newDelInput"
-                    placeholder="Município..."
-                  />
-
-                  <input
-                    id="newDelFee"
-                    type="number"
-                    min="0"
-                    placeholder="Kz"
-                  />
-
-                  <button
-                    class="btn btn-primary"
-                    id="addDelBtn"
-                  >
-                    <i class="ph ph-plus"></i>
-                  </button>
-
-                </div>
-
-              </div>
-
-
-              <button
-                class="btn btn-primary btn-block"
-                id="saveSettingsBtn"
-              >
-                <i class="ph ph-floppy-disk"></i>
-                Guardar definições
-              </button>
-
-
-              <button
-                class="btn btn-ghost btn-block"
-                id="logoutAdminBtn"
-              >
-                <i class="ph ph-sign-out"></i>
-                Sair do painel
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="tab-body hidden" data-body="audit">
-            <div class="section-head"><div><span class="section-kicker">CONTROLO INTERNO</span><h2>Registo de actividade</h2></div><button class="btn btn-secondary" id="refreshAuditBtn"><i class="ph ph-arrows-clockwise"></i> Actualizar</button></div>
-            <div id="adminAudit"></div>
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-
-    <div class="modal-overlay" id="lotModal">
-      <div class="modal">
-        <div class="modal-grabber"></div>
-        <div class="modal-head"><div><span class="section-kicker">INVENTÁRIO</span><h3 id="lotModalTitle">Novo lote</h3></div><button class="icon-btn dark" type="button" id="closeLotModal"><i class="ph ph-x"></i></button></div>
-        <form id="lotForm">
-          <input type="hidden" id="lotId" />
-          <label class="field"><span>Produto</span><select id="lotProduct" required></select></label>
-          <label class="field"><span>Código do lote</span><input id="lotCode" required placeholder="LOT-2026-001" /></label>
-          <div class="two-col"><label class="field"><span>Quantidade recebida</span><input id="lotReceived" type="number" min="0" required /></label><label class="field"><span>Disponível</span><input id="lotAvailable" type="number" min="0" required /></label></div>
-          <label class="field"><span>Validade</span><input id="lotExpires" type="date" /></label>
-          <label class="field"><span>Nota</span><textarea id="lotNote" placeholder="Fornecedor, observação, localização..."></textarea></label>
-          <div class="modal-actions"><button class="btn btn-ghost" type="button" id="cancelLot">Cancelar</button><button class="btn btn-primary" type="submit"><i class="ph ph-floppy-disk"></i> Guardar lote</button></div>
-        </form>
-      </div>
-    </div>
 
 
     <!-- =====================================================

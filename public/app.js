@@ -2956,14 +2956,55 @@ window.__isanomar = {
 // ============================================================
 
 function setupTheme() {
-  const saved = localStorage.getItem('isanomar_theme') || 'dark';
-  document.documentElement.dataset.theme = saved;
-  const btn = $("#themeToggle");
-  const paint = () => { if(btn) btn.innerHTML = `<i class="ph ${document.documentElement.dataset.theme === 'dark' ? 'ph-sun' : 'ph-moon'}"></i>`; };
-  paint();
-  btn?.addEventListener('click', () => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next; localStorage.setItem('isanomar_theme', next); paint(); });
-}
+  const saved =
+    localStorage.getItem('isanomar_theme') || 'light';
 
+  document.documentElement.dataset.theme = saved;
+
+  const btn = $('#themeToggle');
+
+  const paint = () => {
+    if (!btn) return;
+
+    const isDark =
+      document.documentElement.dataset.theme === 'dark';
+
+    btn.innerHTML = `
+      <i class="ph ${isDark ? 'ph-sun' : 'ph-moon'}"></i>
+    `;
+
+    btn.setAttribute(
+      'aria-label',
+      isDark ? 'Ativar tema claro' : 'Ativar tema escuro'
+    );
+
+    btn.setAttribute(
+      'title',
+      isDark ? 'Ativar tema claro' : 'Ativar tema escuro'
+    );
+  };
+
+  paint();
+
+  btn?.addEventListener('click', () => {
+    const current =
+      document.documentElement.dataset.theme;
+
+    const next =
+      current === 'dark'
+        ? 'light'
+        : 'dark';
+
+    document.documentElement.dataset.theme = next;
+
+    localStorage.setItem(
+      'isanomar_theme',
+      next
+    );
+
+    paint();
+  });
+}
 const HERO_SLIDES = [
   {eyebrow:'NOVA EXPERIÊNCIA',title:'Elegância que inspira.',sub:'Descubra acessórios e produtos selecionados para elevar o seu estilo.',icon:'ph-sparkle'},
   {eyebrow:'ENTREGA SIMPLES',title:'Escolha. Encomende. Receba.',sub:'A taxa de entrega é calculada automaticamente em 7% do valor dos produtos.',icon:'ph-truck'},
@@ -2991,6 +3032,7 @@ async function init() {
   setInterval(rotateHero, 6000);
 
   setupNavigation();
+  setupHomeSlider();
 
   setupDrawer();
 
@@ -3167,4 +3209,82 @@ function setupCookies() {
       }
     );
 
+}
+/* =========================================================
+   SLIDER DA HOME — ISANOMAR
+   ========================================================= */
+
+function setupHomeSlider() {
+  const slider = document.querySelector('#homeSlider');
+
+  if (!slider) return;
+
+  const slides = Array.from(
+    slider.querySelectorAll('.isanomar-home-slide')
+  );
+
+  const dots = Array.from(
+    slider.querySelectorAll('.isanomar-home-slider-dots button')
+  );
+
+  const prevButton = document.querySelector('#homeSliderPrev');
+  const nextButton = document.querySelector('#homeSliderNext');
+
+  if (!slides.length) return;
+
+  let current = 0;
+  let timer = null;
+
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === current);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === current);
+    });
+  }
+
+  function nextSlide() {
+    showSlide(current + 1);
+  }
+
+  function prevSlide() {
+    showSlide(current - 1);
+  }
+
+  function startAutoPlay() {
+    clearInterval(timer);
+
+    timer = setInterval(() => {
+      nextSlide();
+    }, 5000);
+  }
+
+  function restartAutoPlay() {
+    startAutoPlay();
+  }
+
+  prevButton?.addEventListener('click', () => {
+    prevSlide();
+    restartAutoPlay();
+  });
+
+  nextButton?.addEventListener('click', () => {
+    nextSlide();
+    restartAutoPlay();
+  });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
+      restartAutoPlay();
+    });
+  });
+
+  /* Arranque */
+  showSlide(0);
+  startAutoPlay();
 }

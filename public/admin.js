@@ -280,29 +280,27 @@ $('#adminPass')?.addEventListener(
 // LOGOUT
 // ============================================================
 
-$('#logoutAdminBtn').onclick = () => {
+$('#logoutAdminBtn')?.addEventListener('click', () => {
   window.__isanomar.setAdmin(false);
 
   toast('Sessão terminada');
 
   render();
-};
+});
 
-$('#logoutAdminBtnTop').onclick = () => {
+$('#logoutAdminBtnTop')?.addEventListener('click', () => {
   window.__isanomar.setAdmin(false);
 
   toast('Sessão terminada');
 
   render();
-};
-
-
+});
 // ============================================================
 // TABS — CLICK
 // ============================================================
 
 $('#adminTabs')
-  .querySelectorAll('.tab')
+  ?.querySelectorAll('.tab')
   .forEach((tab) => {
     tab.onclick = async () => {
       currentTab = tab.dataset.tab;
@@ -426,9 +424,9 @@ function fillCatSelect() {
 // NOVO PRODUTO
 // ============================================================
 
-$('#addProductBtn').onclick = () => {
+$('#addProductBtn')?.addEventListener('click', () => {
   openProductForm(null);
-};
+});
 
 
 // ============================================================
@@ -1011,70 +1009,79 @@ async function renderCats() {
 // ADICIONAR CATEGORIA
 // ============================================================
 
-$('#addCatBtn').onclick = async () => {
+const addCatBtn = $('#addCatBtn');
+const newCatInput = $('#newCatInput');
 
-  const name =
-    $('#newCatInput')
-      .value
-      .trim();
+if (addCatBtn) {
 
-  if (!name) {
-    toast(
-      'Digite o nome da categoria.'
-    );
+  addCatBtn.onclick = async () => {
 
-    return;
-  }
+    const name =
+      newCatInput
+        .value
+        .trim();
 
-  try {
+    if (!name) {
+      toast(
+        'Digite o nome da categoria.'
+      );
 
-    await api(
-      '/admin/categories',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          name,
-          emoji: ''
-        })
+      return;
+    }
+
+    try {
+
+      await api(
+        '/admin/categories',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            name,
+            emoji: ''
+          })
+        }
+      );
+
+      newCatInput.value = '';
+
+      toast(
+        'Categoria adicionada ✓'
+      );
+
+      await window.__isanomar.refresh();
+
+      if (window.__isanomarDashboard) {
+        window.__isanomarDashboard.invalidateCache();
       }
-    );
 
-    $('#newCatInput').value = '';
+      await renderCats();
 
-    toast(
-      'Categoria adicionada ✓'
-    );
+    } catch (e) {
 
-    await window.__isanomar.refresh();
-
-    if (window.__isanomarDashboard) {
-      window.__isanomarDashboard.invalidateCache();
+      toast(
+        e?.message ||
+        'Erro ao adicionar categoria.'
+      );
     }
+  };
 
-    await renderCats();
-
-  } catch (e) {
-
-    toast(
-      e?.message ||
-      'Erro ao adicionar categoria.'
-    );
-  }
-};
+}
 
 
-$('#newCatInput').addEventListener(
-  'keydown',
-  (e) => {
+if (newCatInput) {
 
-    if (e.key === 'Enter') {
-      $('#addCatBtn').click();
+  newCatInput.addEventListener(
+    'keydown',
+    (e) => {
+
+      if (e.key === 'Enter') {
+        addCatBtn?.click();
+      }
+
     }
+  );
 
-  }
-);
-
-
+}
 // ============================================================
 // ENCOMENDAS
 // ============================================================
@@ -1643,7 +1650,9 @@ function readDeliveryList() {
 // ============================================================
 // ADICIONAR MUNICÍPIO
 // ============================================================
+const addDelBtn = $('#addDelBtn');
 
+if (addDelBtn) {
 $('#addDelBtn').onclick = () => {
 
   const name =
@@ -1707,14 +1716,18 @@ $('#addDelBtn').onclick = () => {
 
   renderSettings();
 };
-
+}
 
 // ============================================================
 // GUARDAR DEFINIÇÕES
 // ============================================================
 
-$('#saveSettingsBtn').onclick =
-  async () => {
+const saveSettingsBtn = $('#saveSettingsBtn');
+
+if (saveSettingsBtn) {
+
+  saveSettingsBtn.onclick =
+    async () => {
 
     try {
 
@@ -1799,7 +1812,7 @@ $('#saveSettingsBtn').onclick =
       );
     }
   };
-
+}
 
 // ============================================================
 // CONFIRM MODAL
