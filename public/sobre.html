@@ -18,10 +18,9 @@
 <script>
   (function () {
     try {
-      document.documentElement.dataset.theme =
-        localStorage.getItem("isanomar_theme") || "dark";
-    } catch (e) {
-      document.documentElement.dataset.theme = "dark";
+document.documentElement.dataset.theme =
+  localStorage.getItem("isanomar_theme") || "light";    } catch (e) {
+      document.documentElement.dataset.theme = "light";
     }
   })();
 </script>
@@ -1246,6 +1245,149 @@ body {
 
 .about-cta-button:hover {
   background: var(--gold-light) !important;
+}
+/* ============================================================
+   SOBRE NÓS — TEMA CLARO
+   ============================================================ */
+
+html[data-theme="light"] body {
+  background: var(--background) !important;
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .about-header,
+html[data-theme="light"] .about-footer {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .about-brand-name,
+html[data-theme="light"] .about-brand-subtitle {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .about-back {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+/* Hero */
+
+html[data-theme="light"] .about-hero {
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(201,164,92,.10),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f4f6f8
+    ) !important;
+
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .about-title,
+html[data-theme="light"] .about-section-title {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .about-hero-description,
+html[data-theme="light"] .about-section-description {
+  color: var(--text-soft) !important;
+}
+
+/* Cards */
+
+html[data-theme="light"] .story-card,
+html[data-theme="light"] .mission-card,
+html[data-theme="light"] .experience-highlight,
+html[data-theme="light"] .experience-list,
+html[data-theme="light"] .about-cta {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+html[data-theme="light"] .story-card h3,
+html[data-theme="light"] .mission-card h3,
+html[data-theme="light"] .experience-highlight h3,
+html[data-theme="light"] .about-cta h2,
+html[data-theme="light"] .experience-item strong {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .story-card p,
+html[data-theme="light"] .mission-card p,
+html[data-theme="light"] .experience-highlight p,
+html[data-theme="light"] .experience-item p,
+html[data-theme="light"] .about-cta p {
+  color: var(--text-soft) !important;
+}
+
+/* Valores */
+
+html[data-theme="light"] .values-card {
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(201,164,92,.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f8f9fa,
+      #eef1f4
+    ) !important;
+
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .values-card h2 {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .values-card-header p {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .value-item {
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .value-item strong {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .value-item span {
+  color: var(--text-soft) !important;
+}
+
+/* Ícones */
+
+html[data-theme="light"] .mission-icon,
+html[data-theme="light"] .experience-check {
+  background: var(--gold-soft) !important;
+  color: var(--gold) !important;
+}
+
+/* Separadores */
+
+html[data-theme="light"] .experience-item + .experience-item {
+  border-top-color: var(--line) !important;
+}
+
+/* Rodapé */
+
+html[data-theme="light"] .about-footer p,
+html[data-theme="light"] .about-footer small {
+  color: var(--text-soft) !important;
 }
   </style>
 </head>

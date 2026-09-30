@@ -18,9 +18,9 @@
   (function () {
     try {
       document.documentElement.dataset.theme =
-        localStorage.getItem("isanomar_theme") || "dark";
+        localStorage.getItem("isanomar_theme") || "light";
     } catch (e) {
-      document.documentElement.dataset.theme = "dark";
+      document.documentElement.dataset.theme = "light";
     }
   })();
 </script>
@@ -1095,6 +1095,176 @@ body {
 .terms-footer small {
   color: var(--text-soft) !important;
 }
+/* ============================================================
+   TERMOS — TEMA CLARO
+   ============================================================ */
+
+html[data-theme="light"] body,
+html[data-theme="light"] .terms-wrapper {
+  background: var(--background) !important;
+  color: var(--text) !important;
+}
+
+/* Header */
+
+html[data-theme="light"] .terms-header {
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .brand-name {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .brand-subtitle {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .back-link {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+}
+
+/* Breadcrumb */
+
+html[data-theme="light"] .breadcrumb {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .breadcrumb span:last-child {
+  color: var(--text) !important;
+}
+
+/* Hero */
+
+html[data-theme="light"] .hero-card {
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(201,164,92,.10),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f4f6f8
+    ) !important;
+
+  border-color: var(--line) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+html[data-theme="light"] .hero-title {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .hero-description {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .last-update {
+  color: var(--muted) !important;
+}
+
+/* Índice */
+
+html[data-theme="light"] .terms-navigation {
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+html[data-theme="light"] .terms-navigation-title {
+  color: var(--gold) !important;
+}
+
+html[data-theme="light"] .terms-navigation a {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .terms-navigation a:hover,
+html[data-theme="light"] .terms-navigation a.active {
+  color: var(--text) !important;
+  background: var(--surface-2) !important;
+}
+
+/* Documento */
+
+html[data-theme="light"] .terms-document {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--line) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+html[data-theme="light"] .terms-section {
+  border-bottom-color: var(--line) !important;
+}
+
+html[data-theme="light"] .terms-section h2 {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .terms-section p,
+html[data-theme="light"] .terms-section ul {
+  color: var(--text-soft) !important;
+}
+
+html[data-theme="light"] .terms-section li::marker {
+  color: var(--gold) !important;
+}
+
+/* Caixas de destaque */
+
+html[data-theme="light"] .terms-note {
+  background: var(--gold-soft) !important;
+  border-color: var(--line) !important;
+  border-left-color: var(--gold) !important;
+}
+
+html[data-theme="light"] .terms-note strong {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .terms-note p {
+  color: var(--text-soft) !important;
+}
+
+/* Contacto */
+
+html[data-theme="light"] .contact-box {
+  background: var(--surface-2) !important;
+  border-color: var(--line) !important;
+}
+
+html[data-theme="light"] .contact-row + .contact-row {
+  border-top-color: var(--line) !important;
+}
+
+html[data-theme="light"] .contact-icon {
+  background: var(--gold-soft) !important;
+  color: var(--gold) !important;
+}
+
+html[data-theme="light"] .contact-label {
+  color: var(--muted) !important;
+}
+
+html[data-theme="light"] .contact-value {
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] .terms-container a {
+  color: var(--gold) !important;
+}
+
+/* Footer */
+
+html[data-theme="light"] .terms-footer p,
+html[data-theme="light"] .terms-footer small {
+  color: var(--text-soft) !important;
+}
   </style>
 </head>
 
@@ -1655,11 +1825,11 @@ body {
 
                   <a
                     class="contact-value"
-                    href="https://isanomarstore.com.ao"
+                    href="https://isanomar.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ishanomarstore.com.ao
+                    isanomar.vercel.app
                   </a>
                 </div>
 
