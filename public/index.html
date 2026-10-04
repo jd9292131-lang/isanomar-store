@@ -1503,6 +1503,141 @@
             <small class="field-hint">O painel alerta quando o stock disponível atingir este limite.</small>
           </label>
 
+<!-- ============================================================
+     VARIANTES DO PRODUTO
+     ============================================================ -->
+
+<div class="product-variants-section" id="productVariantsSection">
+
+  <div class="form-section-title">
+    <i class="ph ph-squares-four"></i>
+    <span>Variantes do produto</span>
+  </div>
+
+  <small class="field-hint">
+    Use variantes quando o produto tiver diferentes opções,
+    como cor, tamanho, número, comprimento ou capacidade.
+  </small>
+
+<div id="productVariantsList" class="product-variants-list">
+
+  <div class="product-variant-editor">
+
+    <div class="variant-editor-head">
+      <strong>Nova variante</strong>
+    </div>
+
+    <div class="two-col">
+
+      <label class="field">
+        <span>Cor</span>
+        <input
+          type="text"
+          class="variant-color"
+          placeholder="Ex.: Preto"
+        />
+      </label>
+
+      <label class="field">
+        <span>Tamanho / Número</span>
+        <input
+          type="text"
+          class="variant-size"
+          placeholder="Ex.: 42"
+        />
+      </label>
+
+    </div>
+
+    <div class="two-col">
+
+      <label class="field">
+        <span>Comprimento</span>
+        <input
+          type="text"
+          class="variant-length"
+          placeholder="Ex.: 60 cm"
+        />
+      </label>
+
+      <label class="field">
+        <span>Capacidade</span>
+        <input
+          type="text"
+          class="variant-capacity"
+          placeholder="Ex.: 256 GB"
+        />
+      </label>
+
+    </div>
+
+    <div class="two-col">
+
+      <label class="field">
+        <span>SKU</span>
+        <input
+          type="text"
+          class="variant-sku"
+          placeholder="Ex.: TEN-PRE-42"
+        />
+      </label>
+
+      <label class="field">
+        <span>Preço da variante</span>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          class="variant-price"
+          placeholder="Usar preço do produto"
+        />
+      </label>
+
+    </div>
+
+    <label class="field">
+      <span>Imagem da variante — URL</span>
+      <input
+        type="url"
+        class="variant-image"
+        placeholder="https://..."
+      />
+    </label>
+
+    <div class="variant-editor-actions">
+
+      <button
+        type="button"
+        class="btn btn-secondary variant-cancel"
+      >
+        <i class="ph ph-x"></i>
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary variant-save"
+      >
+        <i class="ph ph-plus"></i>
+        Adicionar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  <button
+    type="button"
+    class="btn btn-secondary"
+    id="addProductVariantBtn"
+  >
+    <i class="ph ph-plus"></i>
+    Adicionar variante
+  </button>
+
+</div>
+
           <label class="field">
 
             <span>Imagem — URL</span>

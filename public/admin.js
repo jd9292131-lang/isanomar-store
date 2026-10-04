@@ -557,11 +557,389 @@ function openProductForm(product) {
   showImagePreview(
     product?.img || ''
   );
-
+renderProductVariants(
+  product?.variants || []
+);
   openModal('#productModal');
 }
 
+// ============================================================
+// VARIANTES DO PRODUTO
+// ============================================================
 
+let editingProductVariants = [];
+
+function renderProductVariants(variants = []) {
+
+  editingProductVariants =
+    Array.isArray(variants)
+      ? variants.map(v => ({
+          id: v.id || null,
+          sku: v.sku || '',
+          price: v.price ?? '',
+          img: v.img || '',
+          attributes: v.attributes || {},
+          stock: Number(v.stock) || 0,
+          active: v.active ?? 1
+        }))
+      : [];
+
+  const list =
+    $('#productVariantsList');
+
+  if (!list) return;
+
+  if (!editingProductVariants.length) {
+
+    list.innerHTML = `
+      <div class="variant-empty-state">
+        <i class="ph ph-package"></i>
+        <span>Nenhuma variante adicionada.</span>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML =
+    editingProductVariants
+      .map((variant, index) => {
+
+        const attributes =
+          variant.attributes || {};
+
+        const attributeText =
+          Object.entries(attributes)
+            .filter(
+              ([, value]) =>
+                String(value || '').trim()
+            )
+            .map(
+              ([key, value]) =>
+                `${key}: ${value}`
+            )
+            .join(' · ');
+
+        return `
+          <div
+            class="product-variant-item"
+            data-variant-index="${index}"
+          >
+
+            <div class="product-variant-info">
+
+              <strong>
+                ${attributeText || 'Variante'}
+              </strong>
+
+              ${
+                variant.sku
+                  ? `<small>SKU: ${escapeHtml(variant.sku)}</small>`
+                  : ''
+              }
+
+              <small>
+                Stock: ${Number(variant.stock) || 0}
+              </small>
+
+            </div>
+
+            <button
+              type="button"
+              class="icon-btn dark variant-remove"
+              data-variant-index="${index}"
+              title="Remover variante"
+            >
+              <i class="ph ph-trash"></i>
+            </button>
+
+          </div>
+        `;
+      })
+      .join('');
+}
+// ============================================================
+// ADICIONAR VARIANTE
+// ============================================================
+
+$('#addProductVariantBtn')?.addEventListener(
+  'click',
+  () => {
+
+    const list =
+      $('#productVariantsList');
+
+    if (!list) return;
+
+    list.innerHTML = `
+      <div class="product-variant-editor">
+
+        <div class="variant-editor-head">
+          <strong>Nova variante</strong>
+        </div>
+
+        <div class="two-col">
+
+          <label class="field">
+            <span>Cor</span>
+            <input
+              type="text"
+              class="variant-color"
+              placeholder="Ex.: Preto"
+            />
+          </label>
+
+          <label class="field">
+            <span>Tamanho / Número</span>
+            <input
+              type="text"
+              class="variant-size"
+              placeholder="Ex.: 42"
+            />
+          </label>
+
+        </div>
+
+        <div class="two-col">
+
+          <label class="field">
+            <span>Comprimento</span>
+            <input
+              type="text"
+              class="variant-length"
+              placeholder="Ex.: 60 cm"
+            />
+          </label>
+
+          <label class="field">
+            <span>Capacidade</span>
+            <input
+              type="text"
+              class="variant-capacity"
+              placeholder="Ex.: 256 GB"
+            />
+          </label>
+
+        </div>
+
+        <div class="two-col">
+
+          <label class="field">
+            <span>SKU</span>
+            <input
+              type="text"
+              class="variant-sku"
+              placeholder="Ex.: TEN-PRE-42"
+            />
+          </label>
+
+          <label class="field">
+            <span>Preço da variante</span>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              class="variant-price"
+              placeholder="Usar preço do produto"
+            />
+          </label>
+
+        </div>
+
+        <label class="field">
+          <span>Imagem da variante — URL</span>
+          <input
+            type="url"
+            class="variant-image"
+            placeholder="https://..."
+          />
+        </label>
+
+        <div class="variant-editor-actions">
+
+          <button
+            type="button"
+            class="btn btn-secondary variant-cancel"
+          >
+            <i class="ph ph-x"></i>
+            Cancelar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary variant-save"
+          >
+            <i class="ph ph-plus"></i>
+            Adicionar
+          </button>
+
+        </div>
+
+      </div>
+    `;
+  }
+);
+// ============================================================
+// GUARDAR VARIANTE NA LISTA LOCAL
+// ============================================================
+
+document.addEventListener(
+  'click',
+  (e) => {
+
+    const saveButton =
+      e.target.closest('.variant-save');
+
+    if (saveButton) {
+
+      const editor =
+        saveButton.closest(
+          '.product-variant-editor'
+        );
+
+      if (!editor) return;
+
+      const attributes = {};
+
+      const color =
+        editor
+          .querySelector('.variant-color')
+          ?.value
+          .trim();
+
+      const size =
+        editor
+          .querySelector('.variant-size')
+          ?.value
+          .trim();
+
+      const length =
+        editor
+          .querySelector('.variant-length')
+          ?.value
+          .trim();
+
+      const capacity =
+        editor
+          .querySelector('.variant-capacity')
+          ?.value
+          .trim();
+
+      if (color) {
+        attributes.Cor = color;
+      }
+
+      if (size) {
+        attributes.Tamanho = size;
+      }
+
+      if (length) {
+        attributes.Comprimento = length;
+      }
+
+      if (capacity) {
+        attributes.Capacidade = capacity;
+      }
+
+      if (!Object.keys(attributes).length) {
+
+        toast(
+          'Informe pelo menos uma característica da variante.'
+        );
+
+        return;
+      }
+
+      const sku =
+        editor
+          .querySelector('.variant-sku')
+          ?.value
+          .trim() || '';
+
+      const priceValue =
+        editor
+          .querySelector('.variant-price')
+          ?.value
+          .trim();
+
+      const image =
+        editor
+          .querySelector('.variant-image')
+          ?.value
+          .trim() || '';
+
+      editingProductVariants.push({
+        id: null,
+        sku,
+        price:
+          priceValue
+            ? Number(priceValue)
+            : '',
+        img: image,
+        attributes,
+        stock: 0,
+        active: 1
+      });
+
+      renderProductVariants(
+        editingProductVariants
+      );
+
+      toast(
+        'Variante adicionada ✓'
+      );
+
+      return;
+    }
+
+
+    const cancelButton =
+      e.target.closest('.variant-cancel');
+
+    if (cancelButton) {
+
+      renderProductVariants(
+        editingProductVariants
+      );
+
+      return;
+    }
+
+
+    const removeButton =
+      e.target.closest('.variant-remove');
+
+    if (removeButton) {
+
+      const index =
+        Number(
+          removeButton.dataset.variantIndex
+        );
+
+      if (
+        !Number.isInteger(index) ||
+        index < 0 ||
+        index >= editingProductVariants.length
+      ) {
+        return;
+      }
+
+      editingProductVariants.splice(
+        index,
+        1
+      );
+
+      renderProductVariants(
+        editingProductVariants
+      );
+
+      toast(
+        'Variante removida ✓'
+      );
+    }
+
+  }
+);
 // ============================================================
 // SELEÇÃO DE IMAGEM
 // ============================================================

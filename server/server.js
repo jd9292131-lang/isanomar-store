@@ -19,11 +19,111 @@ CREATE TABLE IF NOT EXISTS order_installments(id BIGSERIAL PRIMARY KEY,order_id 
 CREATE TABLE IF NOT EXISTS audit_logs(id BIGSERIAL PRIMARY KEY,action TEXT NOT NULL,entity TEXT NOT NULL,entity_id TEXT NOT NULL DEFAULT '',details TEXT NOT NULL DEFAULT '',created_at TIMESTAMPTZ NOT NULL);
 CREATE TABLE IF NOT EXISTS rate_limits(key TEXT PRIMARY KEY,window_start BIGINT NOT NULL,count INTEGER NOT NULL DEFAULT 0);
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS access_token TEXT;CREATE UNIQUE INDEX IF NOT EXISTS idx_orders_access_token ON orders(access_token) WHERE access_token IS NOT NULL;CREATE INDEX IF NOT EXISTS idx_products_active ON products(active);CREATE INDEX IF NOT EXISTS idx_lots_product ON lots(product_id);CREATE INDEX IF NOT EXISTS idx_orders_created ON orders(created_at);`;
-async function init(){if(ready)return ready;ready=(async()=>{if(!DATABASE_URL)throw Error('DATABASE_URL não configurada.');let c=await pool.connect();try{await c.query('SELECT pg_advisory_lock(7788123)');await c.query(schema);const n=+(await c.query('SELECT count(*)::int n FROM categories')).rows[0].n;if(n===0&&seed){await c.query('BEGIN');try{let s=seed.settings?.[0];if(s)await c.query('INSERT INTO settings VALUES($1,$2,$3,$4,$5,$6,$7)',[1,s.shop_name,s.phone,s.iban,s.max_install,0,JSON.stringify(s.delivery_municipalities||[])]);for(const x of seed.categories||[])await c.query('INSERT INTO categories VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[x.id,x.name,x.emoji]);for(const x of seed.products||[])await c.query('INSERT INTO products(id,name,price,cat_id,genre,description,image_url,emoji,active,created_at,low_stock_threshold) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT DO NOTHING',[x.id,x.name,x.price,x.cat_id,x.genre,x.description,x.image_url,x.emoji,x.active,x.created_at,x.low_stock_threshold??3]);for(const x of seed.orders||[])await c.query('INSERT INTO orders(id,name,phone,province,municipality,address,method,install,subtotal,delivery,total,status,delivery_hours,payment_status,payment_reference,confirmed_at,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) ON CONFLICT DO NOTHING',[x.id,x.name,x.phone,x.province,x.municipality,x.address,x.method,x.install,x.subtotal,x.delivery,x.total,x.status,x.delivery_hours??72,x.payment_status??'pendente',x.payment_reference??'',x.confirmed_at??'',x.created_at]);for(const x of seed.order_items||[])await c.query('INSERT INTO order_items(id,order_id,product_id,name,price,qty) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING',[x.id,x.order_id,x.product_id,x.name,x.price,x.qty]);await c.query("SELECT setval(pg_get_serial_sequence('order_items','id'),coalesce((select max(id) from order_items),1),true)");await c.query('COMMIT')}catch(e){await c.query('ROLLBACK');throw e}}await c.query("INSERT INTO settings VALUES(1,'ISANOMAR store','+244 930 806 413','',3,0,'[]') ON CONFLICT DO NOTHING")}finally{await c.query('SELECT pg_advisory_unlock(7788123)').catch(()=>{});c.release()}})();return ready}
+const variantSchema=`
+CREATE TABLE IF NOT EXISTS product_variants(
+  id BIGSERIAL PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  sku TEXT NOT NULL DEFAULT '',
+  price INTEGER,
+  image_url TEXT NOT NULL DEFAULT '',
+  attributes JSONB NOT NULL DEFAULT '{}'::jsonb,
+  active INTEGER NOT NULL DEFAULT 1,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE lots
+  ADD COLUMN IF NOT EXISTS variant_id BIGINT
+  REFERENCES product_variants(id)
+  ON DELETE SET NULL;
+
+ALTER TABLE order_items
+  ADD COLUMN IF NOT EXISTS variant_id BIGINT
+  REFERENCES product_variants(id)
+  ON DELETE SET NULL;
+
+ALTER TABLE order_items
+  ADD COLUMN IF NOT EXISTS variant_label TEXT NOT NULL DEFAULT '';
+
+CREATE INDEX IF NOT EXISTS idx_product_variants_product
+  ON product_variants(product_id);
+
+CREATE INDEX IF NOT EXISTS idx_product_variants_active
+  ON product_variants(product_id,active);
+
+CREATE INDEX IF NOT EXISTS idx_lots_variant
+  ON lots(variant_id);
+
+CREATE INDEX IF NOT EXISTS idx_order_items_variant
+  ON order_items(variant_id)
+`;
+async function init(){if(ready)return ready;ready=(async()=>{if(!DATABASE_URL)throw Error('DATABASE_URL não configurada.');let c=await pool.connect();try{await c.query('SELECT pg_advisory_lock(7788123)');
+await c.query(schema);
+await c.query(variantSchema);const n=+(await c.query('SELECT count(*)::int n FROM categories')).rows[0].n;if(n===0&&seed){await c.query('BEGIN');try{let s=seed.settings?.[0];if(s)await c.query('INSERT INTO settings VALUES($1,$2,$3,$4,$5,$6,$7)',[1,s.shop_name,s.phone,s.iban,s.max_install,0,JSON.stringify(s.delivery_municipalities||[])]);for(const x of seed.categories||[])await c.query('INSERT INTO categories VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[x.id,x.name,x.emoji]);for(const x of seed.products||[])await c.query('INSERT INTO products(id,name,price,cat_id,genre,description,image_url,emoji,active,created_at,low_stock_threshold) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT DO NOTHING',[x.id,x.name,x.price,x.cat_id,x.genre,x.description,x.image_url,x.emoji,x.active,x.created_at,x.low_stock_threshold??3]);for(const x of seed.orders||[])await c.query('INSERT INTO orders(id,name,phone,province,municipality,address,method,install,subtotal,delivery,total,status,delivery_hours,payment_status,payment_reference,confirmed_at,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) ON CONFLICT DO NOTHING',[x.id,x.name,x.phone,x.province,x.municipality,x.address,x.method,x.install,x.subtotal,x.delivery,x.total,x.status,x.delivery_hours??72,x.payment_status??'pendente',x.payment_reference??'',x.confirmed_at??'',x.created_at]);for(const x of seed.order_items||[])await c.query('INSERT INTO order_items(id,order_id,product_id,name,price,qty) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING',[x.id,x.order_id,x.product_id,x.name,x.price,x.qty]);await c.query("SELECT setval(pg_get_serial_sequence('order_items','id'),coalesce((select max(id) from order_items),1),true)");await c.query('COMMIT')}catch(e){await c.query('ROLLBACK');throw e}}await c.query("INSERT INTO settings VALUES(1,'ISANOMAR store','+244 930 806 413','',3,0,'[]') ON CONFLICT DO NOTHING")}finally{await c.query('SELECT pg_advisory_unlock(7788123)').catch(()=>{});c.release()}})();return ready}
 const app=express();app.disable('x-powered-by');app.set('trust proxy',PROD?1:false);app.use((q,s,n)=>{s.setHeader('X-Content-Type-Options','nosniff');s.setHeader('X-Frame-Options','SAMEORIGIN');s.setHeader('Referrer-Policy','strict-origin-when-cross-origin');if(PROD)s.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains');n()});app.use(cors({origin:(o,cb)=>!o||!CORS_ORIGINS.length||CORS_ORIGINS.includes(o)?cb(null,true):cb(Error('Origem não autorizada pelo CORS.')),methods:['GET','POST','PUT','PATCH','DELETE','OPTIONS'],allowedHeaders:['Content-Type','Authorization']}));app.use(express.json({limit:'1mb'}));
 const ip=q=>String(q.headers['x-forwarded-for']||q.ip||'').split(',')[0].trim();const limit=({ms=9e5,max=100,key='x'}={})=>async(q,s,n)=>{try{await init();let k=key+':'+ip(q),now=Date.now(),r=(await pool.query(`INSERT INTO rate_limits VALUES($1,$2,1) ON CONFLICT(key) DO UPDATE SET window_start=CASE WHEN rate_limits.window_start+$3<$2 THEN $2 ELSE rate_limits.window_start END,count=CASE WHEN rate_limits.window_start+$3<$2 THEN 1 ELSE rate_limits.count+1 END RETURNING window_start,count`,[k,now,ms])).rows[0];if(+r.count>max){s.setHeader('Retry-After',Math.ceil((+r.window_start+ms-now)/1000));return s.status(429).json({error:'Demasiadas tentativas. Aguarde alguns minutos.'})}n()}catch(e){n(e)}};
 const settings=async()=>{let x=(await pool.query('select * from settings where id=1')).rows[0];let m=x.delivery_municipalities||[];if(typeof m==='string'){try{m=JSON.parse(m)}catch{m=[]}};return{shopName:x.shop_name,phone:x.phone,iban:x.iban,maxInstall:x.max_install,delivery:{other:x.delivery_other,municipalities:Array.isArray(m)?m:[]}}};
-const products=async(pub=true)=>{let w=pub?'where p.active=1 and coalesce((select sum(available_qty) from lots l where l.product_id=p.id),0)>0':'where p.active=1';return(await pool.query(`select p.id,p.name,p.price,p.cat_id "catId",p.genre,p.description desc,p.image_url img,p.emoji,p.low_stock_threshold "lowStockThreshold",coalesce((select sum(available_qty) from lots l where l.product_id=p.id),0)::int stock from products p ${w} order by p.created_at desc`)).rows};
+const products=async(pub=true)=>{
+  let w=pub
+    ? 'where p.active=1 and coalesce((select sum(available_qty) from lots l where l.product_id=p.id),0)>0'
+    : 'where p.active=1';
+
+  return (
+    await pool.query(`
+      select
+        p.id,
+        p.name,
+        p.price,
+        p.cat_id "catId",
+        p.genre,
+        p.description desc,
+        p.image_url img,
+        p.emoji,
+        p.low_stock_threshold "lowStockThreshold",
+
+        coalesce(
+          (
+            select sum(l.available_qty)
+            from lots l
+            where l.product_id=p.id
+          ),
+          0
+        )::int stock,
+
+        coalesce(
+          (
+            select jsonb_agg(
+              jsonb_build_object(
+                'id',v.id,
+                'sku',v.sku,
+                'price',v.price,
+                'img',v.image_url,
+                'attributes',v.attributes,
+                'active',v.active,
+                'stock',
+                  coalesce(
+                    (
+                      select sum(lv.available_qty)
+                      from lots lv
+                      where lv.variant_id=v.id
+                    ),
+                    0
+                  )::int
+              )
+              order by v.id
+            )
+            from product_variants v
+            where v.product_id=p.id
+              and v.active=1
+          ),
+          '[]'::jsonb
+        ) variants
+
+      from products p
+      ${w}
+      order by p.created_at desc
+    `)
+  ).rows;
+};
 const cats=async()=> (await pool.query('select id,name,emoji from categories order by name')).rows;const lots=async(pid)=> (await pool.query(`select l.id,l.product_id "productId",p.name "productName",l.code,l.received_qty "receivedQty",l.available_qty "availableQty",l.expires_at "expiresAt",l.note,l.created_at "createdAt",l.updated_at "updatedAt" from lots l join products p on p.id=l.product_id ${pid?'where l.product_id=$1':''} order by l.created_at desc`,pid?[pid]:[])).rows;
 const audit=async(a,e,id='',d='')=>{try{await pool.query('insert into audit_logs(action,entity,entity_id,details,created_at) values($1,$2,$3,$4,$5)',[a,e,String(id),String(d),new Date()])}catch{}};
 const order=async id=>{let o=(await pool.query('select id,name,phone,province,municipality,address,method,install,subtotal,delivery,total,status,delivery_hours "deliveryHours",payment_status "paymentStatus",payment_reference "paymentReference",confirmed_at "confirmedAt",created_at "createdAt" from orders where id=$1',[id])).rows[0];if(!o)return null;o.items=(await pool.query('select id,product_id "productId",name,price,qty from order_items where order_id=$1 order by id',[id])).rows;o.installments=(await pool.query('select number,amount,due_at "dueAt",status,paid_at "paidAt" from order_installments where order_id=$1 order by number',[id])).rows;return o};
@@ -142,9 +242,196 @@ app.post('/api/admin/orders/:id/payment',async(q,s,n)=>{try{let o=(await pool.qu
 app.post('/api/admin/installments/:id/pay',async(q,s,n)=>{let c=await pool.connect();try{await c.query('begin');let id=q.params.id,num=Number(q.body?.number),r=(await c.query('select * from order_installments where order_id=$1 and number=$2 for update',[id,num])).rows[0];if(!r)throw Error('Prestação não encontrada');if(num>1){let p=(await c.query('select status from order_installments where order_id=$1 and number=$2',[id,num-1])).rows[0];if(!p||p.status!=='paga')throw Error(`Pague primeiro a ${num-1}ª prestação.`)}await c.query('update order_installments set status=$1,paid_at=$2 where id=$3',['paga',new Date(),r.id]);let paid=+(await c.query("select count(*)::int n from order_installments where order_id=$1 and status='paga'",[id])).rows[0].n;await c.query('update orders set payment_status=$1 where id=$2',[paid===3?'pago':`parcial_${paid}`,id]);await c.query('commit');await audit('prestacao_paga','prestacao',id,`${num}ª prestação`);s.json({order:await order(id)})}catch(e){await c.query('rollback').catch(()=>{});s.status(409).json({error:e.message})}finally{c.release()}});
 app.get('/api/admin/audit',async(q,s,n)=>{try{s.json({logs:(await pool.query('select id,action,entity,entity_id "entityId",details,created_at "createdAt" from audit_logs order by id desc limit $1',[Math.min(200,Math.max(1,+q.query.limit||50))])).rows})}catch(e){n(e)}});
 app.get('/api/admin/dashboard',async(q,s,n)=>{try{let a=(await pool.query("select count(*)::int orders,coalesce(sum(total),0)::int revenue,coalesce(sum(delivery),0)::int delivery from orders where status<>'cancelado'")).rows[0],b=(await pool.query("select count(*)::int orders,coalesce(sum(total),0)::int revenue from orders where status<>'cancelado' and created_at::date=current_date")).rows[0],low=(await pool.query('select p.id,p.name,coalesce(sum(l.available_qty),0)::int stock,p.low_stock_threshold threshold from products p left join lots l on l.product_id=p.id where p.active=1 group by p.id having coalesce(sum(l.available_qty),0)<=p.low_stock_threshold order by stock')).rows,stock=(await pool.query('select coalesce(sum(available_qty),0)::int total,count(distinct product_id)::int products from lots')).rows[0],pending=+(await pool.query("select count(*)::int n from orders where status='pendente'")).rows[0].n,unpaid=+(await pool.query("select count(*)::int n from orders where method<>'cod' and payment_status<>'pago'")).rows[0].n,clients=+(await pool.query('select count(distinct phone)::int n from orders')).rows[0].n,overdue=+(await pool.query("select count(*)::int n from orders where status not in ('entregue','cancelado') and created_at+make_interval(hours=>delivery_hours)<now()")).rows[0].n,methods=(await pool.query("select method,count(*)::int count,coalesce(sum(total),0)::int revenue from orders where status<>'cancelado' group by method")).rows;s.json({summary:{orders:+a.orders,revenue:+a.revenue,delivery:+a.delivery,todayOrders:+b.orders,todayRevenue:+b.revenue,pending,unpaid,stock:+stock.total,stockProducts:+stock.products,clients,overdue},lowStock:low,paymentMethods:methods})}catch(e){n(e)}});
-app.get('/api/admin/products',async(q,s,n)=>{try{s.json({products:await products(false)})}catch(e){n(e)}});
-app.post('/api/admin/products',async(q,s,n)=>{let c=await pool.connect();try{let x=q.body||{},name=String(x.name||'').trim();if(!name||!Number.isFinite(+x.price))return s.status(400).json({error:'Nome e preço são obrigatórios'});let id='p-'+Date.now().toString(36),now=new Date(),stock=Math.max(0,Math.floor(+x.initialStock||0));await c.query('begin');await c.query('insert into products(id,name,price,cat_id,genre,description,image_url,emoji,low_stock_threshold,created_at) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',[id,name,Math.round(+x.price),x.catId||null,['f','m','unisex'].includes(x.genre)?x.genre:'unisex',String(x.desc||''),String(x.img||''),String(x.emoji||'🛍️'),Math.max(0,Math.floor(+x.lowStockThreshold||3)),now]);if(stock)await c.query('insert into lots(product_id,code,received_qty,available_qty,created_at,updated_at) values($1,$2,$3,$4,$5,$5)',[id,String(x.lotCode||`LOT-${Date.now()}`),stock,stock,now]);await c.query('commit');await audit('criado','produto',id,name);s.status(201).json({product:(await products(false)).find(p=>p.id===id)})}catch(e){await c.query('rollback').catch(()=>{});s.status(409).json({error:e.message})}finally{c.release()}});
-app.put('/api/admin/products/:id',async(q,s,n)=>{try{let x=q.body||{},r=await pool.query('update products set name=$1,price=$2,cat_id=$3,genre=$4,description=$5,image_url=$6,emoji=$7,low_stock_threshold=$8 where id=$9',[String(x.name||'').trim(),Math.max(0,Math.round(+x.price||0)),x.catId||null,['f','m','unisex'].includes(x.genre)?x.genre:'unisex',String(x.desc||''),String(x.img||''),String(x.emoji||'🛍️'),Math.max(0,Math.floor(+x.lowStockThreshold||3)),q.params.id]);if(!r.rowCount)return s.status(404).json({error:'Produto não encontrado'});await audit('alterado','produto',q.params.id,x.name);s.json({product:(await products(false)).find(p=>p.id===q.params.id)})}catch(e){n(e)}});app.delete('/api/admin/products/:id',async(q,s,n)=>{try{let r=await pool.query('update products set active=0 where id=$1',[q.params.id]);if(!r.rowCount)return s.status(404).json({error:'Produto não encontrado'});await audit('arquivado','produto',q.params.id);s.json({ok:true})}catch(e){n(e)}});
+app.get('/api/admin/products',async(q,s,n)=>{
+  try{
+    s.json({products:await products(false)});
+  }catch(e){
+    n(e);
+  }
+});
+
+app.post('/api/admin/products',async(q,s,n)=>{
+  let c=await pool.connect();
+
+  try{
+    let x=q.body||{};
+    let name=String(x.name||'').trim();
+
+    if(!name||!Number.isFinite(+x.price)){
+      return s.status(400).json({
+        error:'Nome e preço são obrigatórios'
+      });
+    }
+
+    let id='p-'+Date.now().toString(36);
+    let now=new Date();
+    let stock=Math.max(0,Math.floor(+x.initialStock||0));
+
+    await c.query('begin');
+
+    await c.query(
+      `insert into products(
+        id,
+        name,
+        price,
+        cat_id,
+        genre,
+        description,
+        image_url,
+        emoji,
+        low_stock_threshold,
+        created_at
+      )
+      values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+      [
+        id,
+        name,
+        Math.round(+x.price),
+        x.catId||null,
+        ['f','m','unisex'].includes(x.genre)
+          ? x.genre
+          : 'unisex',
+        String(x.desc||''),
+        String(x.img||''),
+        String(x.emoji||'🛍️'),
+        Math.max(
+          0,
+          Math.floor(+x.lowStockThreshold||3)
+        ),
+        now
+      ]
+    );
+
+    if(stock){
+      await c.query(
+        `insert into lots(
+          product_id,
+          code,
+          received_qty,
+          available_qty,
+          created_at,
+          updated_at
+        )
+        values($1,$2,$3,$4,$5,$5)`,
+        [
+          id,
+          String(x.lotCode||`LOT-${Date.now()}`),
+          stock,
+          stock,
+          now
+        ]
+      );
+    }
+
+    await c.query('commit');
+
+    await audit(
+      'criado',
+      'produto',
+      id,
+      name
+    );
+
+    s.status(201).json({
+      product:(await products(false))
+        .find(p=>p.id===id)
+    });
+
+  }catch(e){
+
+    await c.query('rollback').catch(()=>{});
+
+    s.status(409).json({
+      error:e.message
+    });
+
+  }finally{
+    c.release();
+  }
+});
+
+app.put('/api/admin/products/:id',async(q,s,n)=>{
+  try{
+    let x=q.body||{};
+
+    let r=await pool.query(
+      `update products
+       set
+         name=$1,
+         price=$2,
+         cat_id=$3,
+         genre=$4,
+         description=$5,
+         image_url=$6,
+         emoji=$7,
+         low_stock_threshold=$8
+       where id=$9`,
+      [
+        String(x.name||'').trim(),
+        Math.max(0,Math.round(+x.price||0)),
+        x.catId||null,
+        ['f','m','unisex'].includes(x.genre)
+          ? x.genre
+          : 'unisex',
+        String(x.desc||''),
+        String(x.img||''),
+        String(x.emoji||'🛍️'),
+        Math.max(
+          0,
+          Math.floor(+x.lowStockThreshold||3)
+        ),
+        q.params.id
+      ]
+    );
+
+    if(!r.rowCount){
+      return s.status(404).json({
+        error:'Produto não encontrado'
+      });
+    }
+
+    await audit(
+      'alterado',
+      'produto',
+      q.params.id,
+      x.name
+    );
+
+    s.json({
+      product:(await products(false))
+        .find(p=>p.id===q.params.id)
+    });
+
+  }catch(e){
+    n(e);
+  }
+});
+
+app.delete('/api/admin/products/:id',async(q,s,n)=>{
+  try{
+    let r=await pool.query(
+      'update products set active=0 where id=$1',
+      [q.params.id]
+    );
+
+    if(!r.rowCount){
+      return s.status(404).json({
+        error:'Produto não encontrado'
+      });
+    }
+
+    await audit(
+      'arquivado',
+      'produto',
+      q.params.id
+    );
+
+    s.json({ok:true});
+
+  }catch(e){
+    n(e);
+  }
+});
 app.get('/api/admin/lots',async(q,s,n)=>{try{s.json({lots:await lots(q.query.productId)})}catch(e){n(e)}});app.post('/api/admin/lots',async(q,s,n)=>{try{let x=q.body||{},r=await pool.query('insert into lots(product_id,code,received_qty,available_qty,expires_at,note,created_at,updated_at) values($1,$2,$3,$4,$5,$6,$7,$7) returning id',[x.productId,String(x.code||'').trim(),Math.max(0,+x.receivedQty||0),Math.max(0,Number(x.availableQty ?? x.receivedQty ?? 0)),String(x.expiresAt||''),String(x.note||''),new Date()]);await audit('criado','lote',r.rows[0].id);s.status(201).json({lot:(await lots()).find(a=>+a.id===+r.rows[0].id)})}catch(e){s.status(409).json({error:e.code==='23505'?'Já existe um lote com este código para o produto.':e.message})}});app.put('/api/admin/lots/:id',async(q,s,n)=>{try{let old=(await pool.query('select * from lots where id=$1',[q.params.id])).rows[0];if(!old)return s.status(404).json({error:'Lote não encontrado'});let x=q.body||{},r=await pool.query('update lots set code=$1,received_qty=$2,available_qty=$3,expires_at=$4,note=$5,updated_at=$6 where id=$7',[String(x.code??old.code).trim(),Math.max(0,Number(x.receivedQty ?? old.received_qty)),Math.max(0,Number(x.availableQty ?? old.available_qty)),String(x.expiresAt??old.expires_at),String(x.note??old.note),new Date(),q.params.id]);if(!r.rowCount)return s.status(404).json({error:'Lote não encontrado'});await audit('alterado','lote',q.params.id);s.json({lot:(await lots()).find(a=>+a.id===+q.params.id)})}catch(e){s.status(409).json({error:e.code==='23505'?'Código de lote duplicado.':e.message})}});app.delete('/api/admin/lots/:id',async(q,s,n)=>{try{let u=+(await pool.query('select coalesce(sum(qty),0)::int n from order_item_lots where lot_id=$1',[q.params.id])).rows[0].n;if(u)return s.status(409).json({error:'Este lote já foi utilizado numa encomenda.'});let r=await pool.query('delete from lots where id=$1',[q.params.id]);if(!r.rowCount)return s.status(404).json({error:'Lote não encontrado'});s.json({ok:true})}catch(e){n(e)}});app.get('/api/admin/stock',async(q,s,n)=>{try{let ps=await products(false);s.json({products:await Promise.all(ps.map(async p=>({...p,lots:await lots(p.id)})))})}catch(e){n(e)}});app.post('/api/admin/stock/adjust',async(q,s,n)=>{try{let c=await pool.connect();await c.query('begin');let l=(await c.query('select * from lots where id=$1 for update',[q.body?.lotId])).rows[0];if(!l)throw Error('Lote não encontrado');let next=l.available_qty+Math.trunc(+q.body?.delta||0);if(next<0||next>l.received_qty)throw Error('Stock inválido.');await c.query('update lots set available_qty=$1,updated_at=$2 where id=$3',[next,new Date(),l.id]);await c.query('commit');c.release();s.json({lot:(await lots()).find(a=>+a.id===+l.id)})}catch(e){n(e)}});
 app.post('/api/admin/categories',async(q,s,n)=>{try{let id='c-'+Date.now().toString(36),x=q.body||{};await pool.query('insert into categories values($1,$2,$3)',[id,String(x.name||'').trim(),String(x.emoji||'🏷️')]);s.status(201).json({category:{id,name:x.name,emoji:x.emoji||'🏷️'}})}catch(e){s.status(409).json({error:'Categoria já existe'})}});app.delete('/api/admin/categories/:id',async(q,s,n)=>{try{let r=await pool.query('delete from categories where id=$1',[q.params.id]);if(!r.rowCount)return s.status(404).json({error:'Categoria não encontrada'});s.json({ok:true})}catch(e){n(e)}});app.put('/api/admin/settings',async(q,s,n)=>{try{let x=q.body||{},d=x.delivery||{},m=Array.isArray(d.municipalities)?d.municipalities.map(a=>({name:String(a.name||'').trim(),fee:Math.max(0,+a.fee||0)})).filter(a=>a.name):[];await pool.query('update settings set shop_name=$1,phone=$2,iban=$3,max_install=$4,delivery_other=$5,delivery_municipalities=$6 where id=1',[String(x.shopName||'ISANOMAR store'),String(x.phone||''),String(x.iban||''),Math.max(1,Math.min(12,Math.trunc(+x.maxInstall||3))),Math.max(0,Math.round(+d.other||0)),JSON.stringify(m)]);s.json({settings:await settings()})}catch(e){n(e)}});
 const upload=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024}});function sig(b,m){return m==='image/jpeg'?b[0]===255&&b[1]===216&&b[2]===255:m==='image/png'?b.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])):m==='image/webp'?b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP':m==='image/gif'&&['GIF87a','GIF89a'].includes(b.subarray(0,6).toString())};app.post('/api/admin/uploads',upload.single('image'),async(q,s,n)=>{try{if(!q.file||!sig(q.file.buffer,q.file.mimetype))return s.status(400).json({error:'Imagem inválida.'});if(!process.env.BLOB_READ_WRITE_TOKEN)return s.status(503).json({error:'Storage de imagens não configurado.'});let ext={"image/jpeg":'jpg','image/png':'png','image/webp':'webp','image/gif':'gif'}[q.file.mimetype];let r=await put(`isanomar/products/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`,q.file.buffer,{access:'public',contentType:q.file.mimetype,addRandomSuffix:false});s.json({url:r.url})}catch(e){n(e)}});
