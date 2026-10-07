@@ -901,6 +901,11 @@
           <select id="lotProduct" required></select>
         </label>
 
+        <label class="operator-field">
+          <span>Variante</span>
+          <select id="lotVariant"></select>
+        </label>
+
 
         <label class="operator-field">
           <span>Código do lote</span>
@@ -1152,17 +1157,61 @@
           </div>
 
 
-          <small class="operator-field-hint">
-            Sem stock inicial, o produto fica guardado no painel
-            e não aparece na loja pública.
-          </small>
+        <small class="operator-field-hint">
+          Sem stock inicial, o produto fica guardado no painel
+          e não aparece na loja pública.
+        </small>
+
+      </div>
+
+
+      <!-- =====================================================
+           VARIANTES DO PRODUTO
+      ====================================================== -->
+
+      <div
+        class="operator-product-variants"
+        id="productVariantsSection"
+      >
+
+        <div class="operator-form-section-title">
+
+          <i class="ph ph-squares-four"></i>
+
+          <div>
+            <strong>Variantes do produto</strong>
+            <span>Opcional</span>
+          </div>
 
         </div>
 
 
-        <div class="operator-form-grid">
+        <p class="operator-field-hint">
+          Use variantes quando o produto tiver diferentes opções,
+          como cor, tamanho, número, comprimento ou capacidade.
+        </p>
 
-          <label class="operator-field operator-field-full">
+
+        <div
+          id="productVariantsList"
+          class="product-variants-list"
+        ></div>
+
+
+        <button
+          type="button"
+          class="operator-secondary-button"
+          id="addProductVariantBtn"
+        >
+          <i class="ph ph-plus"></i>
+          <span>Adicionar variante</span>
+        </button>
+
+      </div>
+
+
+      <div class="operator-form-grid">
+                  <label class="operator-field operator-field-full">
 
             <span>Imagem — URL</span>
 

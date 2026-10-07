@@ -30,6 +30,7 @@ const S = () => window.__isanomar.store;
 const fmt = (v) => window.__isanomar.store.fmt(v);
 
 let currentTab = 'dashboard';
+let lotProducts = [];
 
 
 // ============================================================
@@ -634,7 +635,7 @@ function renderProductVariants(variants = []) {
 
               ${
                 variant.sku
-                  ? `<small>SKU: ${escapeHtml(variant.sku)}</small>`
+                  ? `<small>SKU: ${esc(variant.sku)}</small>`
                   : ''
               }
 
@@ -1077,7 +1078,21 @@ $('#productForm').addEventListener(
         emoji: '',
         initialStock: Number($('#pInitialStock')?.value || 0),
         lotCode: $('#pInitialLotCode')?.value.trim() || '',
-        lowStockThreshold: Number($('#pLowStock')?.value || 3)
+        lowStockThreshold:
+  Number($('#pLowStock')?.value || 3),
+
+variants:
+  editingProductVariants.map(v => ({
+    id: v.id || null,
+    sku: v.sku || '',
+    price:
+      v.price === ''
+        ? null
+        : Number(v.price),
+    img: v.img || '',
+    attributes: v.attributes || {},
+    active: v.active ?? 1
+  }))
       };
 
 
@@ -1094,6 +1109,16 @@ $('#productForm').addEventListener(
       if (data.price < 0) {
         throw new Error(
           'O preço não pode ser negativo.'
+        );
+      }
+
+      if (
+        !$('#pId').value.trim() &&
+        data.variants.length &&
+        data.initialStock > 0
+      ) {
+        throw new Error(
+          'Crie o produto e registe o stock inicial em lotes por variante.'
         );
       }
 
@@ -1257,7 +1282,7 @@ async function renderStock() {
       const list = el('div');
       lots.forEach(l => {
         const row = el('div','lot-row');
-        row.innerHTML = `<div><strong>${esc(l.code)}</strong><small style="display:block">${l.expiresAt ? 'Validade: '+esc(l.expiresAt) : 'Sem validade definida'}</small></div><div><strong>${l.availableQty}</strong><small style="display:block">disponível</small></div><div><strong>${l.receivedQty}</strong><small style="display:block">recebido</small></div><div class="lot-actions"><button class="icon-btn dark lot-edit" type="button"><i class="ph ph-pencil-simple"></i></button><button class="icon-btn red lot-delete" type="button"><i class="ph ph-trash"></i></button></div>`;
+        row.innerHTML = `<div><strong>${esc(l.code)}</strong>${l.variantLabel ? `<small style="display:block">${esc(l.variantLabel)}</small>` : ''}<small style="display:block">${l.expiresAt ? 'Validade: '+esc(l.expiresAt) : 'Sem validade definida'}</small></div><div><strong>${l.availableQty}</strong><small style="display:block">disponível</small></div><div><strong>${l.receivedQty}</strong><small style="display:block">recebido</small></div><div class="lot-actions"><button class="icon-btn dark lot-edit" type="button"><i class="ph ph-pencil-simple"></i></button><button class="icon-btn red lot-delete" type="button"><i class="ph ph-trash"></i></button></div>`;
         row.querySelector('.lot-edit').onclick=()=>openLotForm(l);
         row.querySelector('.lot-delete').onclick=async()=>{ if(!confirm(`Eliminar o lote ${l.code}?`)) return; try{await api('/admin/lots/'+l.id,{method:'DELETE'});toast('Lote eliminado.');await renderStock();}catch(e){toast(e.message||'Não foi possível eliminar.');} };
         list.appendChild(row);
@@ -1269,17 +1294,43 @@ async function renderStock() {
   } catch(e) { box.innerHTML=`<div class="empty">${esc(e.message||'Erro ao carregar stock.')}</div>`; }
 }
 
-async function fillLotProducts(selected='') {
+async function fillLotProducts(selected='', selectedVariant='') {
   const select=$('#lotProduct'); if(!select) return; select.innerHTML='';
   const result=await api('/admin/products');
-  const products=result.products||[];
-  products.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=`${p.name} — stock ${p.stock||0}`;select.appendChild(o);});
+  lotProducts=result.products||[];
+  lotProducts.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=`${p.name} — stock ${p.stock||0}`;select.appendChild(o);});
   if(selected) select.value=selected;
+  select.onchange=()=>fillLotVariants(select.value);
+  await fillLotVariants(select.value,selectedVariant);
+}
+
+async function fillLotVariants(productId, selected='') {
+  const select=$('#lotVariant'); if(!select) return;
+  select.innerHTML='';
+  const product=lotProducts.find(item=>item.id===productId);
+  const variants=Array.isArray(product?.variants)?product.variants:[];
+  const placeholder=document.createElement('option');
+  placeholder.value='';
+  placeholder.textContent=variants.length?'Selecione uma variante':'Produto sem variantes';
+  select.appendChild(placeholder);
+  variants.forEach(variant=>{
+    const option=document.createElement('option');
+    option.value=variant.id;
+    const attributes=Object.entries(variant.attributes||{})
+      .filter(([,value])=>String(value||'').trim())
+      .map(([key,value])=>`${key}: ${value}`)
+      .join(' · ');
+    option.textContent=attributes||variant.sku||'Variante';
+    select.appendChild(option);
+  });
+  select.disabled=!variants.length;
+  select.required=variants.length>0;
+  if(selected) select.value=String(selected);
 }
 
 async function openLotForm(lot=null) {
   $('#lotId').value=lot?.id||''; $('#lotModalTitle').textContent=lot?.id?'Editar lote':'Novo lote';
-  await fillLotProducts(lot?.productId||''); $('#lotCode').value=lot?.code||''; $('#lotReceived').value=lot?.receivedQty??''; $('#lotAvailable').value=lot?.availableQty??''; $('#lotExpires').value=lot?.expiresAt||''; $('#lotNote').value=lot?.note||''; openModal('#lotModal');
+  await fillLotProducts(lot?.productId||'',lot?.variantId||''); $('#lotCode').value=lot?.code||''; $('#lotReceived').value=lot?.receivedQty??''; $('#lotAvailable').value=lot?.availableQty??''; $('#lotExpires').value=lot?.expiresAt||''; $('#lotNote').value=lot?.note||''; openModal('#lotModal');
 }
 
 $('#addLotBtn')?.addEventListener('click',()=>openLotForm());
@@ -1287,8 +1338,8 @@ $('#closeLotModal')?.addEventListener('click',()=>closeModal('#lotModal'));
 $('#cancelLot')?.addEventListener('click',()=>closeModal('#lotModal'));
 $('#lotForm')?.addEventListener('submit',async e=>{
   e.preventDefault();
-  const id=$('#lotId').value.trim(); const data={productId:$('#lotProduct').value,code:$('#lotCode').value.trim(),receivedQty:Number($('#lotReceived').value)||0,availableQty:Number($('#lotAvailable').value)||0,expiresAt:$('#lotExpires').value,note:$('#lotNote').value.trim()};
-  try{await api(id?'/admin/lots/'+id:'/admin/lots',{method:id?'PUT':'POST',body:JSON.stringify(data)});closeModal('#lotModal');toast(id?'Lote atualizado ✓':'Lote criado ✓');await window.__isanomar.refresh();await renderStock();}catch(err){toast(err.message||'Erro ao guardar lote.');}
+  const id=$('#lotId').value.trim(); const data={productId:$('#lotProduct').value,variantId:$('#lotVariant').value||null,code:$('#lotCode').value.trim(),receivedQty:Number($('#lotReceived').value)||0,availableQty:Number($('#lotAvailable').value)||0,expiresAt:$('#lotExpires').value,note:$('#lotNote').value.trim()};
+  try{await api(id?'/admin/inventory-lots/'+id:'/admin/inventory-lots',{method:id?'PUT':'POST',body:JSON.stringify(data)});closeModal('#lotModal');toast(id?'Lote atualizado ✓':'Lote criado ✓');await window.__isanomar.refresh();await renderStock();}catch(err){toast(err.message||'Erro ao guardar lote.');}
 });
 
 

@@ -467,7 +467,27 @@ async function loadStore({ render = true, silent = false, force = false } = {}) 
     cart = cart.filter(item => {
       const fresh = products.find(p => p.id === item.id);
       if (!fresh) return false;
-      item.stock = Number(fresh.stock || 0);
+
+      const variants = Array.isArray(fresh.variants)
+        ? fresh.variants
+        : [];
+
+      if (variants.length) {
+        const variant = variants.find(
+          option => String(option.id) === String(item.variantId || '')
+        );
+        if (!variant) return false;
+
+        item.variantId = String(variant.id);
+        item.variantLabel = variantLabel(variant);
+        item.price = Number(variant.price ?? fresh.price);
+        item.img = variant.img || fresh.img;
+        item.stock = Number(variant.stock) || 0;
+      } else {
+        if (item.variantId) return false;
+        item.stock = Number(fresh.stock || 0);
+      }
+
       if (item.qty > item.stock) item.qty = item.stock;
       return item.qty > 0;
     });
@@ -734,31 +754,85 @@ function updateCartUI() {
 // PRODUCT CARD
 // ============================================================
 
-function addProductToCart(product, qty=1) {
-  const current = cart.find(i => i.id === product.id);
+function variantLabel(variant) {
+  return Object.entries(variant?.attributes || {})
+    .filter(([, value]) => String(value || '').trim())
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(' · ') || variant?.sku || 'Opção';
+}
+
+function addProductToCart(product, qty = 1, variant = null) {
+  const variants = Array.isArray(product.variants) ? product.variants : [];
+  if (variants.length && !variant) {
+    toast('Escolha uma opção do produto.');
+    go('product', product);
+    return false;
+  }
+
+  const variantId = variant ? String(variant.id) : '';
+  const stock = Number(variant ? variant.stock : product.stock) || 0;
+  const current = cart.find(item =>
+    item.id === product.id &&
+    String(item.variantId || '') === variantId
+  );
   const next = (current?.qty || 0) + qty;
-  if (next > Number(product.stock || 0)) { toast(`Stock disponível: ${product.stock || 0}`); return false; }
-  if (current) current.qty = next;
-  else cart.push({id:product.id,name:product.name,price:product.price,qty,stock:product.stock});
-  saveLocal("isanomar_cart", cart); updateCartUI(); toast(`${product.name} adicionado ao carrinho.`); return true;
+  if (next > stock) {
+    toast(`Stock disponível: ${stock}`);
+    return false;
+  }
+
+  const item = {
+    id: product.id,
+    variantId: variantId || null,
+    variantLabel: variant ? variantLabel(variant) : '',
+    name: product.name,
+    price: Number(variant?.price ?? product.price),
+    img: variant?.img || product.img,
+    emoji: product.emoji,
+    qty: next,
+    stock
+  };
+
+  if (current) Object.assign(current, item);
+  else cart.push(item);
+
+  saveLocal('isanomar_cart', cart);
+  updateCartUI();
+  toast(`${product.name}${variant ? ` · ${variantLabel(variant)}` : ''} adicionado ao carrinho.`);
+  return true;
 }
 
 function productCard(product) {
+  const variants = Array.isArray(product.variants) ? product.variants : [];
+  const variantPrices = variants.map(variant =>
+    Number(variant.price ?? product.price)
+  ).filter(Number.isFinite);
+  const lowestPrice = variantPrices.length
+    ? Math.min(...variantPrices)
+    : Number(product.price);
+  const priceLabel = variants.length > 1
+    ? `A partir de ${fmt(lowestPrice)}`
+    : fmt(lowestPrice);
   const card = el("article", "card");
   card.innerHTML = `
     <div class="product-media-wrap">
       ${mediaHTML(product)}
-      <button class="product-add-btn" type="button" aria-label="Adicionar ${esc(product.name)} ao carrinho"><i class="ph ph-plus"></i></button>
+      <button class="product-add-btn" type="button" aria-label="${variants.length ? 'Ver opções de' : 'Adicionar'} ${esc(product.name)}"><i class="ph ${variants.length ? 'ph-arrow-right' : 'ph-plus'}"></i></button>
       <span class="stock-pill">${Number(product.stock)||0} disponíveis</span>
     </div>
     <div class="body">
       <div class="gender">${esc(genreLabel(product.genre))}</div>
       <div class="name">${esc(product.name)}</div>
-      <div class="price">${fmt(product.price)}</div>
+      <div class="price">${priceLabel}</div>
+      ${variants.length ? '<div class="cat-lab">Várias opções</div>' : ''}
       <div class="cat-lab">${esc(catName(product.catId))}</div>
     </div>`;
   card.addEventListener("click", () => go("product", product));
-  card.querySelector('.product-add-btn')?.addEventListener('click', e => { e.stopPropagation(); addProductToCart(product,1); });
+  card.querySelector('.product-add-btn')?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (variants.length) go('product', product);
+    else addProductToCart(product, 1);
+  });
   return card;
 }
 
@@ -1155,6 +1229,19 @@ function renderProduct(product) {
   selectedProduct =
     product;
 
+  const variants = Array.isArray(product.variants)
+    ? product.variants
+    : [];
+  const availableVariants = variants.filter(
+    variant => Number(variant.stock) > 0
+  );
+  const variantPrices = variants.map(variant =>
+    Number(variant.price ?? product.price)
+  ).filter(Number.isFinite);
+  const initialPrice = variantPrices.length
+    ? Math.min(...variantPrices)
+    : Number(product.price);
+
 
   const box =
     $("#view-product");
@@ -1173,7 +1260,7 @@ function renderProduct(product) {
       </button>
 
 
-      ${mediaHTML(product)}
+      <div id="productMedia">${mediaHTML(product)}</div>
 
 
       <div class="detail-head">
@@ -1206,10 +1293,8 @@ function renderProduct(product) {
           </h2>
 
 
-          <div class="price-lg">
-            ${fmt(
-              product.price
-            )}
+          <div class="price-lg" id="productPrice">
+            ${variants.length > 1 ? `A partir de ${fmt(initialPrice)}` : fmt(initialPrice)}
           </div>
 
         </div>
@@ -1223,6 +1308,20 @@ function renderProduct(product) {
           "Sem descrição disponível."
         )}
       </p>
+
+      ${variants.length ? `
+        <label class="product-variant-picker" for="productVariantSelect">
+          <span>Escolha uma opção</span>
+          <select id="productVariantSelect" ${availableVariants.length ? '' : 'disabled'}>
+            <option value="">Selecionar opção</option>
+            ${variants.map(variant => {
+              const stock = Number(variant.stock) || 0;
+              return `<option value="${esc(variant.id)}" ${stock < 1 ? 'disabled' : ''}>${esc(variantLabel(variant))} · ${stock} ${stock === 1 ? 'disponível' : 'disponíveis'}</option>`;
+            }).join('')}
+          </select>
+          <small id="productVariantStock">${availableVariants.length ? 'O stock e o preço variam conforme a opção.' : 'Sem stock disponível.'}</small>
+        </label>
+      ` : ''}
 
 
       <div class="qty-row">
@@ -1268,6 +1367,42 @@ function renderProduct(product) {
 
 
   let quantity = 1;
+  let selectedVariant = null;
+  const variantSelect = $('#productVariantSelect');
+  const addButton = $('#addToCart');
+  const minusButton = $('#qMinus');
+  const plusButton = $('#qPlus');
+
+  function refreshProductSelection() {
+    const stock = Number(selectedVariant ? selectedVariant.stock : product.stock) || 0;
+    if (quantity > stock && stock > 0) quantity = stock;
+    $('#qVal').textContent = quantity;
+    minusButton.disabled = quantity <= 1;
+    plusButton.disabled = stock < 1 || quantity >= stock;
+    addButton.disabled = stock < 1 || (variants.length > 0 && !selectedVariant);
+
+    if (variants.length) {
+      $('#productPrice').textContent = selectedVariant
+        ? fmt(selectedVariant.price ?? product.price)
+        : `${variants.length > 1 ? 'A partir de ' : ''}${fmt(initialPrice)}`;
+      $('#productVariantStock').textContent = selectedVariant
+        ? `${stock} ${stock === 1 ? 'disponível' : 'disponíveis'} em stock`
+        : 'O stock e o preço variam conforme a opção.';
+
+      const image = selectedVariant?.img || product.img;
+      $('#productMedia').innerHTML = mediaHTML({ ...product, img: image });
+    }
+  }
+
+  refreshProductSelection();
+
+  variantSelect?.addEventListener('change', () => {
+    selectedVariant = variants.find(
+      variant => String(variant.id) === variantSelect.value
+    ) || null;
+    quantity = 1;
+    refreshProductSelection();
+  });
 
 
   $("#backCatalog")
@@ -1282,17 +1417,8 @@ function renderProduct(product) {
       "click",
       () => {
 
-        if (
-          quantity > 1
-        ) {
-
-          quantity--;
-
-          $("#qVal")
-            .textContent =
-            quantity;
-
-        }
+        if (quantity > 1) quantity--;
+        refreshProductSelection();
 
       }
     );
@@ -1303,11 +1429,9 @@ function renderProduct(product) {
       "click",
       () => {
 
-        quantity++;
-
-        $("#qVal")
-          .textContent =
-          quantity;
+        const stock = Number(selectedVariant ? selectedVariant.stock : product.stock) || 0;
+        if (quantity < stock) quantity++;
+        refreshProductSelection();
 
       }
     );
@@ -1318,58 +1442,12 @@ function renderProduct(product) {
       "click",
       () => {
 
-        const existing =
-          cart.find(
-            item =>
-              item.id ===
-              product.id
-          );
-
-
-        if (existing) {
-
-          existing.qty +=
-            quantity;
-
-        } else {
-
-          cart.push({
-
-            id:
-              product.id,
-
-            name:
-              product.name,
-
-            price:
-              product.price,
-
-            img:
-              product.img,
-
-            emoji:
-              product.emoji,
-
-            qty:
-              quantity
-
-          });
-
+        if (variants.length && !selectedVariant) {
+          toast('Escolha uma opção do produto.');
+          return;
         }
 
-
-        saveLocal(
-          "isanomar_cart",
-          cart
-        );
-
-
-        updateCartUI();
-
-
-        toast(
-          "Produto adicionado ao carrinho."
-        );
+        addProductToCart(product, quantity, selectedVariant);
 
       }
     );
@@ -1453,6 +1531,8 @@ function renderCart() {
             )}
           </div>
 
+          ${item.variantLabel ? `<small class="cart-variant">${esc(item.variantLabel)}</small>` : ''}
+
           <div class="price">
             ${fmt(
               item.price
@@ -1478,8 +1558,10 @@ function renderCart() {
 
             <button
               class="mini-qty"
+              type="button"
               data-action="plus"
               data-index="${index}"
+              ${Number(item.stock) > 0 && item.qty >= Number(item.stock) ? 'disabled' : ''}
             >
               +
             </button>
@@ -1528,7 +1610,10 @@ function renderCart() {
             button.dataset.action ===
             "plus"
           ) {
-
+            if (cart[index].qty >= Number(cart[index].stock || 0)) {
+              toast(`Stock disponível: ${cart[index].stock || 0}`);
+              return;
+            }
             cart[index].qty++;
 
           } else {
@@ -2038,6 +2123,9 @@ async function submitOrder(
         item => ({
           id:
             item.id,
+
+          variantId:
+            item.variantId || null,
 
           qty:
             item.qty

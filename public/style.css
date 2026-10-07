@@ -1127,6 +1127,44 @@ ol {
   line-height: 1.7;
 }
 
+.product-variant-picker {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.product-variant-picker select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.product-variant-picker small,
+.cart-variant {
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.cart-variant {
+  display: block;
+  margin: 0 0 5px;
+}
+
+.qty-btn:disabled,
+.product-add-btn:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
 .detail-back,
 .btn-back {
   display: inline-flex;
